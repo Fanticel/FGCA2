@@ -1,0 +1,73 @@
+.button
+{
+-fx-background-color : #05071F;
+-fx-text-fill : #e7e5e5;
+}
+.button:hover{
+-fx-background-color : #FF00FF;
+}
+.button:pressed
+{
+-fx-background-color : #1620A1;
+}
+
+.Tableview{
+    -fx-border-color: #15e8e8 ;}
+
+.scroll-pane {
+    -fx-background-color: #02030A;
+    -fx-fit-to-width: false;
+        -fx-fit-to-height: false;
+
+}
+
+.scroll-bar:horizontal, .scroll-bar:vertical{
+    -fx-background-color:#02030A;
+}
+
+
+}
+
+
+
+.scroll-bar:horizontal .track,
+.scroll-bar:vertical .track{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-background-radius: 0em;
+}
+
+.scroll-bar:horizontal .thumb,
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #15e8e8;
+    -fx-background-radius: 5em;
+    -fx-border-radius-color: aquamarine;
+}
+
+.scroll-pane > .corner {
+    -fx-background-color: black;
+
+
+}
+
+.combo-box {
+    -fx-background-color: #000e19;
+    -fx-text-fill: #e7e5e5;
+    -fx-border-color: #15e8e8;
+
+
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #02030A;
+    -fx-text-fill: #e7e5e5;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #0f2233;
+}
+
+
+
+
+

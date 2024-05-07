@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="697.0" styleClass="background" stylesheets="@../CSS/Common.css, @../CSS/EventList.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EventListViewController">
+    <children>
+      <VBox prefHeight="84.0" prefWidth="697.0">
+         <children>
+              <HBox alignment="CENTER_LEFT" prefHeight="86.0" prefWidth="697.0">
+                  <children>
+                      <HBox alignment="CENTER_LEFT" prefHeight="86.0" prefWidth="327.0">
+                          <children>
+                              <Text fill="#15e8e8" strokeType="OUTSIDE" strokeWidth="0.0" text="EVENTS">
+                                  <font>
+                                      <Font size="32.0" />
+                                  </font>
+                                  <HBox.margin>
+                                      <Insets left="50.0" />
+                                  </HBox.margin>
+                              </Text>
+                          </children>
+                      </HBox>
+                      <HBox alignment="CENTER_RIGHT" prefHeight="86.0" prefWidth="371.0">
+                          <children>
+                              <Button maxWidth="100.0" minHeight="37.0" mnemonicParsing="false" onAction="#backButtonPressed" prefHeight="37.0" prefWidth="68.0" text="Back" textAlignment="CENTER" textFill="WHITE">
+                                  <HBox.margin>
+                                      <Insets right="50.0" />
+                                  </HBox.margin>
+                              </Button>
+                          </children>
+                      </HBox>
+                  </children>
+              </HBox>
+         </children>
+      </VBox>
+        <HBox prefHeight="46.0" prefWidth="697.0">
+            <children>
+                <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="381.0">
+                    <children>
+                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
+                            <HBox.margin>
+                                <Insets left="50.0" />
+                            </HBox.margin>
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Text>
+                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Games">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </MenuButton>
+                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="94.0" text="Skill level">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </MenuButton>
+                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="Status">
+                            <items>
+                                <MenuItem mnemonicParsing="false" text="Action 1" />
+                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                            </items>
+                            <HBox.margin>
+                                <Insets left="10.0" />
+                            </HBox.margin>
+                        </MenuButton>
+                    </children>
+                </HBox>
+                <HBox alignment="CENTER" prefHeight="46.0" prefWidth="308.0">
+                    <children>
+                        <TextField prefHeight="26.0" prefWidth="154.0" fx:id="searchBar"/>
+                  <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="69.0" text="Search" />
+                    </children>
+                </HBox>
+            </children>
+        </HBox>
+        <VBox alignment="CENTER" prefHeight="342.0" prefWidth="697.0">
+            <children>
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no current events that match your filter.">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Text>
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no current events that match your search.">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Text>
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no current events.">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Text>
+                <VBox fx:id="eventContainer" prefHeight="285.0" prefWidth="697.0">
+                    <children>
+                        <ScrollPane fx:id="scrollPane" prefHeight="287.0" prefWidth="697.0">
+                            <content>
+                                <HBox fx:id="noProjects" alignment="CENTER" prefHeight="152.0" prefWidth="696.0">
+                                    <children>
+                                        <Label text="There are currently no ongoing events">
+                                            <font>
+                                                <Font size="24.0" />
+                                            </font>
+                                        </Label>
+                                    </children>
+                                </HBox>
+                            </content>
+                        </ScrollPane>
+                    </children>
+                </VBox>
+            </children>
+        </VBox>
+    </children>
+</VBox>

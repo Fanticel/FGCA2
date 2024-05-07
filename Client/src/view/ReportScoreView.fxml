@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="mainContainer" alignment="TOP_CENTER" prefHeight="349.0" prefWidth="512.0" spacing="20" style="-fx-padding: 20; -fx-background-color: #323255;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <Label style="-fx-font-size: 24px;" text="REPORT SCORES" textFill="#15e8e8">
+      <VBox.margin>
+         <Insets right="290.0" />
+      </VBox.margin>
+      <opaqueInsets>
+         <Insets />
+      </opaqueInsets></Label>
+
+    <VBox spacing="5">
+        <HBox spacing="10">
+            <Label prefHeight="25.0" prefWidth="315.0" style="-fx-font-size: 16px; -fx-pref-width: 150;" text="Participant" textFill="#15e8e8" />
+            <Label style="-fx-font-size: 16px; -fx-pref-width: 50;" text="Score" textFill="#15e8e8">
+            <HBox.margin>
+               <Insets left="250.0" />
+            </HBox.margin>
+         </Label>
+        </HBox>
+        <HBox spacing="10">
+            <TextField fx:id="playerOneName" style="-fx-pref-width: 150;" text="RacistZiggy" />
+            <TextField fx:id="playerOneScore" style="-fx-pref-width: 50;" text="0">
+            <HBox.margin>
+               <Insets left="250.0" />
+            </HBox.margin></TextField>
+        </HBox>
+        <HBox spacing="10">
+            <TextField fx:id="playerTwoName" style="-fx-pref-width: 150;" text="OldManTony" />
+            <TextField fx:id="playerTwoScore" style="-fx-pref-width: 50;" text="2">
+            <HBox.margin>
+               <Insets left="250.0" />
+            </HBox.margin></TextField>
+        </HBox>
+    </VBox>
+
+    <Label style="-fx-font-size: 16px;" text="Verify the winner" textFill="#15e8e8" />
+    <HBox spacing="10">
+        <Button fx:id="btnPlayerOne" style="-fx-pref-width: 150;" text="RacistZiggy">
+         <HBox.margin>
+            <Insets left="80.0" />
+         </HBox.margin></Button>
+        <Button fx:id="btnPlayerTwo" style="-fx-pref-width: 150;" text="OldManTony">
+         <HBox.margin>
+            <Insets right="11.0" />
+         </HBox.margin></Button>
+    </HBox>
+
+    <Button style="-fx-pref-width: 150; -fx-font-size: 16px;" text="Submit score" />
+   <stylesheets>
+      <URL value="@../CSS/style.css" />
+      <URL value="@../CSS/Common.css" />
+   </stylesheets>
+</VBox>
