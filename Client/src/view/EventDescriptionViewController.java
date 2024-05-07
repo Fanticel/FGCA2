@@ -35,7 +35,7 @@ public class EventDescriptionViewController implements ViewController {
   }
 
   @Override public void reset() {
-    eventDescriptionViewModel.reset();
+    descriptionViewGeneralController.reset();
   }
 
   @Override public Region getRoot() {
