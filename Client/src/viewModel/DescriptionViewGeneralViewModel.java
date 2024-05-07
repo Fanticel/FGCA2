@@ -5,6 +5,8 @@ import Model.EventListModel;
 import Model.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -19,7 +21,7 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
   private StringProperty BRPRangeProperty;
   private StringProperty participantsNumberProperty;//property for how many participant there are and can join
   private StringProperty participantsListProperty;
-
+  private ObservableList<SimplePlayerViewModel> list;
   private EventListModel model;
 
   public DescriptionViewGeneralViewModel(EventListModel model,
@@ -37,6 +39,7 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
     BRPRangeProperty = new SimpleStringProperty();
     participantsNumberProperty = new SimpleStringProperty();
     participantsListProperty = new SimpleStringProperty();
+    list = FXCollections.observableArrayList();
     reset();
   }
 
@@ -55,14 +58,12 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
         + event.getMaxParticipants());
     if (event.getParticipants().isEmpty())
     {
-      participantsListProperty.set("No participants yet.");
+      //participantsListProperty.set("No participants yet.");
     }else {
-      String string = "";
       for (User participant : event.getParticipants())
       {
-        string += participant.getDisplayName() + System.lineSeparator();
+        list.add(new SimplePlayerViewModel(participant, model));
       }
-      participantsListProperty.set(string);
     }
   }
 
@@ -101,6 +102,11 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
   public StringProperty getParticipantsProperty()
   {
     return participantsNumberProperty;
+  }
+
+  public ObservableList<SimplePlayerViewModel> getList()
+  {
+    return list;
   }
 
   private void join()
