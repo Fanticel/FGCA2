@@ -144,6 +144,9 @@
                                     <MenuItem mnemonicParsing="false" text="Super Smash Bros Ultimate" />
                                     <MenuItem mnemonicParsing="false" text="Tekken 8" />
                                 </items>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
                               </MenuButton>
                            </children>
                         </HBox>
@@ -213,12 +216,12 @@
       </VBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false" prefWidth="55.0" text="Button">
+            <Button mnemonicParsing="false" prefWidth="55.0" text="Reset">
                <HBox.margin>
                   <Insets bottom="30.0" left="320.0" top="40.0" />
                </HBox.margin>
             </Button>
-            <Button mnemonicParsing="false" text="Button">
+            <Button mnemonicParsing="false" text="Confirm" textFill="WHITE">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>
