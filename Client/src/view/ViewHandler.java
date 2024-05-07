@@ -26,7 +26,7 @@ public class ViewHandler {
 
   public void start(Stage primaryStage) {
     this.primaryStage = primaryStage;
-    openView("Bracket8");
+    openView("EventList");
   }
   public void startPopup(Stage popupStage){
     this.popupStage = popupStage;

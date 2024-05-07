@@ -89,7 +89,7 @@ public class EventListViewController implements ViewController
     VBox container = new VBox();
     for (Event event : eventsToFilter)
     {
-      loadEventView(new SimpleEventViewModel(event), container);
+      loadEventView(viewModelFactory.getSimpleEventViewModel(event), container);
     }
     scrollPane.setContent(container);
   }
@@ -125,7 +125,7 @@ public class EventListViewController implements ViewController
     VBox container = new VBox();
     for (Event event : allEvents)
     {
-      loadEventView(new SimpleEventViewModel(event), container);
+      loadEventView(viewModelFactory.getSimpleEventViewModel(event), container);
     }
   }
 
