@@ -34,7 +34,6 @@ public class EventListViewController implements ViewController
     this.root = root;
     ArrayList<Event> allEvents = eventListViewModel.getAllEvents();
     VBox container = new VBox();
-    System.out.println("kurcina");
     for (Event event : allEvents)
     {
       loadEventView(viewModelFactory.getSimpleEventViewModel(event), container);
