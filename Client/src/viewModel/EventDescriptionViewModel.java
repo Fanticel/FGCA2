@@ -39,7 +39,6 @@ public class EventDescriptionViewModel implements PropertyChangeListener
     BRPRangeProperty = new SimpleStringProperty();
     participantsNumberProperty = new SimpleStringProperty();
     participantsListProperty = new SimpleStringProperty();
-    System.out.println(model.getEvent(ViewState.getInstance().getTittle()));
     reset();
   }
 
@@ -48,8 +47,6 @@ public class EventDescriptionViewModel implements PropertyChangeListener
     Event event = model.getEvent(ViewState.getInstance().getTittle());
     errorProperty.set("");
     tittleProperty.set(event.getTittle());
-    System.out.println(event);
-//    organizerProperty.set(event.getOrganizer().getUsername());
     statusProperty.set(event.getStatus());
     gameProperty.set(event.getGame());
     dateProperty.set(event.getStartingHour() + ", " + event.getStartDate());

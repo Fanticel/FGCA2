@@ -79,7 +79,6 @@ public class Client implements EventListModel
     {
       throw new RuntimeException(e);
     }
-    System.out.println(gson.fromJson(answer, EventInformationPackage.class));
     return gson.fromJson(answer, EventInformationPackage.class).convertToEvent();
   }
 

@@ -22,7 +22,6 @@ public class BracketViewModel
     labels = FXCollections.observableArrayList();
     visibleButtons = FXCollections.observableArrayList();
     Event event = model.getEvent("Sample event");
-    System.out.println(event);
     for (Match match : event.getMatches())
     {
       String[] scores = match.getScore().split("-");

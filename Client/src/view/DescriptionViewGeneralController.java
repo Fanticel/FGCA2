@@ -16,7 +16,6 @@ public class DescriptionViewGeneralController implements ViewController{
   private Region root;
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory, Region root) {
-    System.out.println("descview initialiased");
     this.viewHandler = viewHandler;
     descriptionViewGeneralViewModel = viewModelFactory.getDescriptionViewGeneralViewModel();
     this.root = root;

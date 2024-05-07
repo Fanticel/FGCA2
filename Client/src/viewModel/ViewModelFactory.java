@@ -26,7 +26,6 @@ public class ViewModelFactory {
     descriptionViewGeneralViewModel = new DescriptionViewGeneralViewModel(model,
         viewModelState);
     bracketViewModel = new BracketViewModel(model, viewModelState);
-//    simpleEventViewModel = new SimpleEventViewModel(model);
   }
 
   public EventListViewModel getEventListViewModel() {
