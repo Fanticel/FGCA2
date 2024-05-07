@@ -96,7 +96,10 @@
                               <Label text="Max players" textFill="WHITE">
                                  <HBox.margin>
                                     <Insets left="10.0" />
-                                 </HBox.margin></Label>
+                                 </HBox.margin>
+                                 <opaqueInsets>
+                                    <Insets />
+                                 </opaqueInsets></Label>
                            </children>
                            <VBox.margin>
                               <Insets left="10.0" />
