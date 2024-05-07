@@ -1,54 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.*?>
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="840.0" spacing="20" styleClass="background" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EventDescriptionViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="541.0" prefWidth="800.0" spacing="20" styleClass="background" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EventDescriptionViewController">
     <padding>
         <Insets bottom="20" left="20" right="20" top="20" />
     </padding>
     <children>
-        <HBox prefHeight="89.0" prefWidth="760.0">
-            <children>
-                <Label fx:id="lblEventTitle" style="-fx-font-size: 24px;" text="TITLE OF THE EVENT" textFill="#15e8e8" />
-                <Button mnemonicParsing="false" onAction="#pressBackButton" prefHeight="29.0" prefWidth="58.0" style="-fx-background-color: #15e8e8;" text="BACK" textAlignment="CENTER" textFill="#fbf5f5">
-                    <opaqueInsets>
+      <HBox prefHeight="89.0" prefWidth="760.0">
+         <children>
+              <Label fx:id="lblEventTitle" style="-fx-font-size: 24px;" text="TITLE OF THE EVENT" textFill="#15e8e8" />
+            <VBox alignment="CENTER_RIGHT" prefHeight="89.0" prefWidth="543.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#pressBackButton" prefHeight="29.0" prefWidth="58.0" style="-fx-background-color: #15e8e8;" text="BACK" textAlignment="CENTER" textFill="#fbf5f5" VBox.vgrow="ALWAYS">
+                     <opaqueInsets>
                         <Insets />
-                    </opaqueInsets>
-                    <HBox.margin>
-                        <Insets left="450.0" top="6.0" />
-                    </HBox.margin>
-                    <stylesheets>
+                     </opaqueInsets>
+                     <stylesheets>
                         <URL value="@../CSS/Common.css" />
                         <URL value="@../CSS/style.css" />
-                    </stylesheets>
-                </Button>
+                     </stylesheets>
+                     <VBox.margin>
+                        <Insets bottom="38.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+        <Label style="-fx-font-size: 15;" text="SIGNED UP PLAYERS" textFill="#15e8e8" VBox.vgrow="NEVER" />
+
+        <HBox alignment="CENTER_LEFT" spacing="20" HBox.hgrow="ALWAYS">
+            <children>
+                <TableView fx:id="tblPlayers" prefHeight="334.0" prefWidth="376.0" HBox.hgrow="ALWAYS">
+                    <columns>
+                        <TableColumn fx:id="colName" prefWidth="188.66665649414062" text="Name" />
+                        <TableColumn fx:id="colSkillLevel" prefWidth="148.66668701171875" text="Skill Level" />
+                    </columns>
+                </TableView>
+
+                <VBox fx:id="vboxDetails" spacing="10" VBox.vgrow="ALWAYS">
+                    <children>
+                        <Label style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Details" textFill="#15e8e8" />
+
+                        <HBox spacing="5">
+                            <children>
+                                <Label style="-fx-font-size: 16px;" text="Game: " textFill="#15e8e8" />
+                                <TextField fx:id="txtGame" alignment="CENTER_RIGHT" prefWidth="200.0">
+                           <HBox.margin>
+                              <Insets left="88.0" />
+                           </HBox.margin></TextField>
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <children>
+                                <Label style="-fx-font-size: 16px;" text="Starting time:    " textFill="#26bfbc" />
+                                <TextField fx:id="txtTimeUntilStart" prefWidth="200.0">
+                           <HBox.margin>
+                              <Insets left="24.0" />
+                           </HBox.margin></TextField>
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <children>
+                                <Label style="-fx-font-size: 16px;" text="Number of players:" textFill="#15e8e8" />
+                                <TextField fx:id="txtNumberOfPlayers" prefWidth="200.0">
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets left="2.0" />
+                           </HBox.margin></TextField>
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <children>
+                                <Label style="-fx-font-size: 16px;" text="Skill level:" textFill="#15e8e8" />
+                                <TextField fx:id="txtSkillLevel" prefWidth="200.0">
+                           <HBox.margin>
+                              <Insets left="68.0" />
+                           </HBox.margin></TextField>
+                            </children>
+                        </HBox>
+
+                        <HBox spacing="5">
+                            <children>
+                                <Label style="-fx-font-size: 16px;" text="Check-in:" textFill="#ede9e9" />
+                                <Label fx:id="lblCheckInStatus" style="-fx-font-size: 16px;" text="open/closed" textFill="#d7cfcf" />
+                            </children>
+                        </HBox>
+
+                        <Button fx:id="btnCheckIn" maxWidth="Infinity" style="-fx-font-size: 16px;" text="CHECK-IN" />
+                        <Label fx:id="lblTimeLeft" style="-fx-font-size: 16px;" text="Time left for the check-in: xxx" textFill="#f2eeee" />
+                        <Button fx:id="btnQuit" maxWidth="Infinity" style="-fx-font-size: 16px;" text="QUIT" />
+                    </children>
+                </VBox>
             </children>
         </HBox>
-        <TabPane fx:id="tabPane" prefHeight="480.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
-            <tabs>
-                <Tab text="Bracket">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-<!--                <Tab text="Details">-->
-<!--                    <fx:include fx:id="first" source="DescriptionViewGeneral.fxml" />-->
-<!--                </Tab>-->
-                <Tab text="Chat">
-                    <content>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                    </content>
-                </Tab>
-            </tabs>
-        </TabPane>
     </children>
-    <stylesheets>
-        <URL value="@../CSS/style.css" />
-        <URL value="@../CSS/Common.css" />
-        <URL value="@../CSS/TabPane.css" />
-        <URL value="@../CSS/Tab.css" />
-    </stylesheets>
+   <stylesheets>
+      <URL value="@../CSS/style.css" />
+      <URL value="@../CSS/Common.css" />
+   </stylesheets>
+
+
 </VBox>

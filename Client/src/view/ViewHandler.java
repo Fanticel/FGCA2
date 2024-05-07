@@ -14,6 +14,8 @@ public class ViewHandler {
   private EventDescriptionViewController eventDescriptionViewController;
   private EventListViewController eventListViewController;
   private NotificationPopupViewController notificationPopupViewController;
+  private EventTemplateViewController eventTemplateViewController;
+  private BracketViewController bracketViewController;
   private ViewModelFactory viewModelFactory;
 
   public ViewHandler(ViewModelFactory viewModelFactory) {
@@ -24,7 +26,7 @@ public class ViewHandler {
 
   public void start(Stage primaryStage) {
     this.primaryStage = primaryStage;
-    openView("EventList");
+    openView("Bracket8");
   }
   public void startPopup(Stage popupStage){
     this.popupStage = popupStage;
@@ -54,6 +56,11 @@ public class ViewHandler {
     switch (id) {
       case "EventList"-> root = loadEventListViewController("EventListView.fxml");
       case "EventDetails" -> root = loadEventDescriptionViewController("EventDescriptionView.fxml");
+      case "Bracket8" -> root = loadBracketViewController("8_BracketView.fxml");
+      case "Bracket16" -> root = loadBracketViewController("16_BracketView.fxml");
+      case "Bracket32" -> root = loadBracketViewController("32_BracketView.fxml");
+      case "Bracket64" -> root = loadBracketViewController("64_BracketView.fxml");
+
     }
     currentScene.setRoot(root);
     String title = "";
@@ -138,5 +145,28 @@ public class ViewHandler {
       notificationPopupViewController.reset();
     }
     return notificationPopupViewController.getRoot();
+  }
+
+  private Region loadBracketViewController(String fxmlFile){
+    if (bracketViewController == null)
+    {
+      try
+      {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        bracketViewController = loader.getController();
+        bracketViewController.init(this, viewModelFactory, root);
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    else
+    {
+      bracketViewController.reset();
+    }
+    return bracketViewController.getRoot();
   }
 }
