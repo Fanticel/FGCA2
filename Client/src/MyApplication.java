@@ -44,7 +44,7 @@ public class MyApplication extends Application {
   }
 
   @Override public void stop() throws Exception {
-    System.out.println("stopping the application");
+    System.err.println("Stopping the application");
     out.println("^Q");
     localSocket.close();
   }
