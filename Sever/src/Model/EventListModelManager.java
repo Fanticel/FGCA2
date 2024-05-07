@@ -99,14 +99,20 @@ public class EventListModelManager
 
   @Override public ArrayList<Object> addParticipant(String eventTittle,
       User user) {
-    fileManager.saveParticipantToFile(eventTittle, user.getUsername());
     ArrayList<Object> response = eventList.addParticipant(eventTittle, user);
-    serverMaster.broadcast("Test", "ParticipantChange");
+    if (!(boolean)response.get(1)){
+      fileManager.saveParticipantToFile(eventTittle, user.getUsername());
+    }
+//    serverMaster.broadcast("Test", "ParticipantChange");
     return response;
   }
 
   @Override public void checkIn(String eventTitle, User user) {
     eventList.checkIn(eventTitle, user);
+  }
+
+  @Override public void registerUser(User user) {
+    fileManager.saveUserToFile(user);
   }
 
   @Override public void addListener(String propertyName,

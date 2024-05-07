@@ -12,7 +12,7 @@ public interface EventListModel extends NamedPropertyChangeSubject
   public Event getEvent(String tittle);
   public void addEvent(String tittle, String game, int minBRP, int maxBRP,
       int maxParticipants, String date, int startingHour, Moderator organizer);
-  public void addParticipant(String eventTittle, User user);
+  public void addParticipant(String eventTittle);
   public void checkIn(String eventTittle, User user);
   public void removeParticipant(Event event, User user);
   public void removeParticipant(String eventTittle, User user);

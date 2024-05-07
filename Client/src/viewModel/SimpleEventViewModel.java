@@ -15,12 +15,10 @@ public class SimpleEventViewModel
 
   private ViewModelState viewModelState;
 
-  public SimpleEventViewModel(Event event)
+  public SimpleEventViewModel(Event event, EventListModel model)
   {
-    this.viewModelState = viewModelState;
+
     this.model = model;
-
-
     tittleProperty = new SimpleStringProperty(event.getTittle());
     gameProperty = new SimpleStringProperty(event.getGame());
     BRPProperty = new SimpleStringProperty(event.getMinBRP() + " - " + event.getMaxBRP());
@@ -46,6 +44,9 @@ public class SimpleEventViewModel
   public StringProperty getDateProperty()
   {
     return dateProperty;
+  }
+  public void RegisterButtonPress(){
+    model.addParticipant(tittleProperty.get());
   }
 
 }

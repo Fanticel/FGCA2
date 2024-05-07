@@ -21,12 +21,14 @@ public class EventListViewController implements ViewController
   private ViewHandler viewHandler;
   private EventListViewModel eventListViewModel;
   private Region root;
+  private ViewModelFactory viewModelFactory;
   @FXML private ScrollPane scrollPane;
   @FXML private TextField searchBar;
 
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory, Region root)
   {
+    this.viewModelFactory = viewModelFactory;
     this.viewHandler = viewHandler;
     eventListViewModel = viewModelFactory.getEventListViewModel();
     this.root = root;
@@ -35,7 +37,7 @@ public class EventListViewController implements ViewController
     System.out.println("kurcina");
     for (Event event : allEvents)
     {
-      loadEventView(new SimpleEventViewModel(event), container);
+      loadEventView(viewModelFactory.getSimpleEventViewModel(event), container);
     }
 
     // Add event listener to search bar
@@ -75,7 +77,7 @@ public class EventListViewController implements ViewController
     {
       if (event.getTittle().toLowerCase().contains(query))
       {
-        loadEventView(new SimpleEventViewModel(event), container);
+        loadEventView(viewModelFactory.getSimpleEventViewModel(event), container);
       }
     }
     scrollPane.setContent(container);

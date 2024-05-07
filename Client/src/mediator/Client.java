@@ -91,7 +91,7 @@ public class Client implements EventListModel
             organizer)));
   }
 
-  @Override public void addParticipant(String eventTittle, User user)
+  @Override public void addParticipant(String eventTittle)
   {
     out.println("signUpToEvent;" + eventTittle);
   }

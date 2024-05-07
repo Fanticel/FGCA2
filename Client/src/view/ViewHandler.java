@@ -14,7 +14,6 @@ public class ViewHandler {
   private EventDescriptionViewController eventDescriptionViewController;
   private EventListViewController eventListViewController;
   private NotificationPopupViewController notificationPopupViewController;
-  private EventTemplateViewController eventTemplateViewController;
   private ViewModelFactory viewModelFactory;
 
   public ViewHandler(ViewModelFactory viewModelFactory) {

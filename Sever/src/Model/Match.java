@@ -39,7 +39,6 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
     t.start();
     property = new PropertyChangeSupport(this);
     this.score = score;
-    System.out.println(this);
   }
 
   public String getScore()

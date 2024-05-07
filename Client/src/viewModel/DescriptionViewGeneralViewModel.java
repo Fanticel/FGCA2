@@ -9,9 +9,7 @@ import javafx.beans.property.StringProperty;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class EventDescriptionViewModel implements PropertyChangeListener
-{
-//  private ViewModelState viewModelState;
+public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
   private StringProperty errorProperty;
   private StringProperty tittleProperty;
   private StringProperty organizerProperty;
@@ -24,7 +22,7 @@ public class EventDescriptionViewModel implements PropertyChangeListener
 
   private EventListModel model;
 
-  public EventDescriptionViewModel(EventListModel model,
+  public DescriptionViewGeneralViewModel(EventListModel model,
       ViewModelState viewModelState)
   {
     this.model = model;

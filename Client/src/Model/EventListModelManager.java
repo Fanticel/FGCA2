@@ -84,9 +84,9 @@ public class EventListModelManager implements EventListModel,
     client.removeParticipant(event, user);
   }
 
-  @Override public void addParticipant(String eventTittle, User user)
+  @Override public void addParticipant(String eventTittle)
   {
-    client.addParticipant(eventTittle, user);
+    client.addParticipant(eventTittle);
   }
 
   @Override public void checkIn(String eventTittle, User user)

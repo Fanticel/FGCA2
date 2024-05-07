@@ -11,7 +11,7 @@ public class User
   {
     this.username = username;
     this.displayName = displayName;
-    BRP = 0;
+    BRP = 500;
     this.password = password;
   }
   public User(String username, String displayName, String password, int BRP)

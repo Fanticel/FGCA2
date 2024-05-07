@@ -74,4 +74,7 @@ public class EventTemplateViewController {
     System.out.println(ViewState.getInstance().getTittle());
     viewHandler.openView("EventDetails");
   }
+  @FXML void pressRegisterButton(){
+    eventTemplateViewModel.RegisterButtonPress();
+  }
 }

@@ -155,7 +155,7 @@ public class SQLFileManager implements FileManger {
           "SELECT * FROM fgcadb.usertable");
       ResultSet rsUser = psUser.executeQuery();
       while (rsUser.next()){
-        if (rsUser.getString("role").equals("user")){
+        if (rsUser.getString("role").equalsIgnoreCase("user")){
           ans.add(new User(rsUser.getString("userName"), rsUser.getString("displayName"), rsUser.getString("password"), rsUser.getInt("BRP")));
         }
         else if (rsUser.getString("role").equals("moderator")){
