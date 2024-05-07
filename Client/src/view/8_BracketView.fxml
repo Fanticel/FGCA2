@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="728.0" style="-fx-background-color: #05071F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.BracketViewController8">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="728.0" style="-fx-background-color: #05071F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.BracketViewController">
     <children>
         <HBox alignment="CENTER_LEFT" prefHeight="51.0" prefWidth="728.0">
             <children>
@@ -28,7 +28,7 @@
         </HBox>
         <ScrollPane prefHeight="533.0" prefWidth="728.0" style="-fx-background-color: black;">
             <content>
-                <HBox prefHeight="2675.0" prefWidth="1669.0">
+                <HBox fx:id="startHbox" prefHeight="2675.0" prefWidth="1669.0">
                     <children>
                         <VBox alignment="TOP_CENTER" prefHeight="2673.0" prefWidth="253.0">
                             <children>
@@ -42,8 +42,8 @@
                                             <children>
                                                 <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
                                                     <children>
-                                                        <Label text="Player 1" />
-                                                        <Label text="0">
+                                                        <Label prefHeight="18.0" prefWidth="69.0" text="Player 1" textOverrun="CLIP" />
+                                                        <Label prefHeight="18.0" prefWidth="0.0" text="0">
                                                             <HBox.margin>
                                                                 <Insets left="40.0" />
                                                             </HBox.margin>
@@ -52,6 +52,9 @@
                                                     <VBox.margin>
                                                         <Insets bottom="5.0" />
                                                     </VBox.margin>
+                                       <padding>
+                                          <Insets left="5.0" right="5.0" />
+                                       </padding>
                                                 </HBox>
                                                 <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
                                                     <children>
@@ -352,7 +355,7 @@
         </ScrollPane>
     </children>
     <stylesheets>
-        <URL value="@../../src/CSS/style.css" />
-        <URL value="@../../src/CSS/Common.css" />
+        <URL value="@../CSS/Common.css" />
+        <URL value="@../CSS/Common.css" />
     </stylesheets>
 </VBox>
