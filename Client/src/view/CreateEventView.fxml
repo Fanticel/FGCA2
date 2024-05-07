@@ -3,7 +3,10 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -15,7 +18,7 @@
    <children>
       <HBox prefHeight="142.0" prefWidth="703.0">
          <children>
-            <Label text="Create Events " textFill="#15e8e8">
+            <Label text="Create Events " textFill="#15e8e8" HBox.hgrow="ALWAYS">
                <font>
                   <Font size="36.0" />
                </font>
@@ -23,11 +26,18 @@
                   <Insets left="15.0" />
                </HBox.margin>
             </Label>
-            <Button mnemonicParsing="false" prefHeight="35.0" prefWidth="57.0" text="BACK">
-               <HBox.margin>
-                  <Insets left="350.0" top="20.0" />
-               </HBox.margin>
-            </Button>
+            <VBox alignment="CENTER_RIGHT" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" prefHeight="35.0" prefWidth="57.0" text="BACK">
+                     <VBox.margin>
+                        <Insets right="20.0" />
+                     </VBox.margin>
+                  </Button>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
          </children>
       </HBox>
       <VBox prefHeight="295.0" prefWidth="703.0">
@@ -38,7 +48,7 @@
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <ImageView fitHeight="31.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="31.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <image>
                                     <Image url="@../images/game-controller-1436.png" />
                                  </image>
@@ -58,7 +68,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <ImageView fitHeight="22.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="22.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <image>
                                     <Image url="@../images/play-button-icon-png-18904.png" />
                                  </image>
@@ -75,7 +85,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <image>
                                     <Image url="@../images/icons8_Person_32px.png" />
                                  </image>
@@ -94,7 +104,7 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <ImageView fitHeight="24.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                              <ImageView fitHeight="24.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <image>
                                     <Image url="@../images/icons8_Slider__32px.png" />
                                  </image>
@@ -119,16 +129,24 @@
                   <VBox prefHeight="193.0" prefWidth="165.0">
                      <children>
                         <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <TextField style="-fx-border-color: #15e8e8; -fx-border-width: 3;" />
-                           </children>
                            <VBox.margin>
                               <Insets />
                            </VBox.margin>
+                           <children>
+                              <MenuButton mnemonicParsing="false" prefHeight="32.0" prefWidth="153.0" text="Select Title">
+                                <items>
+                                  <MenuItem mnemonicParsing="false" text="Street Fighter 6" />
+                                  <MenuItem mnemonicParsing="false" text="Guilty Gear Shrive" />
+                                    <MenuItem mnemonicParsing="false" text="Mortal Kombat 1" />
+                                    <MenuItem mnemonicParsing="false" text="Super Smash Bros Ultimate" />
+                                    <MenuItem mnemonicParsing="false" text="Tekken 8" />
+                                </items>
+                              </MenuButton>
+                           </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <TextField style="-fx-border-color: #15e8e8; -fx-border-width: 3;" />
+                              <DatePicker prefHeight="32.0" prefWidth="155.0" />
                            </children>
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
@@ -138,7 +156,41 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <TextField prefHeight="32.0" prefWidth="155.0" style="-fx-border-color: #15e8e8; -fx-border-width: 3;" />
+                              <VBox prefHeight="55.0" prefWidth="90.0">
+                                 <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label prefHeight="17.0" prefWidth="21.0" text="Min" textFill="WHITE">
+                                             <HBox.margin>
+                                                <Insets right="4.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField alignment="BOTTOM_CENTER" prefHeight="29.0" prefWidth="48.0" style="-fx-border-color: #15e8e8; -fx-border-width: 2;" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
+                              <VBox prefHeight="200.0" prefWidth="100.0">
+                                 <children>
+                                    <HBox prefHeight="100.0" prefWidth="200.0">
+                                       <children>
+                                          <Label text="Max" textFill="WHITE">
+                                             <opaqueInsets>
+                                                <Insets />
+                                             </opaqueInsets>
+                                             <HBox.margin>
+                                                <Insets left="1.0" right="4.0" />
+                                             </HBox.margin>
+                                          </Label>
+                                          <TextField prefHeight="29.0" prefWidth="46.0" style="-fx-border-color: #15e8e8; -fx-border-width: 2;">
+                                             <HBox.margin>
+                                                <Insets left="3.0" />
+                                             </HBox.margin>
+                                          </TextField>
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                      </children>
