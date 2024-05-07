@@ -21,4 +21,7 @@ public interface EventListModel extends NamedPropertyChangeSubject
   public void setMatchScore(Event event, Match match, String score);
   public void setMatchScore(String eventTittle, Match match, String score);
   public void startVoting(Event eventTitle, Match match);
+  public ArrayList<Event> getEventsByGame(String game);
+  public ArrayList<Event> getEventsBySkillLevel(String skillLevel);
+  public ArrayList<Event> getEventsByStatus(String status);
 }

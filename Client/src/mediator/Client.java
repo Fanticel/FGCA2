@@ -141,6 +141,51 @@ public class Client implements EventListModel
     out.println("startVoting;" + eventTitle + ";" + "match");
   }
 
+  @Override public ArrayList<Event> getEventsByGame(String game)
+  {
+    ArrayList<Event> allEvents = getAllEvents();
+    ArrayList<Event> eventsByGame = new ArrayList<>();
+
+    for (Event allEvent : allEvents)
+    {
+      if (game.equals(allEvent.getGame()))
+      {
+        eventsByGame.add(allEvent);
+      }
+    }
+    return eventsByGame;
+  }
+
+  @Override public ArrayList<Event> getEventsBySkillLevel(String skillLevel)
+  {
+    ArrayList<Event> allEvents = getAllEvents();
+    ArrayList<Event> eventsBySkillLevel = new ArrayList<>();
+
+    for (Event allEvent : allEvents)
+    {
+      if (skillLevel.equals(allEvent.getGame()))
+      {
+        eventsBySkillLevel.add(allEvent);
+      }
+    }
+    return eventsBySkillLevel;
+  }
+
+  @Override public ArrayList<Event> getEventsByStatus(String status)
+  {
+    ArrayList<Event> allEvents = getAllEvents();
+    ArrayList<Event> eventsByStatus = new ArrayList<>();
+
+    for (Event allEvent : allEvents)
+    {
+      if (status.equals(allEvent.getGame()))
+      {
+        eventsByStatus.add(allEvent);
+      }
+    }
+    return eventsByStatus;
+  }
+
   public synchronized void receivedNotification(String message, boolean error){
     property.firePropertyChange(new PropertyChangeEvent(this, "Notification", error, message));
   }

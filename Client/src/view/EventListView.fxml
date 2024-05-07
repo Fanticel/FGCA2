@@ -12,7 +12,12 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="697.0" styleClass="background" stylesheets="@../CSS/Common.css, @../CSS/EventList.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EventListViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="475.0" prefWidth="697.0"
+      styleClass="background"
+      stylesheets="@../CSS/Common.css, @../CSS/EventList.css"
+      xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="view.EventListViewController">
     <children>
       <VBox prefHeight="84.0" prefWidth="697.0">
          <children>
@@ -45,41 +50,91 @@
       </VBox>
         <HBox prefHeight="46.0" prefWidth="697.0">
             <children>
-                <HBox alignment="CENTER_LEFT" prefHeight="46.0" prefWidth="381.0">
+                <HBox alignment="CENTER_LEFT" prefHeight="46.0"
+                      prefWidth="381.0">
                     <children>
-                        <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Filters:">
+                        <Text fill="WHITE" strokeType="OUTSIDE"
+                              strokeWidth="0.0" text="Filters:">
                             <HBox.margin>
-                                <Insets left="50.0" />
+                                <Insets left="50.0"/>
                             </HBox.margin>
                             <font>
-                                <Font size="15.0" />
+                                <Font size="15.0"/>
                             </font>
                         </Text>
-                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="82.0" text="Games">
+                        <MenuButton fx:id="gamesMenuButton"
+                                    mnemonicParsing="false" prefHeight="26.0"
+                                    prefWidth="82.0" text="Games">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Action 1" />
-                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                                <MenuItem onAction="#filterByGame"
+                                          mnemonicParsing="false"
+                                          text="Tekken"/>
+                                <MenuItem onAction="#filterByGame"
+                                          mnemonicParsing="false"
+                                          text="Street Fighter"/>
+                                <MenuItem onAction="#filterByGame"
+                                          mnemonicParsing="false"
+                                          text="Super Smash Bros Ultimate"/>
+                                <MenuItem onAction="#filterByGame"
+                                          mnemonicParsing="false"
+                                          text="Guilty Gear Strive"/>
+                                <MenuItem onAction="#filterByGame"
+                                          mnemonicParsing="false"
+                                          text="Mortal Kombat I"/>
+                                <MenuItem onAction="#filterAny"
+                                          mnemonicParsing="false" text="Any"/>
                             </items>
                             <HBox.margin>
-                                <Insets left="10.0" />
+                                <Insets left="10.0"/>
                             </HBox.margin>
                         </MenuButton>
-                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="94.0" text="Skill level">
+                        <MenuButton fx:id="skillLevelMenuButton"
+                                    mnemonicParsing="false" prefHeight="26.0"
+                                    prefWidth="94.0" text="Skill level">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Action 1" />
-                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                                <MenuItem onAction="#filterBySkillLevel"
+                                          mnemonicParsing="false"
+                                          text="Beginner (0-999)"/>
+                                <MenuItem onAction="#filterBySkillLevel"
+                                          mnemonicParsing="false"
+                                          text="Semi-pro (1000-1999)"/>
+                                <MenuItem onAction="#filterBySkillLevel"
+                                          mnemonicParsing="false"
+                                          text="Advanced (2000-2999)"/>
+                                <MenuItem onAction="#filterBySkillLevel"
+                                          mnemonicParsing="false"
+                                          text="Expert (3000-3999)"/>
+                                <MenuItem onAction="#filterBySkillLevel"
+                                          mnemonicParsing="false"
+                                          text="Master (4000+)"/>
+                                <MenuItem onAction="#filterAny"
+                                          mnemonicParsing="false" text="Any"/>
                             </items>
                             <HBox.margin>
-                                <Insets left="10.0" />
+                                <Insets left="10.0"/>
                             </HBox.margin>
                         </MenuButton>
-                        <MenuButton mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="Status">
+                        <MenuButton fx:id="statusMenuButton"
+                                    mnemonicParsing="false" prefHeight="26.0"
+                                    prefWidth="75.0" text="Status">
                             <items>
-                                <MenuItem mnemonicParsing="false" text="Action 1" />
-                                <MenuItem mnemonicParsing="false" text="Action 2" />
+                                <MenuItem onAction="#filterByStatus"
+                                          mnemonicParsing="false"
+                                          text="Registration open"/>
+                                <MenuItem onAction="#filterByStatus"
+                                          mnemonicParsing="false"
+                                          text="Check-in open"/>
+                                <MenuItem onAction="#filterByStatus"
+                                          mnemonicParsing="false"
+                                          text="Ongoing"/>
+                                <MenuItem onAction="#filterByStatus"
+                                          mnemonicParsing="false"
+                                          text="Finished"/>
+                                <MenuItem onAction="#filterAny"
+                                          mnemonicParsing="false" text="Any"/>
                             </items>
                             <HBox.margin>
-                                <Insets left="10.0" />
+                                <Insets left="10.0"/>
                             </HBox.margin>
                         </MenuButton>
                     </children>
@@ -100,30 +155,36 @@
         </HBox>
         <VBox alignment="CENTER" prefHeight="342.0" prefWidth="697.0">
             <children>
-                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no current events that match your filter.">
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="There are no current events that match your filter.">
                     <font>
-                        <Font size="15.0" />
+                        <Font size="15.0"/>
                     </font>
                 </Text>
-                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no current events that match your search.">
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="There are no current events that match your search.">
                     <font>
-                        <Font size="15.0" />
+                        <Font size="15.0"/>
                     </font>
                 </Text>
-                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="There are no current events.">
+                <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0"
+                      text="There are no current events.">
                     <font>
-                        <Font size="15.0" />
+                        <Font size="15.0"/>
                     </font>
                 </Text>
-                <VBox fx:id="eventContainer" prefHeight="285.0" prefWidth="697.0">
+                <VBox fx:id="eventContainer" prefHeight="285.0"
+                      prefWidth="697.0">
                     <children>
-                        <ScrollPane fx:id="scrollPane" prefHeight="287.0" prefWidth="697.0">
+                        <ScrollPane fx:id="scrollPane" prefHeight="287.0"
+                                    prefWidth="697.0">
                             <content>
-                                <HBox fx:id="noProjects" alignment="CENTER" prefHeight="152.0" prefWidth="696.0">
+                                <HBox fx:id="noProjects" alignment="CENTER"
+                                      prefHeight="152.0" prefWidth="696.0">
                                     <children>
                                         <Label text="There are currently no ongoing events">
                                             <font>
-                                                <Font size="24.0" />
+                                                <Font size="24.0"/>
                                             </font>
                                         </Label>
                                     </children>

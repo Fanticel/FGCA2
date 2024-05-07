@@ -2,10 +2,12 @@ package view;
 
 import Model.Event;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
@@ -42,7 +44,7 @@ public class EventListViewController implements ViewController
     // Add event listener to search bar
     searchBar.setOnKeyReleased(event -> {
       String query = searchBar.getText().toLowerCase();
-      filterEvents(query);
+      searchEvents(query);
     });
   }
 
@@ -68,7 +70,7 @@ public class EventListViewController implements ViewController
     scrollPane.setFitToWidth(true);
   }
 
-  private void filterEvents(String query)
+  private void searchEvents(String query)
   {
     ArrayList<Event> allEvents = eventListViewModel.getAllEvents();
     VBox container = new VBox();
@@ -80,6 +82,51 @@ public class EventListViewController implements ViewController
       }
     }
     scrollPane.setContent(container);
+  }
+
+  private void filterEvents(ArrayList<Event> eventsToFilter)
+  {
+    VBox container = new VBox();
+    for (Event event : eventsToFilter)
+    {
+      loadEventView(new SimpleEventViewModel(event), container);
+    }
+    scrollPane.setContent(container);
+  }
+
+  @FXML private void filterByGame(ActionEvent event)
+  {
+    MenuItem menuItem = (MenuItem) event.getSource();
+    String game = menuItem.getText();
+    eventListViewModel.getEventsByGame(game);
+    ArrayList<Event> gameEvents=eventListViewModel.getEventsBySkillLevel(game);
+    filterEvents(gameEvents);
+  }
+
+  @FXML private void filterBySkillLevel(ActionEvent event)
+  {
+    MenuItem menuItem = (MenuItem) event.getSource();
+    String skillLevel = menuItem.getText();
+    ArrayList<Event> skillLevelEvents=eventListViewModel.getEventsBySkillLevel(skillLevel);
+    filterEvents(skillLevelEvents);
+  }
+
+  @FXML private void filterByStatus(ActionEvent event)
+  {
+    MenuItem menuItem = (MenuItem) event.getSource();
+    String status = menuItem.getText();
+    ArrayList<Event> statusEvents = eventListViewModel.getEventsByStatus(
+        status);
+    filterEvents(statusEvents);
+  }
+
+  @FXML private void filterAny(){
+    ArrayList<Event> allEvents = eventListViewModel.getAllEvents();
+    VBox container = new VBox();
+    for (Event event : allEvents)
+    {
+      loadEventView(new SimpleEventViewModel(event), container);
+    }
   }
 
   @Override public void reset()

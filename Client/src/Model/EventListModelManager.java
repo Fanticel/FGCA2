@@ -58,6 +58,21 @@ public class EventListModelManager implements EventListModel,
     client.startVoting(eventTitle, match);
   }
 
+  @Override public ArrayList<Event> getEventsByGame(String game)
+  {
+    return client.getEventsByGame(game);
+  }
+
+  @Override public ArrayList<Event> getEventsBySkillLevel(String skillLevel)
+  {
+    return client.getEventsBySkillLevel(skillLevel);
+  }
+
+  @Override public ArrayList<Event> getEventsByStatus(String status)
+  {
+    return client.getEventsByStatus(status);
+  }
+
   @Override public void setMatchScore(Event event, Match match, String score)
   {
     client.setMatchScore(event, match, score);

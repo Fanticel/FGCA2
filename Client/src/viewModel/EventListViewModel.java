@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.VBox;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -96,6 +97,25 @@ public class EventListViewModel implements PropertyChangeListener
       }
     }
   }
+
+  public ArrayList<Event> getEventsByGame(String game) {
+    return model.getEventsByGame(game);
+  }
+
+  public ArrayList<Event> getEventsBySkillLevel(String skillLevel) {
+    return model.getEventsBySkillLevel(skillLevel);
+  }
+
+  public ArrayList<Event> getEventsByStatus(String status) {
+    return model.getEventsByStatus(status);
+  }
+
+//  private void updateList(ArrayList<Event> events) {
+//    list.clear();
+//    for (Event event : events) {
+//      list.add(new SimpleEventViewModel(event));
+//    }
+//  }
 
   private void addSimpleEvent(Event event)
   {
