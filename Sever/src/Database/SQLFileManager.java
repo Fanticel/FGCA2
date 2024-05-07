@@ -116,7 +116,7 @@ public class SQLFileManager implements FileManger {
           User user2 = UserListSingleton.getInstance().getUserList().getUserByUsername(rsMatch.getString("username2"));
           event.addMatch(user1, user2, score);
         }
-        if (event.getStatus().equals("In Progress")){
+        if (event.getStatus().equals("In progress")){
           while (event.getMatches().size() < event.getMaxParticipants() - 1){
             event.addMatch(null, null);
           }
