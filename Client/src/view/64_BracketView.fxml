@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="470.0" prefWidth="728.0" style="-fx-background-color: #05071F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.BracketViewController64">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="514.0" prefWidth="728.0" style="-fx-background-color: #05071F;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.BracketViewController64">
     <children>
         <HBox alignment="CENTER_LEFT" prefHeight="53.0" prefWidth="761.0">
             <children>
@@ -27,7 +27,7 @@
             </VBox.margin>
 
         </HBox>
-        <ScrollPane prefHeight="373.0" prefWidth="493.0" style="-fx-background-color: black;">
+        <ScrollPane prefHeight="438.0" prefWidth="728.0" style="-fx-background-color: black;" VBox.vgrow="ALWAYS">
             <content>
                 <HBox prefHeight="2675.0" prefWidth="1669.0">
                     <children>
