@@ -662,7 +662,7 @@
       </ScrollPane>
    </children>
    <stylesheets>
-      <URL value="@../CSS/Common.css" />
+      <URL value="@../CSS/style.css" />
       <URL value="@../CSS/Common.css" />
    </stylesheets>
 </VBox>

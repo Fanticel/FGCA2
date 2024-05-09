@@ -27,7 +27,7 @@
             </VBox.margin>
 
         </HBox>
-        <ScrollPane prefHeight="373.0" prefWidth="493.0" style="-fx-background-color: black;">
+        <ScrollPane prefHeight="373.0" prefWidth="493.0" style="-fx-background-color: black;" VBox.vgrow="ALWAYS">
             <content>
                 <HBox fx:id="startHbox" prefHeight="2675.0" prefWidth="1669.0">
                     <children>
@@ -2602,8 +2602,8 @@
             </content>
         </ScrollPane>
     </children>
-    <stylesheets>
-        <URL value="@../CSS/Common.css" />
-        <URL value="@../CSS/Common.css" />
-    </stylesheets>
+   <stylesheets>
+      <URL value="@../CSS/style.css" />
+      <URL value="@../CSS/Common.css" />
+   </stylesheets>
 </VBox>
