@@ -11,7 +11,7 @@ import java.beans.PropertyChangeListener;
 
 public class EventDescriptionViewModel implements PropertyChangeListener
 {
-//  private ViewModelState viewModelState;
+//  private ViewState viewState;
   private StringProperty errorProperty;
   private StringProperty tittleProperty;
   private StringProperty organizerProperty;
@@ -25,11 +25,11 @@ public class EventDescriptionViewModel implements PropertyChangeListener
   private EventListModel model;
 
   public EventDescriptionViewModel(EventListModel model,
-      ViewModelState viewModelState)
+      ViewState viewState)
   {
     this.model = model;
     this.model.addListener("EventChange",this);
-//    this.viewModelState = viewModelState;
+//    this.viewState = viewState;
     errorProperty = new SimpleStringProperty();
     tittleProperty = new SimpleStringProperty();
     organizerProperty = new SimpleStringProperty();

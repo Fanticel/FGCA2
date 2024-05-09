@@ -22,13 +22,13 @@ public class EventListViewModel implements PropertyChangeListener
   private ObservableList<SimpleEventViewModel> list;
   private ObjectProperty<SimpleEventViewModel> selectedEventProperty;
   private StringProperty errorProperty;
-  private ViewModelState viewModelState;
+  private ViewState viewState;
 
-  public EventListViewModel(EventListModel model, ViewModelState viewModelState)
+  public EventListViewModel(EventListModel model, ViewState viewState)
   {
     this.model = model;
     this.model.addListener("Event", this);
-    this.viewModelState = viewModelState;
+    this.viewState = viewState;
     selectedEventProperty = new SimpleObjectProperty<>();
     errorProperty = new SimpleStringProperty();
     list = FXCollections.observableArrayList();
@@ -51,11 +51,11 @@ public class EventListViewModel implements PropertyChangeListener
     }
   }*/
 
-  public boolean seeDetails()
+  /*public boolean seeDetails()
   {
     if (selectedEventProperty.get() != null)
     {
-      viewModelState
+      viewState
           .setEventTittle(selectedEventProperty.get().getTittleProperty().get());
       return true;
     }
@@ -64,7 +64,7 @@ public class EventListViewModel implements PropertyChangeListener
       errorProperty.set("No selection");
       return false;
     }
-  }
+  }*/
 
   public ObservableList<SimpleEventViewModel> getAll()
   {

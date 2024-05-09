@@ -25,11 +25,11 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
   private EventListModel model;
 
   public DescriptionViewGeneralViewModel(EventListModel model,
-      ViewModelState viewModelState)
+      ViewState viewState)
   {
     this.model = model;
     this.model.addListener("EventChange",this);
-//    this.viewModelState = viewModelState;
+//    this.viewState = viewState;
     errorProperty = new SimpleStringProperty();
     tittleProperty = new SimpleStringProperty();
     organizerProperty = new SimpleStringProperty();

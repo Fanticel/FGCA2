@@ -19,14 +19,14 @@ public class NotificationPopupViewModel implements PropertyChangeListener,
 {
   private StringProperty notification;
   private ObjectProperty<Paint> colorProperty;
-  private ViewModelState viewModelState;
+  private ViewState viewState;
   private EventListModel model;
   private PropertyChangeListener listener;
-  public NotificationPopupViewModel(EventListModel model, ViewModelState viewModelState)
+  public NotificationPopupViewModel(EventListModel model, ViewState viewState)
   {
     this.model = model;
     model.addListener("notification",this);
-    this.viewModelState = viewModelState;
+    this.viewState = viewState;
     notification = new SimpleStringProperty("test");
     listener = null;
     Color green = new Color(0.051, 0.7882, 0.1098, 1.0);

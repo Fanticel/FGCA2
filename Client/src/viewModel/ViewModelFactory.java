@@ -12,20 +12,20 @@ public class ViewModelFactory {
 
   private SimpleEventViewModel simpleEventViewModel;
   private DescriptionViewGeneralViewModel descriptionViewGeneralViewModel;
-  private ViewModelState viewModelState;
+  private ViewState viewState;
   private EventListModel model;
 
   public ViewModelFactory(EventListModel model) {
     this.model = model;
-    ViewModelState viewModelState = new ViewModelState();
-    eventListViewModel = new EventListViewModel(model, viewModelState);
+    viewState = ViewState.getInstance();
+    eventListViewModel = new EventListViewModel(model, viewState);
     eventDescriptionViewModel = new EventDescriptionViewModel(model,
-        viewModelState); // <-
+        viewState); // <-
     notificationPopupViewModel = new NotificationPopupViewModel(model,
-        viewModelState);
+        viewState);
     descriptionViewGeneralViewModel = new DescriptionViewGeneralViewModel(model,
-        viewModelState);
-    bracketViewModel = new BracketViewModel(model, viewModelState);
+        viewState);
+    bracketViewModel = new BracketViewModel(model, viewState);
   }
 
   public EventListViewModel getEventListViewModel() {

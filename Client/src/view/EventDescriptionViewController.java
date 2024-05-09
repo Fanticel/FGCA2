@@ -51,7 +51,21 @@ public class EventDescriptionViewController implements ViewController {
 
   @Override public void reset() {
     descriptionViewGeneralController.reset();
+    eventDescriptionViewModel.reset();
     bracketViewController.reset();
+    Tab bracket = tabPane.getTabs().get(1);
+    bracket.disableProperty().set(false);
+    if (eventDescriptionViewModel.getStatusProperty().get().contains("In progress") || eventDescriptionViewModel.getStatusProperty().get().contains("Finished")){
+      switch (eventDescriptionViewModel.getMaxParticipants()) {
+        case "8" -> bracket.setContent(loadBracketViewController("8_BracketView.fxml"));
+        case "16" -> bracket.setContent(loadBracketViewController("16_BracketView.fxml"));
+        case "32" -> bracket.setContent(loadBracketViewController("32_BracketView.fxml"));
+        case "64" -> bracket.setContent(loadBracketViewController("64_BracketView.fxml"));
+      }
+    }
+    else {
+      bracket.disableProperty().set(true);
+    }
   }
 
   @Override public Region getRoot() {
@@ -83,8 +97,6 @@ public class EventDescriptionViewController implements ViewController {
   }
 
   private Region loadBracketViewController(String fxmlFile){
-    if (bracketViewController == null)
-    {
       try
       {
         FXMLLoader loader = new FXMLLoader();
@@ -97,11 +109,6 @@ public class EventDescriptionViewController implements ViewController {
       {
         e.printStackTrace();
       }
-    }
-    else
-    {
-      bracketViewController.reset();
-    }
     return bracketViewController.getRoot();
   }
 }
