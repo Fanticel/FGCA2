@@ -65,7 +65,9 @@ public class BracketViewController implements ViewController
           vboxes.add((VBox) child);
           j--;
         }
-        else {
+        else
+        {
+
           buttons.add((Button) child);
         }
       }
@@ -75,28 +77,50 @@ public class BracketViewController implements ViewController
     {
       for (Node child : vboxes.get(i).getChildren())
       {
-          hboxes.add((HBox) child);
-        }
+        hboxes.add((HBox) child);
       }
+    }
 
     for (int i = 0; i < hboxes.size(); i++)
     {
-      hboxes.get(i).setPadding(new Insets(5,5,5,5));
+      hboxes.get(i).setPadding(new Insets(5, 5, 5, 5));
       for (Node child : hboxes.get(i).getChildren())
       {
         labels.add((Label) child);
       }
     }
 
-    for (int i = 0; i < labels.size(); i++){
-      if (i % 2 == 0){
+    for (int i = 0; i < labels.size(); i++)
+    {
+      if (i % 2 == 0)
+      {
         labels.get(i).setMinWidth(80);
       }
       labels.get(i).textProperty().bind(bracketViewModel.getLabels().get(i));
     }
-    for (int i = 0; i < buttons.size(); i++){
-      buttons.get(i).visibleProperty().bind(bracketViewModel.getVisibleButtons().get(i));
+    for (int i = 0; i < buttons.size(); i++)
+    {
+      buttons.get(i).visibleProperty()
+          .bind(bracketViewModel.getVisibleButtons().get(i));
     }
+    buttons.forEach(this::addMouseClickedEventHandler);
+  }
+
+  private void addMouseClickedEventHandler(Button button)
+  {
+    button.setOnMouseClicked(event -> {
+      /*VBox vBox = (VBox) button.getParent();
+      hboxes.clear();
+      hboxes.add((HBox) vBox.getChildren());
+      ArrayList<Label> matchInformation = new ArrayList<>();
+      for (int i = 0; i < hboxes.size(); i++){
+        for (Node child: hboxes.get(i).getChildren()){
+          matchInformation.add((Label) child);
+        }
+      }*/
+      bracketViewModel.startVote(buttons.indexOf(button));
+      event.consume();
+    });
   }
 
   @Override public void reset()
