@@ -48,7 +48,6 @@ public class BracketViewModel
         visibleButtons.add(new SimpleBooleanProperty(false));
       }
     }
-
   }
 
   public ObservableList<SimpleStringProperty> getLabels()

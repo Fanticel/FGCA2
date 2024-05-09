@@ -12,35 +12,39 @@ public class ViewModelFactory {
 
   private SimpleEventViewModel simpleEventViewModel;
   private DescriptionViewGeneralViewModel descriptionViewGeneralViewModel;
+  private LogInViewModel logInViewModel;
   private ViewState viewState;
   private EventListModel model;
 
   public ViewModelFactory(EventListModel model) {
     this.model = model;
     viewState = ViewState.getInstance();
-    eventListViewModel = new EventListViewModel(model, viewState);
-    eventDescriptionViewModel = new EventDescriptionViewModel(model,
-        viewState); // <-
-    notificationPopupViewModel = new NotificationPopupViewModel(model,
-        viewState);
-    descriptionViewGeneralViewModel = new DescriptionViewGeneralViewModel(model,
-        viewState);
-    bracketViewModel = new BracketViewModel(model, viewState);
+  }
+  public LogInViewModel getLogInViewModel(){
+    logInViewModel = new LogInViewModel(model);
+    return logInViewModel;
   }
 
   public EventListViewModel getEventListViewModel() {
+    eventListViewModel = new EventListViewModel(model, viewState);
     return eventListViewModel;
   }
 
   public EventDescriptionViewModel getEventDetailsViewModel() {
+    eventDescriptionViewModel = new EventDescriptionViewModel(model,
+        viewState);
     return eventDescriptionViewModel;
   }
 
   public DescriptionViewGeneralViewModel getDescriptionViewGeneralViewModel() {
+    descriptionViewGeneralViewModel = new DescriptionViewGeneralViewModel(model,
+        viewState);
     return descriptionViewGeneralViewModel;
   }
 
   public NotificationPopupViewModel getNotificationPopupViewModel() {
+    notificationPopupViewModel = new NotificationPopupViewModel(model,
+        viewState);
     return notificationPopupViewModel;
   }
 
@@ -50,6 +54,7 @@ public class ViewModelFactory {
   }
 
   public BracketViewModel getBracketViewModel8() {
+    bracketViewModel = new BracketViewModel(model, viewState);
     return bracketViewModel;
   }
 }

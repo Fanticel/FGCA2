@@ -52,7 +52,9 @@ public class EventDescriptionViewController implements ViewController {
   @Override public void reset() {
     descriptionViewGeneralController.reset();
     eventDescriptionViewModel.reset();
-    bracketViewController.reset();
+    if (bracketViewController != null){
+      bracketViewController.reset();
+    }
     Tab bracket = tabPane.getTabs().get(1);
     bracket.disableProperty().set(false);
     if (eventDescriptionViewModel.getStatusProperty().get().contains("In progress") || eventDescriptionViewModel.getStatusProperty().get().contains("Finished")){

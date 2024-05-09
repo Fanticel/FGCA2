@@ -44,8 +44,9 @@ public class EventDescriptionViewModel implements PropertyChangeListener
 
   public void reset()
   {
+    System.out.println("\n\n_________\n\n"+ViewState.getInstance().getTittle());
     Event event = model.getEvent(ViewState.getInstance().getTittle());
-    System.out.println(event.getMatches());
+    System.out.println(ViewState.getInstance().getTittle());
     tittleProperty.set(event.getTittle());
     statusProperty.set(event.getStatus());
     gameProperty.set(event.getGame());

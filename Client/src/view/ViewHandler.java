@@ -14,6 +14,7 @@ public class ViewHandler {
   private EventDescriptionViewController eventDescriptionViewController;
   private EventListViewController eventListViewController;
   private NotificationPopupViewController notificationPopupViewController;
+  private LogInViewController logInViewController;
   private EventTemplateViewController eventTemplateViewController;
   private BracketViewController bracketViewController;
   private ViewModelFactory viewModelFactory;
@@ -26,17 +27,21 @@ public class ViewHandler {
 
   public void start(Stage primaryStage) {
     this.primaryStage = primaryStage;
+//    openView("LogIn");
     openView("EventList");
   }
-  public void startPopup(Stage popupStage){
+
+  public void startPopup(Stage popupStage) {
     this.popupStage = popupStage;
   }
-  public void openPopupView(String id){
+
+  public void openPopupView(String id) {
     startPopup(new Stage());
     Region root = null;
-    switch (id){
+    switch (id) {
       case "" -> {
-        root = loadNotificationPopupViewController("NotificationPopupView.fxml");
+        root = loadNotificationPopupViewController(
+            "NotificationPopupView.fxml");
       }
     }
     popupScene.setRoot(root);
@@ -54,11 +59,12 @@ public class ViewHandler {
   public void openView(String id) {
     Region root = null;
     switch (id) {
-      case "EventList"-> root = loadEventListViewController("EventListView.fxml");
-      case "EventDetails" -> root = loadEventDescriptionViewController("EventDescriptionView.fxml");
-
-    }
-    currentScene.setRoot(root);
+      case "EventList" ->
+          root = loadEventListViewController("EventListView.fxml");
+      case "EventDetails" -> root = loadEventDescriptionViewController(
+          "EventDescriptionView.fxml");
+      case "LogIn" -> root = loadLogInViewController("LogInView.fxml");
+    } currentScene.setRoot(root);
     String title = "";
     if (root.getUserData() != null) {
       title += root.getUserData();
@@ -73,71 +79,82 @@ public class ViewHandler {
   public void closeView() {
     primaryStage.close();
   }
-  public void closePopupView(){popupStage.close();}
-  private Region loadEventListViewController(String fxmlFile){
-    {
-      if (eventListViewController == null)
-      {
-        try
-        {
-          FXMLLoader loader = new FXMLLoader();
-          loader.setLocation(getClass().getResource(fxmlFile));
-          Region root = loader.load();
-          eventListViewController = loader.getController();
-          eventListViewController.init(this, viewModelFactory, root);
-        }
-        catch (Exception e)
-        {
-          e.printStackTrace();
-        }
-      }
-      else
-      {
-        eventListViewController.reset();
-      }
-      return eventListViewController.getRoot();
-    }
+
+  public void closePopupView() {
+    popupStage.close();
   }
-  private Region loadEventDescriptionViewController(String fxmlFile){
-    if (eventDescriptionViewController == null)
-    {
-      try
-      {
+
+  public Region loadLogInViewController(String fxmlFile) {
+    if (logInViewController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        logInViewController = loader.getController();
+        logInViewController.init(this, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      logInViewController.reset();
+    }
+    return logInViewController.getRoot();
+  }
+
+  private Region loadEventListViewController(String fxmlFile) {
+    if (eventListViewController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        eventListViewController = loader.getController();
+        eventListViewController.init(this, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      eventListViewController.reset();
+    }
+    return eventListViewController.getRoot();
+  }
+
+  private Region loadEventDescriptionViewController(String fxmlFile) {
+    if (eventDescriptionViewController == null) {
+      try {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(fxmlFile));
         Region root = loader.load();
         eventDescriptionViewController = loader.getController();
         eventDescriptionViewController.init(this, viewModelFactory, root);
       }
-      catch (Exception e)
-      {
+      catch (Exception e) {
         e.printStackTrace();
       }
     }
-    else
-    {
+    else {
       eventDescriptionViewController.reset();
     }
     return eventDescriptionViewController.getRoot();
   }
-  private Region loadNotificationPopupViewController(String fxmlFile){
-    if (notificationPopupViewController == null)
-    {
-      try
-      {
+
+  private Region loadNotificationPopupViewController(String fxmlFile) {
+    if (notificationPopupViewController == null) {
+      try {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(fxmlFile));
         Region root = loader.load();
         notificationPopupViewController = loader.getController();
         notificationPopupViewController.init(this, viewModelFactory, root);
       }
-      catch (Exception e)
-      {
+      catch (Exception e) {
         e.printStackTrace();
       }
     }
-    else
-    {
+    else {
       notificationPopupViewController.reset();
     }
     return notificationPopupViewController.getRoot();
