@@ -21,6 +21,7 @@ public class EventDescriptionViewController implements ViewController {
   private BracketViewController bracketViewController;
   private ViewModelFactory viewModelFactory;
   private Region root;
+  private Tab tab1;
 
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory, Region root) {
@@ -30,7 +31,7 @@ public class EventDescriptionViewController implements ViewController {
     this.root = root;
     lblEventTitle.textProperty()
         .bind(eventDescriptionViewModel.getTittleProperty());
-    Tab tab1 = new Tab("Details");
+    tab1 = new Tab("Details");
     Tab tab2 = new Tab("Bracket");
     Tab tab3 = new Tab("Chat");
     tab1.setContent(loadEventDescriptionViewController("DescriptionViewGeneral.fxml"));
@@ -51,6 +52,7 @@ public class EventDescriptionViewController implements ViewController {
   }
 
   @Override public void reset() {
+    tabPane.getSelectionModel().select(tab1);
     descriptionViewGeneralController.reset();
     eventDescriptionViewModel.reset();
     if (bracketViewController != null){
