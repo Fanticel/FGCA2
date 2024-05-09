@@ -45,7 +45,7 @@ public class EventDescriptionViewModel implements PropertyChangeListener
   public void reset()
   {
     Event event = model.getEvent(ViewState.getInstance().getTittle());
-    errorProperty.set("");
+    System.out.println(event.getMatches());
     tittleProperty.set(event.getTittle());
     statusProperty.set(event.getStatus());
     gameProperty.set(event.getGame());
@@ -99,9 +99,15 @@ public class EventDescriptionViewModel implements PropertyChangeListener
     return BRPRangeProperty;
   }
 
-  public StringProperty getParticipantsProperty()
+  public String getParticipantsNumber()
   {
-    return participantsNumberProperty;
+    return participantsNumberProperty.get();
+  }
+
+  public String getMaxParticipants()
+  {
+    String[] strings = getParticipantsNumber().split("/");
+    return strings[1];
   }
 
   private void join()

@@ -1,16 +1,49 @@
 package view;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import viewModel.DescriptionViewGeneralViewModel;
+import viewModel.SimplePlayerViewModel;
 import viewModel.ViewModelFactory;
 
 public class DescriptionViewGeneralController implements ViewController{
-  @FXML private TextField txtGame;
-  @FXML private TextField txtTimeUntilStart;
-  @FXML private TextField txtNumberOfPlayers;
-  @FXML private TextField txtSkillLevel;
+  @FXML
+  private Button btnCheckIn;
+
+  @FXML
+  private Button btnQuit;
+
+  @FXML
+  private TableColumn<SimplePlayerViewModel, String> colName;
+
+  @FXML
+  private TableColumn<SimplePlayerViewModel, String> colSkillLevel;
+
+  @FXML
+  private Label lblCheckInStatus;
+
+  @FXML
+  private Label lblTimeLeft;
+
+  @FXML
+  private TableView<SimplePlayerViewModel> tblPlayers;
+
+  @FXML
+  private TextField txtGame;
+
+  @FXML
+  private TextField txtNumberOfPlayers;
+
+  @FXML
+  private TextField txtSkillLevel;
+
+  @FXML
+  private TextField txtTimeUntilStart;
+
+  @FXML
+  private VBox vboxDetails;
   private ViewHandler viewHandler;
   private DescriptionViewGeneralViewModel descriptionViewGeneralViewModel;
   private Region root;
@@ -23,6 +56,14 @@ public class DescriptionViewGeneralController implements ViewController{
     txtTimeUntilStart.textProperty().bind(descriptionViewGeneralViewModel.getDateProperty());
     txtNumberOfPlayers.textProperty().bind(descriptionViewGeneralViewModel.getParticipantsProperty());
     txtSkillLevel.textProperty().bind(descriptionViewGeneralViewModel.getBRPRangeProperty());
+
+    colName.setCellValueFactory(
+        cellData -> cellData.getValue().getPlayerDisplayName());
+    colSkillLevel.setCellValueFactory(
+        cellData -> cellData.getValue().getSkillLevel());
+    tblPlayers.setItems(descriptionViewGeneralViewModel.getList());
+
+
   }
 
   @Override public void reset() {

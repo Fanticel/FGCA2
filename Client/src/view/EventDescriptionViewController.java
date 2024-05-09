@@ -18,6 +18,7 @@ public class EventDescriptionViewController implements ViewController {
   private ViewHandler viewHandler;
   private EventDescriptionViewModel eventDescriptionViewModel;
   private DescriptionViewGeneralController descriptionViewGeneralController;
+  private BracketViewController bracketViewController;
   private ViewModelFactory viewModelFactory;
   private Region root;
 
@@ -30,12 +31,25 @@ public class EventDescriptionViewController implements ViewController {
     lblEventTitle.textProperty()
         .bind(eventDescriptionViewModel.getTittleProperty());
     Tab tab1 = new Tab("Details");
+    Tab tab2 = new Tab("Bracket");
     tab1.setContent(loadEventDescriptionViewController("DescriptionViewGeneral.fxml"));
+    switch (eventDescriptionViewModel.getMaxParticipants()) {
+      case "8" ->
+      {
+        tab2.setContent(loadBracketViewController("8_BracketView.fxml"));
+      }
+      case "16" -> tab2.setContent(loadBracketViewController("16_BracketView.fxml"));
+      case "32" -> tab2.setContent(loadBracketViewController("32_BracketView.fxml"));
+      case "64" -> tab2.setContent(loadBracketViewController("64_BracketView.fxml"));
+
+    }
     tabPane.getTabs().add(tab1);
+    tabPane.getTabs().add(tab2);
   }
 
   @Override public void reset() {
     descriptionViewGeneralController.reset();
+    bracketViewController.reset();
   }
 
   @Override public Region getRoot() {
@@ -64,5 +78,28 @@ public class EventDescriptionViewController implements ViewController {
       descriptionViewGeneralController.reset();
     }
     return descriptionViewGeneralController.getRoot();
+  }
+
+  private Region loadBracketViewController(String fxmlFile){
+    if (bracketViewController == null)
+    {
+      try
+      {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        bracketViewController = loader.getController();
+        bracketViewController.init(viewHandler, viewModelFactory, root);
+      }
+      catch (Exception e)
+      {
+        e.printStackTrace();
+      }
+    }
+    else
+    {
+      bracketViewController.reset();
+    }
+    return bracketViewController.getRoot();
   }
 }
