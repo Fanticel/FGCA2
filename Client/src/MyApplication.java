@@ -24,7 +24,6 @@ public class MyApplication extends Application {
     out.println("initCall");
     System.out.println(in.readLine());
     if (in.readLine().split(":")[1].contains("initCallReply")){
-      out.println("log;a;b;c");
       System.out.println("Connection successful");
       model = new EventListModelManager(localSocket);
       System.out.println("Model created");

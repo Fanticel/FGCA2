@@ -15,6 +15,7 @@ public class ViewHandler {
   private EventListViewController eventListViewController;
   private NotificationPopupViewController notificationPopupViewController;
   private LogInViewController logInViewController;
+  private RegisterViewController registerViewController;
   private EventTemplateViewController eventTemplateViewController;
   private BracketViewController bracketViewController;
   private ViewModelFactory viewModelFactory;
@@ -27,8 +28,7 @@ public class ViewHandler {
 
   public void start(Stage primaryStage) {
     this.primaryStage = primaryStage;
-//    openView("LogIn");
-    openView("EventList");
+    openView("Login");
   }
 
   public void startPopup(Stage popupStage) {
@@ -61,9 +61,9 @@ public class ViewHandler {
     switch (id) {
       case "EventList" ->
           root = loadEventListViewController("EventListView.fxml");
-      case "EventDetails" -> root = loadEventDescriptionViewController(
-          "EventDescriptionView.fxml");
-      case "LogIn" -> root = loadLogInViewController("LogInView.fxml");
+      case "EventDetails" -> root = loadEventDescriptionViewController("EventDescriptionView.fxml");
+      case "Login" -> root = loadLogInViewController("LogInView.fxml");
+      case "Register" -> root = loadRegisterViewController("RegisterView.fxml");
     } currentScene.setRoot(root);
     String title = "";
     if (root.getUserData() != null) {
@@ -82,6 +82,24 @@ public class ViewHandler {
 
   public void closePopupView() {
     popupStage.close();
+  }
+  public Region loadRegisterViewController(String fxmlFile) {
+    if (registerViewController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        registerViewController = loader.getController();
+        registerViewController.init(this, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      registerViewController.reset();
+    }
+    return registerViewController.getRoot();
   }
 
   public Region loadLogInViewController(String fxmlFile) {

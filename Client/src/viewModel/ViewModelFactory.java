@@ -13,6 +13,7 @@ public class ViewModelFactory {
   private SimpleEventViewModel simpleEventViewModel;
   private DescriptionViewGeneralViewModel descriptionViewGeneralViewModel;
   private LogInViewModel logInViewModel;
+  private RegisterViewModel registerViewModel;
   private ViewState viewState;
   private EventListModel model;
 
@@ -56,5 +57,9 @@ public class ViewModelFactory {
   public BracketViewModel getBracketViewModel8() {
     bracketViewModel = new BracketViewModel(model, viewState);
     return bracketViewModel;
+  }
+  public RegisterViewModel getRegisterViewModel(){
+    registerViewModel = new RegisterViewModel(model);
+    return registerViewModel;
   }
 }

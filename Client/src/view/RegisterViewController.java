@@ -5,27 +5,24 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
-import viewModel.LogInViewModel;
+import viewModel.RegisterViewModel;
 import viewModel.ViewModelFactory;
 
-
-public class LogInViewController implements ViewController{
+public class RegisterViewController implements ViewController{
   @FXML private TextField userNameField;
+  @FXML private TextField displayNameField;
   @FXML private TextField passwordField;
   @FXML private Label errorLabel;
   @FXML private Hyperlink linkLabel;
   private ViewHandler viewHandler;
-  private LogInViewModel logInViewModel;
+  private RegisterViewModel registerViewModel;
   private Region root;
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory, Region root) {
     this.viewHandler = viewHandler;
-    logInViewModel = viewModelFactory.getLogInViewModel();
+    registerViewModel = viewModelFactory.getRegisterViewModel();
     this.root = root;
     errorLabel.textProperty().set("");
-    linkLabel.setVisited(false);
   }
 
   @Override public void reset() {
@@ -35,17 +32,20 @@ public class LogInViewController implements ViewController{
   @Override public Region getRoot() {
     return root;
   }
-  @FXML void OnEnter(){
-    passwordField.requestFocus();
+  @FXML void LoginAccount(){
+    linkLabel.setVisited(false);
+    viewHandler.openView("Login");
   }
-  @FXML void OnEnterPass(){
-    PressLoginButton();
-  }
-  @FXML void PressLoginButton(){
+  @FXML void PressRegisterButton(){
 
   }
-  @FXML void CreateAccount(){
-    linkLabel.setVisited(false);
-    viewHandler.openView("Register");
+  @FXML void OnEnterUser(){
+    displayNameField.requestFocus();
+  }
+  @FXML void OnEnterDisplay(){
+    passwordField.requestFocus();
+  }
+  @FXML void OnEnterPass() {
+    PressRegisterButton();
   }
 }
