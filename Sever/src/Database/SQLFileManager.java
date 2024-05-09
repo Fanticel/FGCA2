@@ -116,7 +116,7 @@ public class SQLFileManager implements FileManger {
           User user2 = UserListSingleton.getInstance().getUserList().getUserByUsername(rsMatch.getString("username2"));
           event.addMatch(user1, user2, score);
         }
-        if (event.getStatus().equals("In Progress")){
+        if (event.getStatus().equals("In progress")){
           while (event.getMatches().size() < event.getMaxParticipants() - 1){
             event.addMatch(null, null);
           }
@@ -160,7 +160,7 @@ public class SQLFileManager implements FileManger {
           "SELECT * FROM fgcadb.usertable");
       ResultSet rsUser = psUser.executeQuery();
       while (rsUser.next()){
-        if (rsUser.getString("role").equals("user")){
+        if (rsUser.getString("role").equalsIgnoreCase("user")){
           ans.add(new User(rsUser.getString("userName"), rsUser.getString("displayName"), rsUser.getString("password"), rsUser.getInt("BRP")));
         }
         else if (rsUser.getString("role").equals("moderator")){

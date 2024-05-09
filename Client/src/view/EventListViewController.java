@@ -2,14 +2,14 @@ package view;
 
 import Model.Event;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import viewModel.EventListViewModel;
 import viewModel.SimpleEventViewModel;
 import viewModel.ViewModelFactory;
@@ -21,27 +21,36 @@ public class EventListViewController implements ViewController
   private ViewHandler viewHandler;
   private EventListViewModel eventListViewModel;
   private Region root;
+  private ViewModelFactory viewModelFactory;
   @FXML private ScrollPane scrollPane;
   @FXML private TextField searchBar;
+  @FXML private Text filterError;
+  @FXML private Text searchError;
+  @FXML private Text noEventsError;
 
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory, Region root)
   {
+    this.viewModelFactory = viewModelFactory;
     this.viewHandler = viewHandler;
     eventListViewModel = viewModelFactory.getEventListViewModel();
     this.root = root;
     ArrayList<Event> allEvents = eventListViewModel.getAllEvents();
     VBox container = new VBox();
-    System.out.println("kurcina");
     for (Event event : allEvents)
     {
-      loadEventView(new SimpleEventViewModel(event), container);
+      loadEventView(viewModelFactory.getSimpleEventViewModel(event), container);
     }
+
+    filterError.setVisible(false);
+    searchError.setVisible(false);
+
+    searchBar.setPromptText("Search...");
 
     // Add event listener to search bar
     searchBar.setOnKeyReleased(event -> {
       String query = searchBar.getText().toLowerCase();
-      filterEvents(query);
+      searchEvents(query);
     });
   }
 
@@ -67,7 +76,7 @@ public class EventListViewController implements ViewController
     scrollPane.setFitToWidth(true);
   }
 
-  private void filterEvents(String query)
+  private void searchEvents(String query)
   {
     ArrayList<Event> allEvents = eventListViewModel.getAllEvents();
     VBox container = new VBox();
@@ -75,10 +84,75 @@ public class EventListViewController implements ViewController
     {
       if (event.getTittle().toLowerCase().contains(query))
       {
-        loadEventView(new SimpleEventViewModel(event), container);
+        loadEventView(viewModelFactory.getSimpleEventViewModel(event),
+            container);
+        searchError.setVisible(false);
+      }
+      else
+      {
+        searchError.setVisible(true);
       }
     }
     scrollPane.setContent(container);
+  }
+
+  private void filterEvents(ArrayList<Event> eventsToFilter)
+  {
+    VBox container = new VBox();
+    for (Event event : eventsToFilter)
+    {
+      loadEventView(viewModelFactory.getSimpleEventViewModel(event), container);
+    }
+    scrollPane.setContent(container);
+  }
+
+  @FXML private void filterByGame(ActionEvent event)
+  {
+    MenuItem menuItem = (MenuItem) event.getSource();
+    String game = menuItem.getText();
+    eventListViewModel.getEventsByGame(game);
+    ArrayList<Event> gameEvents = eventListViewModel.getEventsByGame(game);
+    filterError.setVisible(gameEvents.isEmpty());
+    filterEvents(gameEvents);
+  }
+
+  @FXML private void filterBySkillLevel(ActionEvent event)
+  {
+    MenuItem menuItem = (MenuItem) event.getSource();
+    String skillLevel = menuItem.getText();
+    ArrayList<Event> skillLevelEvents = eventListViewModel.getEventsBySkillLevel(
+        skillLevel);
+    filterError.setVisible(skillLevelEvents.isEmpty());
+    filterEvents(skillLevelEvents);
+  }
+
+  @FXML private void filterByStatus(ActionEvent event)
+  {
+    MenuItem menuItem = (MenuItem) event.getSource();
+    String status = menuItem.getText();
+    ArrayList<Event> statusEvents = eventListViewModel.getEventsByStatus(
+        status);
+    filterError.setVisible(statusEvents.isEmpty());
+    filterEvents(statusEvents);
+  }
+
+  @FXML private void filterAny()
+  {
+    ArrayList<Event> allEvents = eventListViewModel.getAllEvents();
+    VBox container = new VBox();
+    if (!allEvents.isEmpty())
+    {
+      filterError.setVisible(false);
+      for (Event event : allEvents)
+      {
+        loadEventView(viewModelFactory.getSimpleEventViewModel(event),
+            container);
+      }
+    }
+    else
+    {
+      filterError.setVisible(true);
+    }
   }
 
   @Override public void reset()

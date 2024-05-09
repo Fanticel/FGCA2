@@ -9,6 +9,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.scene.layout.VBox;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -21,13 +22,13 @@ public class EventListViewModel implements PropertyChangeListener
   private ObservableList<SimpleEventViewModel> list;
   private ObjectProperty<SimpleEventViewModel> selectedEventProperty;
   private StringProperty errorProperty;
-  private ViewModelState viewModelState;
+  private ViewState viewState;
 
-  public EventListViewModel(EventListModel model, ViewModelState viewModelState)
+  public EventListViewModel(EventListModel model, ViewState viewState)
   {
     this.model = model;
     this.model.addListener("Event", this);
-    this.viewModelState = viewModelState;
+    this.viewState = viewState;
     selectedEventProperty = new SimpleObjectProperty<>();
     errorProperty = new SimpleStringProperty();
     list = FXCollections.observableArrayList();
@@ -50,11 +51,11 @@ public class EventListViewModel implements PropertyChangeListener
     }
   }*/
 
-  public boolean seeDetails()
+  /*public boolean seeDetails()
   {
     if (selectedEventProperty.get() != null)
     {
-      viewModelState
+      viewState
           .setEventTittle(selectedEventProperty.get().getTittleProperty().get());
       return true;
     }
@@ -63,7 +64,7 @@ public class EventListViewModel implements PropertyChangeListener
       errorProperty.set("No selection");
       return false;
     }
-  }
+  }*/
 
   public ObservableList<SimpleEventViewModel> getAll()
   {
@@ -96,6 +97,25 @@ public class EventListViewModel implements PropertyChangeListener
       }
     }
   }
+
+  public ArrayList<Event> getEventsByGame(String game) {
+    return model.getEventsByGame(game);
+  }
+
+  public ArrayList<Event> getEventsBySkillLevel(String skillLevel) {
+    return model.getEventsBySkillLevel(skillLevel);
+  }
+
+  public ArrayList<Event> getEventsByStatus(String status) {
+    return model.getEventsByStatus(status);
+  }
+
+//  private void updateList(ArrayList<Event> events) {
+//    list.clear();
+//    for (Event event : events) {
+//      list.add(new SimpleEventViewModel(event));
+//    }
+//  }
 
   private void addSimpleEvent(Event event)
   {

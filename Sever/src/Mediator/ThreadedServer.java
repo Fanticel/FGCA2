@@ -29,7 +29,7 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
   private boolean working;
   private Gson gson;
   private User thisUser;
-  EventListModel model;
+  private EventListModel model;
 
   public ThreadedServer(ServerSocket welcomeSocket, ServerMaster serverMaster,
       EventListModel model) {
@@ -89,7 +89,7 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
             gson.toJson(eventListPackage),
             "AllEvents");
       }
-      case "ADDEVENT" -> {model.addEvent(gson.fromJson(reqSplit[1], EventInformationPackage.class).convertToEvent());}
+//      case "ADDEVENT" -> {model.addEvent(gson.fromJson(reqSplit[1], EventInformationPackage.class).convertToEvent());}
       case "GETEVENT" -> {
         if (model.getEvent(reqSplit[1])!=null){
           serverMaster.privateAnswer(this, gson.toJson(new EventInformationPackage(model.getEvent(reqSplit[1]))), "GetEvent");
@@ -98,7 +98,10 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
           serverMaster.privateAnswer(this, "Error, no such event exists_;_true", "Notification");
         }
       }
-      case "SIGNUPTOEVENT" -> {model.addParticipant(reqSplit[1], thisUser);}
+      case "SIGNUPTOEVENT" -> {
+        ArrayList<Object> ans = model.addParticipant(reqSplit[1], thisUser);
+        serverMaster.privateAnswer(this, ans.get(0) + "_;_" + ans.get(1), "Notification");
+      }
       case "LOG" -> {
         if (UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[1])!=null){
           thisUser = UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[1]);
@@ -106,12 +109,14 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
         }
         else {
           thisUser = new User(reqSplit[1], reqSplit[2], reqSplit[3]);
+          UserListSingleton.getInstance().getUserList().addUser(thisUser);
+          model.registerUser(thisUser);
           System.out.println("notpoglog");
         }
         serverMaster.addListener(thisUser, this);
       }
       case "CONFIRMPARTICIPATION" -> {model.checkIn(reqSplit[1], gson.fromJson(reqSplit[2], User.class));}
-      case "STARTVOTING" -> {model.checkIn(reqSplit[1], gson.fromJson(reqSplit[2], User.class));}
+//      case "STARTVOTING" -> {model.checkIn(reqSplit[1], gson.fromJson(reqSplit[2], User.class));}
       case "^Q" -> {
         working = false;
         currentSocket.close();

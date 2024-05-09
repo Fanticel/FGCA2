@@ -1,45 +1,65 @@
 package viewModel;
 
+import Model.Event;
 import Model.EventListModel;
+import Model.EventListModelManager;
 
-public class ViewModelFactory
-{
+public class ViewModelFactory {
   private EventListViewModel eventListViewModel;
   private EventDescriptionViewModel eventDescriptionViewModel;
   private NotificationPopupViewModel notificationPopupViewModel;
   private BracketViewModel bracketViewModel;
 
   private SimpleEventViewModel simpleEventViewModel;
-  private ViewModelState viewModelState;
-  public ViewModelFactory(EventListModel model)
-  {
-    ViewModelState viewModelState = new ViewModelState();
-    eventListViewModel = new EventListViewModel(model, viewModelState);
-    eventDescriptionViewModel = new EventDescriptionViewModel(model, viewModelState); // <-
-    notificationPopupViewModel = new NotificationPopupViewModel(model, viewModelState);
-    bracketViewModel = new BracketViewModel(model, viewModelState);
-//    simpleEventViewModel = new SimpleEventViewModel(model);
+  private DescriptionViewGeneralViewModel descriptionViewGeneralViewModel;
+  private LogInViewModel logInViewModel;
+  private RegisterViewModel registerViewModel;
+  private ViewState viewState;
+  private EventListModel model;
+
+  public ViewModelFactory(EventListModel model) {
+    this.model = model;
+    viewState = ViewState.getInstance();
+  }
+  public LogInViewModel getLogInViewModel(){
+    logInViewModel = new LogInViewModel(model);
+    return logInViewModel;
   }
 
-  public EventListViewModel getEventListViewModel()
-  {
+  public EventListViewModel getEventListViewModel() {
+    eventListViewModel = new EventListViewModel(model, viewState);
     return eventListViewModel;
   }
 
-  public EventDescriptionViewModel getEventDetailsViewModel()
-  {
+  public EventDescriptionViewModel getEventDetailsViewModel() {
+    eventDescriptionViewModel = new EventDescriptionViewModel(model,
+        viewState);
     return eventDescriptionViewModel;
   }
-  public NotificationPopupViewModel getNotificationPopupViewModel(){
+
+  public DescriptionViewGeneralViewModel getDescriptionViewGeneralViewModel() {
+    descriptionViewGeneralViewModel = new DescriptionViewGeneralViewModel(model,
+        viewState);
+    return descriptionViewGeneralViewModel;
+  }
+
+  public NotificationPopupViewModel getNotificationPopupViewModel() {
+    notificationPopupViewModel = new NotificationPopupViewModel(model,
+        viewState);
     return notificationPopupViewModel;
   }
 
-  public BracketViewModel getBracketViewModel8()
-  {
+  public SimpleEventViewModel getSimpleEventViewModel(Event event) {
+    simpleEventViewModel = new SimpleEventViewModel(event, model);
+    return simpleEventViewModel;
+  }
+
+  public BracketViewModel getBracketViewModel8() {
+    bracketViewModel = new BracketViewModel(model, viewState);
     return bracketViewModel;
   }
-  //  public SimpleEventViewModel getSimpleEventViewModel(){
-//    return simpleEventViewModel;
-//  }
-  // change yay
+  public RegisterViewModel getRegisterViewModel(){
+    registerViewModel = new RegisterViewModel(model);
+    return registerViewModel;
+  }
 }

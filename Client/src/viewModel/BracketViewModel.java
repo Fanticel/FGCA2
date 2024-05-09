@@ -13,16 +13,15 @@ public class BracketViewModel
   private ObservableList<SimpleStringProperty> labels;
   private ObservableList<SimpleBooleanProperty> visibleButtons;
   private EventListModel model;
-  private ViewModelState viewModelState;
+  private ViewState viewState;
 
-  public BracketViewModel(EventListModel model, ViewModelState viewModelState)
+  public BracketViewModel(EventListModel model, ViewState viewState)
   {
     this.model = model;
-    this.viewModelState = viewModelState;
+    this.viewState = viewState;
     labels = FXCollections.observableArrayList();
     visibleButtons = FXCollections.observableArrayList();
-    Event event = model.getEvent("Sample event");
-    System.out.println(event);
+    Event event = model.getEvent(viewState.getTittle());
     for (Match match : event.getMatches())
     {
       String[] scores = match.getScore().split("-");
@@ -31,7 +30,7 @@ public class BracketViewModel
         labels.add(new SimpleStringProperty(""));
       }
       else {
-        labels.add(new SimpleStringProperty(match.getPlayers().get(0).getUsername()));
+        labels.add(new SimpleStringProperty(match.getPlayers().get(0).getDisplayName()));
         labels.add(new SimpleStringProperty(scores[0]));
       }
       if (match.getPlayers().get(1) == null){
@@ -39,7 +38,7 @@ public class BracketViewModel
         labels.add(new SimpleStringProperty(""));
       }
       else {
-        labels.add(new SimpleStringProperty(match.getPlayers().get(1).getUsername()));
+        labels.add(new SimpleStringProperty(match.getPlayers().get(1).getDisplayName()));
         labels.add(new SimpleStringProperty(scores[1]));
       }
       if (match.getPlayers().get(0) != null && match.getPlayers().get(1) != null){
@@ -49,7 +48,6 @@ public class BracketViewModel
         visibleButtons.add(new SimpleBooleanProperty(false));
       }
     }
-
   }
 
   public ObservableList<SimpleStringProperty> getLabels()
@@ -63,6 +61,34 @@ public class BracketViewModel
   }
 
   public void reset(){
-
+    labels.clear();
+    visibleButtons.clear();
+    Event event = model.getEvent(viewState.getTittle());
+    for (Match match : event.getMatches())
+    {
+      String[] scores = match.getScore().split("-");
+      if (match.getPlayers().get(0) == null){
+        labels.add(new SimpleStringProperty());
+        labels.add(new SimpleStringProperty(""));
+      }
+      else {
+        labels.add(new SimpleStringProperty(match.getPlayers().get(0).getDisplayName()));
+        labels.add(new SimpleStringProperty(scores[0]));
+      }
+      if (match.getPlayers().get(1) == null){
+        labels.add(new SimpleStringProperty());
+        labels.add(new SimpleStringProperty(""));
+      }
+      else {
+        labels.add(new SimpleStringProperty(match.getPlayers().get(1).getDisplayName()));
+        labels.add(new SimpleStringProperty(scores[1]));
+      }
+      if (match.getPlayers().get(0) != null && match.getPlayers().get(1) != null){
+        visibleButtons.add(new SimpleBooleanProperty(true));
+      }
+      else {
+        visibleButtons.add(new SimpleBooleanProperty(false));
+      }
+    }
   }
 }

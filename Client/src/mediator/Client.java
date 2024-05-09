@@ -79,7 +79,6 @@ public class Client implements EventListModel
     {
       throw new RuntimeException(e);
     }
-    System.out.println(gson.fromJson(answer, EventInformationPackage.class));
     return gson.fromJson(answer, EventInformationPackage.class).convertToEvent();
   }
 
@@ -91,7 +90,7 @@ public class Client implements EventListModel
             organizer)));
   }
 
-  @Override public void addParticipant(String eventTittle, User user)
+  @Override public void addParticipant(String eventTittle)
   {
     out.println("signUpToEvent;" + eventTittle);
   }
@@ -139,6 +138,64 @@ public class Client implements EventListModel
   @Override public void startVoting(Event eventTitle, Match match)
   {
     out.println("startVoting;" + eventTitle + ";" + "match");
+  }
+
+  @Override public ArrayList<Event> getEventsByGame(String game)
+  {
+    ArrayList<Event> allEvents = getAllEvents();
+    ArrayList<Event> eventsByGame = new ArrayList<>();
+
+    for (Event allEvent : allEvents)
+    {
+      if (allEvent.getGame().toUpperCase().contains(game.toUpperCase()))
+      {
+        eventsByGame.add(allEvent);
+      }
+    }
+    return eventsByGame;
+  }
+
+  @Override
+  public ArrayList<Event> getEventsBySkillLevel(String skillLevel) {
+    ArrayList<Event> allEvents = getAllEvents();
+    ArrayList<Event> eventsBySkillLevel = new ArrayList<>();
+
+    for (Event event : allEvents) {
+      int eventMinBRP = event.getMinBRP();
+      int eventMaxBRP = event.getMaxBRP();
+
+      if ("Beginner (0-999)".equals(skillLevel) && eventMaxBRP >= 0 && eventMinBRP <= 999) {
+        eventsBySkillLevel.add(event);
+      } else if ("Semi-pro (1000-1999)".equals(skillLevel) && eventMaxBRP >= 1000 && eventMinBRP <= 1999) {
+        eventsBySkillLevel.add(event);
+      } else if ("Advanced (2000-2999)".equals(skillLevel) && eventMaxBRP >= 2000 && eventMinBRP <= 2999) {
+        eventsBySkillLevel.add(event);
+      } else if ("Expert (3000-3999)".equals(skillLevel) && eventMaxBRP >= 3000 && eventMinBRP <= 3999) {
+        eventsBySkillLevel.add(event);
+      } else if ("Master (4000+)".equals(skillLevel) && eventMinBRP >= 4000) {
+        eventsBySkillLevel.add(event);
+      }
+    }
+    return eventsBySkillLevel;
+  }
+
+
+
+
+
+  @Override public ArrayList<Event> getEventsByStatus(String status)
+  {
+    ArrayList<Event> allEvents = getAllEvents();
+    ArrayList<Event> eventsByStatus = new ArrayList<>();
+
+    for (Event allEvent : allEvents)
+    {
+      if (status.equals(allEvent.getStatus()))
+      {
+        eventsByStatus.add(allEvent);
+      }
+    }
+    return eventsByStatus;
   }
 
   public synchronized void receivedNotification(String message, boolean error){

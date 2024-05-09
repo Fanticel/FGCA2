@@ -112,6 +112,12 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
   public ArrayList<Object> addParticipant(User user)
   {
     ArrayList<Object> response = new ArrayList<>();
+//    System.out.println(participants + "\n\n" + user);
+    if (participants.contains(user)){
+      response.add("You are already registered for this event!");
+      response.add(true);
+      return response;
+    }
     if (participants.size() >= maxParticipants)
     {
       response.add("Maximum number of participants reached!");

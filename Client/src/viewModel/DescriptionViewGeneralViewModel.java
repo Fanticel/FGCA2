@@ -5,13 +5,13 @@ import Model.EventListModel;
 import Model.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class EventDescriptionViewModel implements PropertyChangeListener
-{
-//  private ViewState viewState;
+public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
   private StringProperty errorProperty;
   private StringProperty tittleProperty;
   private StringProperty organizerProperty;
@@ -21,10 +21,10 @@ public class EventDescriptionViewModel implements PropertyChangeListener
   private StringProperty BRPRangeProperty;
   private StringProperty participantsNumberProperty;//property for how many participant there are and can join
   private StringProperty participantsListProperty;
-
+  private ObservableList<SimplePlayerViewModel> list;
   private EventListModel model;
 
-  public EventDescriptionViewModel(EventListModel model,
+  public DescriptionViewGeneralViewModel(EventListModel model,
       ViewState viewState)
   {
     this.model = model;
@@ -39,15 +39,16 @@ public class EventDescriptionViewModel implements PropertyChangeListener
     BRPRangeProperty = new SimpleStringProperty();
     participantsNumberProperty = new SimpleStringProperty();
     participantsListProperty = new SimpleStringProperty();
+    list = FXCollections.observableArrayList();
     reset();
   }
 
   public void reset()
   {
-    System.out.println("\n\n_________\n\n"+ViewState.getInstance().getTittle());
     Event event = model.getEvent(ViewState.getInstance().getTittle());
-    System.out.println(ViewState.getInstance().getTittle());
+    errorProperty.set("");
     tittleProperty.set(event.getTittle());
+//    organizerProperty.set(event.getOrganizer().getUsername());
     statusProperty.set(event.getStatus());
     gameProperty.set(event.getGame());
     dateProperty.set(event.getStartingHour() + ", " + event.getStartDate());
@@ -57,14 +58,12 @@ public class EventDescriptionViewModel implements PropertyChangeListener
         + event.getMaxParticipants());
     if (event.getParticipants().isEmpty())
     {
-      participantsListProperty.set("No participants yet.");
+      //participantsListProperty.set("No participants yet.");
     }else {
-      String string = "";
       for (User participant : event.getParticipants())
       {
-        string += participant.getDisplayName() + System.lineSeparator();
+        list.add(new SimplePlayerViewModel(participant, model));
       }
-      participantsListProperty.set(string);
     }
   }
 
@@ -100,15 +99,14 @@ public class EventDescriptionViewModel implements PropertyChangeListener
     return BRPRangeProperty;
   }
 
-  public String getParticipantsNumber()
+  public StringProperty getParticipantsProperty()
   {
-    return participantsNumberProperty.get();
+    return participantsNumberProperty;
   }
 
-  public String getMaxParticipants()
+  public ObservableList<SimplePlayerViewModel> getList()
   {
-    String[] strings = getParticipantsNumber().split("/");
-    return strings[1];
+    return list;
   }
 
   private void join()
