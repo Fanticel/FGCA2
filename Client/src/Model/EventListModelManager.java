@@ -1,5 +1,6 @@
 package Model;
 
+import com.google.gson.Gson;
 import mediator.Client;
 
 import java.beans.PropertyChangeEvent;
@@ -15,8 +16,10 @@ public class EventListModelManager implements EventListModel,
   private PropertyChangeSupport property;
   private Client client;
   private User user;
+  private Gson gson;
 
   public EventListModelManager(Socket socket) throws IOException {
+    gson = new Gson();
     client = new Client(socket, this);
     property = new PropertyChangeSupport(this);
     //placeholder before user login
@@ -107,6 +110,24 @@ public class EventListModelManager implements EventListModel,
   @Override public void checkIn(String eventTittle, User user)
   {
     client.checkIn(eventTittle, user);
+  }
+
+  @Override public String login(String username, String password) {
+    String ans = client.login(username, password);
+    if (ans.split(";")[0].equals("pog")){
+      if (ans.split(";")[1].equals("class Model.Moderator")){
+        user = gson.fromJson(ans.split(";")[2], Moderator.class);
+      }
+      else {
+        user = gson.fromJson(ans.split(";")[2], User.class);
+      }
+    }
+    System.out.println(user);
+    return client.login(username, password).split(";")[0];
+  }
+
+  @Override public String register(String username,String display, String password) {
+    return null;
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)

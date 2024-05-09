@@ -32,7 +32,7 @@ public class EventDescriptionViewController implements ViewController {
         .bind(eventDescriptionViewModel.getTittleProperty());
     Tab tab1 = new Tab("Details");
     Tab tab2 = new Tab("Bracket");
-    Tab tab3 = new Tab("");
+    Tab tab3 = new Tab("Chat");
     tab1.setContent(loadEventDescriptionViewController("DescriptionViewGeneral.fxml"));
     tabPane.getTabs().add(tab1);
     if (eventDescriptionViewModel.getStatusProperty().get().contains("In progress") || eventDescriptionViewModel.getStatusProperty().get().contains("Finished")){
@@ -47,6 +47,7 @@ public class EventDescriptionViewController implements ViewController {
       tab2.disableProperty().set(true);
     }
     tabPane.getTabs().add(tab2);
+    tabPane.getTabs().add(tab3);
   }
 
   @Override public void reset() {

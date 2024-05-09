@@ -37,7 +37,7 @@ public class RegisterViewController implements ViewController{
     viewHandler.openView("Login");
   }
   @FXML void PressRegisterButton(){
-
+    System.err.println("Going to implement the register logic");
   }
   @FXML void OnEnterUser(){
     displayNameField.requestFocus();

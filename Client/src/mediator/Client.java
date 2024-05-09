@@ -198,6 +198,24 @@ public class Client implements EventListModel
     return eventsByStatus;
   }
 
+  @Override public synchronized String login(String username, String password) {
+    out.println("log;" + username+";"+password);
+    try
+    {
+      wait();
+    }
+    catch (InterruptedException e)
+    {
+      throw new RuntimeException(e);
+    }
+    System.out.println(answer);
+    return answer;
+  }
+
+  @Override public synchronized String register(String username,String display, String password) {
+    return null;
+  }
+
   public synchronized void receivedNotification(String message, boolean error){
     property.firePropertyChange(new PropertyChangeEvent(this, "Notification", error, message));
   }
