@@ -147,7 +147,7 @@ public class Client implements EventListModel
 
     for (Event allEvent : allEvents)
     {
-      if (game.equals(allEvent.getGame()))
+      if (allEvent.getGame().toUpperCase().contains(game.toUpperCase()))
       {
         eventsByGame.add(allEvent);
       }
@@ -155,20 +155,33 @@ public class Client implements EventListModel
     return eventsByGame;
   }
 
-  @Override public ArrayList<Event> getEventsBySkillLevel(String skillLevel)
-  {
+  @Override
+  public ArrayList<Event> getEventsBySkillLevel(String skillLevel) {
     ArrayList<Event> allEvents = getAllEvents();
     ArrayList<Event> eventsBySkillLevel = new ArrayList<>();
 
-    for (Event allEvent : allEvents)
-    {
-      if (skillLevel.equals(allEvent.getGame()))
-      {
-        eventsBySkillLevel.add(allEvent);
+    for (Event event : allEvents) {
+      int eventMinBRP = event.getMinBRP();
+      int eventMaxBRP = event.getMaxBRP();
+
+      if ("Beginner (0-999)".equals(skillLevel) && eventMaxBRP >= 0 && eventMinBRP <= 999) {
+        eventsBySkillLevel.add(event);
+      } else if ("Semi-pro (1000-1999)".equals(skillLevel) && eventMaxBRP >= 1000 && eventMinBRP <= 1999) {
+        eventsBySkillLevel.add(event);
+      } else if ("Advanced (2000-2999)".equals(skillLevel) && eventMaxBRP >= 2000 && eventMinBRP <= 2999) {
+        eventsBySkillLevel.add(event);
+      } else if ("Expert (3000-3999)".equals(skillLevel) && eventMaxBRP >= 3000 && eventMinBRP <= 3999) {
+        eventsBySkillLevel.add(event);
+      } else if ("Master (4000+)".equals(skillLevel) && eventMinBRP >= 4000) {
+        eventsBySkillLevel.add(event);
       }
     }
     return eventsBySkillLevel;
   }
+
+
+
+
 
   @Override public ArrayList<Event> getEventsByStatus(String status)
   {
@@ -177,7 +190,7 @@ public class Client implements EventListModel
 
     for (Event allEvent : allEvents)
     {
-      if (status.equals(allEvent.getGame()))
+      if (status.equals(allEvent.getStatus()))
       {
         eventsByStatus.add(allEvent);
       }

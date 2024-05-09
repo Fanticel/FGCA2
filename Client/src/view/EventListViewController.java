@@ -6,12 +6,10 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
-import javafx.scene.control.Button;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import viewModel.EventListViewModel;
 import viewModel.SimpleEventViewModel;
 import viewModel.ViewModelFactory;
@@ -26,6 +24,9 @@ public class EventListViewController implements ViewController
   private ViewModelFactory viewModelFactory;
   @FXML private ScrollPane scrollPane;
   @FXML private TextField searchBar;
+  @FXML private Text filterError;
+  @FXML private Text searchError;
+  @FXML private Text noEventsError;
 
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory, Region root)
@@ -40,6 +41,11 @@ public class EventListViewController implements ViewController
     {
       loadEventView(viewModelFactory.getSimpleEventViewModel(event), container);
     }
+
+    filterError.setVisible(false);
+    searchError.setVisible(false);
+
+    searchBar.setPromptText("Search...");
 
     // Add event listener to search bar
     searchBar.setOnKeyReleased(event -> {
@@ -78,7 +84,13 @@ public class EventListViewController implements ViewController
     {
       if (event.getTittle().toLowerCase().contains(query))
       {
-        loadEventView(viewModelFactory.getSimpleEventViewModel(event), container);
+        loadEventView(viewModelFactory.getSimpleEventViewModel(event),
+            container);
+        searchError.setVisible(false);
+      }
+      else
+      {
+        searchError.setVisible(true);
       }
     }
     scrollPane.setContent(container);
@@ -99,7 +111,8 @@ public class EventListViewController implements ViewController
     MenuItem menuItem = (MenuItem) event.getSource();
     String game = menuItem.getText();
     eventListViewModel.getEventsByGame(game);
-    ArrayList<Event> gameEvents=eventListViewModel.getEventsBySkillLevel(game);
+    ArrayList<Event> gameEvents = eventListViewModel.getEventsByGame(game);
+    filterError.setVisible(gameEvents.isEmpty());
     filterEvents(gameEvents);
   }
 
@@ -107,7 +120,9 @@ public class EventListViewController implements ViewController
   {
     MenuItem menuItem = (MenuItem) event.getSource();
     String skillLevel = menuItem.getText();
-    ArrayList<Event> skillLevelEvents=eventListViewModel.getEventsBySkillLevel(skillLevel);
+    ArrayList<Event> skillLevelEvents = eventListViewModel.getEventsBySkillLevel(
+        skillLevel);
+    filterError.setVisible(skillLevelEvents.isEmpty());
     filterEvents(skillLevelEvents);
   }
 
@@ -117,15 +132,26 @@ public class EventListViewController implements ViewController
     String status = menuItem.getText();
     ArrayList<Event> statusEvents = eventListViewModel.getEventsByStatus(
         status);
+    filterError.setVisible(statusEvents.isEmpty());
     filterEvents(statusEvents);
   }
 
-  @FXML private void filterAny(){
+  @FXML private void filterAny()
+  {
     ArrayList<Event> allEvents = eventListViewModel.getAllEvents();
     VBox container = new VBox();
-    for (Event event : allEvents)
+    if (!allEvents.isEmpty())
     {
-      loadEventView(viewModelFactory.getSimpleEventViewModel(event), container);
+      filterError.setVisible(false);
+      for (Event event : allEvents)
+      {
+        loadEventView(viewModelFactory.getSimpleEventViewModel(event),
+            container);
+      }
+    }
+    else
+    {
+      filterError.setVisible(true);
     }
   }
 
