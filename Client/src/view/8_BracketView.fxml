@@ -26,9 +26,9 @@
                 <Insets />
             </VBox.margin>
         </HBox>
-        <ScrollPane prefHeight="533.0" prefWidth="728.0" style="-fx-background-color: black;">
+        <ScrollPane prefHeight="533.0" prefWidth="728.0" style="-fx-background-color: black;" VBox.vgrow="ALWAYS">
             <content>
-                <HBox fx:id="startHbox" prefHeight="2675.0" prefWidth="1669.0">
+                <HBox fx:id="startHbox" prefHeight="600.0" prefWidth="800.0">
                     <children>
                         <VBox alignment="TOP_CENTER" prefHeight="2673.0" prefWidth="253.0">
                             <children>
@@ -70,7 +70,7 @@
                                         </VBox>
                                         <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
                                             <HBox.margin>
-                                                <Insets bottom="20.0" top="15.0" />
+                                                <Insets bottom="20.0" left="4.0" top="15.0" />
                                             </HBox.margin>
                                         </Button>
                                     </children>
@@ -109,7 +109,7 @@
                               </VBox>
                               <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
                                  <HBox.margin>
-                                    <Insets bottom="20.0" top="15.0" />
+                                    <Insets bottom="20.0" left="4.0" top="15.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
@@ -148,7 +148,7 @@
                               </VBox>
                               <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
                                  <HBox.margin>
-                                    <Insets bottom="20.0" top="15.0" />
+                                    <Insets bottom="20.0" left="4.0" top="15.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
@@ -187,7 +187,7 @@
                               </VBox>
                               <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
                                  <HBox.margin>
-                                    <Insets bottom="20.0" top="15.0" />
+                                    <Insets bottom="20.0" left="4.0" top="15.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
@@ -240,7 +240,7 @@
                                         </VBox>
                                         <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
                                             <HBox.margin>
-                                                <Insets bottom="28.0" top="10.0" />
+                                                <Insets bottom="28.0" left="4.0" top="10.0" />
                                             </HBox.margin>
                                         </Button>
                                     </children>
@@ -285,7 +285,7 @@
                               </VBox>
                               <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
                                  <HBox.margin>
-                                    <Insets bottom="28.0" top="15.0" />
+                                    <Insets bottom="28.0" left="4.0" top="15.0" />
                                  </HBox.margin>
                               </Button>
                            </children>
@@ -336,7 +336,7 @@
                                         </VBox>
                                         <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
                                             <HBox.margin>
-                                                <Insets bottom="28.0" top="15.0" />
+                                                <Insets bottom="28.0" left="4.0" top="15.0" />
                                             </HBox.margin>
                                         </Button>
                                     </children>
