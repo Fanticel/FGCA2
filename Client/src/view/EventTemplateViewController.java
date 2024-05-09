@@ -70,8 +70,7 @@ public class EventTemplateViewController {
   }
 
   @FXML void pressDetailsButton() {
-    ViewState.getInstance().setTittle(eventTitle.getText());
-    System.out.println(ViewState.getInstance().getTittle());
+    eventTemplateViewModel.setViewModel(eventTitle.getText());
     viewHandler.openView("EventDetails");
   }
   @FXML void pressRegisterButton(){

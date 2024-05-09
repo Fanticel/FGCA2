@@ -32,18 +32,20 @@ public class EventDescriptionViewController implements ViewController {
         .bind(eventDescriptionViewModel.getTittleProperty());
     Tab tab1 = new Tab("Details");
     Tab tab2 = new Tab("Bracket");
+    Tab tab3 = new Tab("");
     tab1.setContent(loadEventDescriptionViewController("DescriptionViewGeneral.fxml"));
-    switch (eventDescriptionViewModel.getMaxParticipants()) {
-      case "8" ->
-      {
-        tab2.setContent(loadBracketViewController("8_BracketView.fxml"));
-      }
-      case "16" -> tab2.setContent(loadBracketViewController("16_BracketView.fxml"));
-      case "32" -> tab2.setContent(loadBracketViewController("32_BracketView.fxml"));
-      case "64" -> tab2.setContent(loadBracketViewController("64_BracketView.fxml"));
-
-    }
     tabPane.getTabs().add(tab1);
+    if (eventDescriptionViewModel.getStatusProperty().get().contains("In progress") || eventDescriptionViewModel.getStatusProperty().get().contains("Finished")){
+      switch (eventDescriptionViewModel.getMaxParticipants()) {
+        case "8" -> tab2.setContent(loadBracketViewController("8_BracketView.fxml"));
+        case "16" -> tab2.setContent(loadBracketViewController("16_BracketView.fxml"));
+        case "32" -> tab2.setContent(loadBracketViewController("32_BracketView.fxml"));
+        case "64" -> tab2.setContent(loadBracketViewController("64_BracketView.fxml"));
+      }
+    }
+    else {
+      tab2.disableProperty().set(true);
+    }
     tabPane.getTabs().add(tab2);
   }
 
