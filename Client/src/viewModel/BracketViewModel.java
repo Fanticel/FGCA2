@@ -30,7 +30,7 @@ public class BracketViewModel
         labels.add(new SimpleStringProperty(""));
       }
       else {
-        labels.add(new SimpleStringProperty(match.getPlayers().get(0).getUsername()));
+        labels.add(new SimpleStringProperty(match.getPlayers().get(0).getDisplayName()));
         labels.add(new SimpleStringProperty(scores[0]));
       }
       if (match.getPlayers().get(1) == null){
@@ -38,7 +38,7 @@ public class BracketViewModel
         labels.add(new SimpleStringProperty(""));
       }
       else {
-        labels.add(new SimpleStringProperty(match.getPlayers().get(1).getUsername()));
+        labels.add(new SimpleStringProperty(match.getPlayers().get(1).getDisplayName()));
         labels.add(new SimpleStringProperty(scores[1]));
       }
       if (match.getPlayers().get(0) != null && match.getPlayers().get(1) != null){
@@ -72,7 +72,7 @@ public class BracketViewModel
         labels.add(new SimpleStringProperty(""));
       }
       else {
-        labels.add(new SimpleStringProperty(match.getPlayers().get(0).getUsername()));
+        labels.add(new SimpleStringProperty(match.getPlayers().get(0).getDisplayName()));
         labels.add(new SimpleStringProperty(scores[0]));
       }
       if (match.getPlayers().get(1) == null){
@@ -80,7 +80,7 @@ public class BracketViewModel
         labels.add(new SimpleStringProperty(""));
       }
       else {
-        labels.add(new SimpleStringProperty(match.getPlayers().get(1).getUsername()));
+        labels.add(new SimpleStringProperty(match.getPlayers().get(1).getDisplayName()));
         labels.add(new SimpleStringProperty(scores[1]));
       }
       if (match.getPlayers().get(0) != null && match.getPlayers().get(1) != null){
