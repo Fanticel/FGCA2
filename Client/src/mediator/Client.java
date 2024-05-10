@@ -95,9 +95,9 @@ public class Client implements EventListModel
     out.println("signUpToEvent;" + eventTittle);
   }
 
-  @Override public void checkIn(String eventTittle, User user)
+  @Override public void checkIn(String eventTittle)
   {
-    out.println("confirmParticipation;" + eventTittle + ";" + gson.toJson(user));
+    out.println("confirmParticipation;" + eventTittle);
   }
 
   @Override public void removeParticipant(Event event, User user)

@@ -137,7 +137,7 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
 
   }
   public void checkIn(){
-    model.checkIn(getTittleProperty().get(), model.getUser());
+    model.checkIn(getTittleProperty().get());
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)
