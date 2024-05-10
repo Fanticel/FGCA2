@@ -8,26 +8,21 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-import java.util.ArrayList;
-
 public class BracketViewModel
 {
   private ObservableList<SimpleStringProperty> labels;
   private ObservableList<SimpleBooleanProperty> visibleButtons;
   private EventListModel model;
   private ViewState viewState;
-  private ArrayList<Match> matches;
 
   public BracketViewModel(EventListModel model, ViewState viewState)
   {
     this.model = model;
     this.viewState = viewState;
-    matches = new ArrayList<>();
     labels = FXCollections.observableArrayList();
     visibleButtons = FXCollections.observableArrayList();
     Event event = model.getEvent(viewState.getTittle());
-    matches = event.getMatches();
-    for (Match match : matches)
+    for (Match match : event.getMatches())
     {
       String[] scores = match.getScore().split("-");
       if (match.getPlayers().get(0) == null){
@@ -95,9 +90,5 @@ public class BracketViewModel
         visibleButtons.add(new SimpleBooleanProperty(false));
       }
     }
-  }
-  public void startVote(int matchIndex){
-    //model.startVoting(viewState.getTittle(), matches.get(matchIndex));
-    //viewState.setVoteInfo();
   }
 }

@@ -1,6 +1,5 @@
 package Model;
 
-import com.google.gson.Gson;
 import mediator.Client;
 
 import java.beans.PropertyChangeEvent;
@@ -16,10 +15,8 @@ public class EventListModelManager implements EventListModel,
   private PropertyChangeSupport property;
   private Client client;
   private User user;
-  private Gson gson;
 
   public EventListModelManager(Socket socket) throws IOException {
-    gson = new Gson();
     client = new Client(socket, this);
     property = new PropertyChangeSupport(this);
     //placeholder before user login
