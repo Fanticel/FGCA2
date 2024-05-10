@@ -22,4 +22,5 @@ public interface EventListModel extends NamedPropertyChangeSubject
   public void setMatchScore(Event event, Match match, String score);
   public void setMatchScore(String eventTittle, Match match, String score);
   public void registerUser(User user);
+  public void addOpponent(User user, int minusOffset, int plusOffset);
 }

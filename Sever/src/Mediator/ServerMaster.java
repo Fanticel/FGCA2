@@ -36,6 +36,9 @@ public class ServerMaster implements UseredPropertyChangeSubject {
       String userName) {
     oL.propertyChange(new PropertyChangeEvent(this, "mes", userName, message));
   }
+  public void useredAnswer(User user, String message, String userName){
+    privateAnswer(listenerMap.get(user), message, userName);
+  }
   @Override public void addListener(User user,
       PropertyChangeListener listener) {
     listenerMap.put(user, listener);

@@ -88,7 +88,6 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
             gson.toJson(eventListPackage),
             "AllEvents");
       }
-//      case "ADDEVENT" -> {model.addEvent(gson.fromJson(reqSplit[1], EventInformationPackage.class).convertToEvent());}
       case "GETEVENT" -> {
         if (model.getEvent(reqSplit[1])!=null){
           serverMaster.privateAnswer(this, gson.toJson(new EventInformationPackage(model.getEvent(reqSplit[1]))), "GetEvent");
@@ -131,6 +130,15 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
         }
       }
       case "CONFIRMPARTICIPATION" -> {model.checkIn(reqSplit[1], gson.fromJson(reqSplit[2], User.class));}
+      case "ADDOPPONENT" -> {
+        switch (reqSplit[1].toUpperCase()){
+          case "LOWER" -> model.addOpponent(thisUser, 1000, 0);
+          case "SAME" -> model.addOpponent(thisUser, 500, 500);
+          case "HIGHER" -> model.addOpponent(thisUser, 0, 1000);
+          case "ANY" -> model.addOpponent(thisUser, 9999, 9999);
+        }
+      }
+//      case "ADDEVENT" -> {model.addEvent(gson.fromJson(reqSplit[1], EventInformationPackage.class).convertToEvent());}
 //      case "STARTVOTING" -> {model.checkIn(reqSplit[1], gson.fromJson(reqSplit[2], User.class));}
       case "^Q" -> {
         working = false;

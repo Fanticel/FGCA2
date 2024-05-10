@@ -21,6 +21,7 @@ public class EventListModelManager
   private ServerMaster serverMaster;
   private PropertyChangeSupport property;
   private FileManger fileManager;
+  private OpponentList opponentList;
 
   public EventListModelManager(ServerMaster serverMaster) {
     this.serverMaster = serverMaster;
@@ -34,6 +35,7 @@ public class EventListModelManager
     catch (SQLException e) {
       throw new RuntimeException(e);
     }
+    opponentList = new OpponentList(serverMaster);
     initGetFromFile();
   }
 
@@ -113,6 +115,11 @@ public class EventListModelManager
 
   @Override public void registerUser(User user) {
     fileManager.saveUserToFile(user);
+  }
+
+  @Override public void addOpponent(User user, int minusOffset,
+      int plusOffset) {
+    opponentList.addUserToList(user, minusOffset, plusOffset);
   }
 
   @Override public void addListener(String propertyName,
