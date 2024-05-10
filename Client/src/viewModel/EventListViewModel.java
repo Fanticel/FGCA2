@@ -131,6 +131,9 @@ public class EventListViewModel implements PropertyChangeListener
     }*/
     /*list.add(new SimpleEventViewModel(event));*/
   }
+  public boolean isModerator(){
+    return model.isModerator();
+  }
 
   @Override public void propertyChange(PropertyChangeEvent event)
   {

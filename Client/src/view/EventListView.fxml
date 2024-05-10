@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.MenuButton?>
-<?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="697.0" styleClass="background" stylesheets="@../CSS/Common.css, @../CSS/EventList.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EventListViewController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="475.0" prefWidth="697.0" styleClass="background" stylesheets="@../CSS/Common.css, @../CSS/EventList.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.EventListViewController">
     <children>
       <VBox prefHeight="84.0" prefWidth="697.0">
          <children>
@@ -32,11 +25,16 @@
                       </HBox>
                       <HBox alignment="CENTER_RIGHT" prefHeight="86.0" prefWidth="371.0">
                           <children>
-                              <Button maxWidth="100.0" minHeight="37.0" mnemonicParsing="false" onAction="#backButtonPressed" prefHeight="37.0" prefWidth="69.0" text="Back" textAlignment="CENTER" textFill="WHITE">
+                              <Button fx:id="createButton" maxWidth="125.0" minHeight="37.0" mnemonicParsing="false" onAction="#createButtonPressed" prefHeight="38.0" prefWidth="125.0" text="Create new event" textAlignment="CENTER" textFill="WHITE" visible="false">
                                   <HBox.margin>
-                                      <Insets right="41.0" />
+                                      <Insets right="20.0" />
                                   </HBox.margin>
                               </Button>
+                        <Button layoutX="271.0" layoutY="33.0" maxWidth="100.0" minHeight="37.0" mnemonicParsing="false" onAction="#backButtonPressed" prefHeight="37.0" prefWidth="69.0" text="Back" textAlignment="CENTER" textFill="WHITE">
+                           <HBox.margin>
+                              <Insets right="41.0" />
+                           </HBox.margin>
+                        </Button>
                           </children>
                       </HBox>
                   </children>

@@ -3,6 +3,7 @@ package viewModel;
 import Model.Event;
 import Model.EventListModel;
 import Model.EventListModelManager;
+import view.CreateEventController;
 
 public class ViewModelFactory {
   private EventListViewModel eventListViewModel;
@@ -14,6 +15,7 @@ public class ViewModelFactory {
   private DescriptionViewGeneralViewModel descriptionViewGeneralViewModel;
   private LogInViewModel logInViewModel;
   private RegisterViewModel registerViewModel;
+  private CreateEventViewModel createEventViewModel;
   private ViewState viewState;
   private EventListModel model;
 
@@ -61,5 +63,9 @@ public class ViewModelFactory {
   public RegisterViewModel getRegisterViewModel(){
     registerViewModel = new RegisterViewModel(model);
     return registerViewModel;
+  }
+  public CreateEventViewModel getCreateEventViewModel(){
+    createEventViewModel = new CreateEventViewModel();
+    return createEventViewModel;
   }
 }

@@ -122,7 +122,7 @@ public class EventListModelManager implements EventListModel,
         user = gson.fromJson(ans.split(";")[2], User.class);
       }
     }
-    System.out.println(user);
+    System.out.println(user.getClass()+": "+user);
     return client.login(username, password).split(";")[0];
   }
 
@@ -145,5 +145,9 @@ public class EventListModelManager implements EventListModel,
       PropertyChangeListener listener)
   {
     property.removePropertyChangeListener(listener);
+  }
+
+  @Override public boolean isModerator() {
+    return user instanceof Moderator;
   }
 }

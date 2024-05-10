@@ -226,6 +226,10 @@ public class Client implements EventListModel
     return answer;
   }
 
+  @Override public boolean isModerator() {
+    return false;
+  }
+
   public synchronized void receivedNotification(String message, boolean error){
     property.firePropertyChange(new PropertyChangeEvent(this, "Notification", error, message));
   }

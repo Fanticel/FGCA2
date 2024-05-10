@@ -16,6 +16,7 @@ public class ViewHandler {
   private NotificationPopupViewController notificationPopupViewController;
   private LogInViewController logInViewController;
   private RegisterViewController registerViewController;
+  private CreateEventController createEventController;
   private EventTemplateViewController eventTemplateViewController;
   private BracketViewController bracketViewController;
   private ViewModelFactory viewModelFactory;
@@ -64,6 +65,7 @@ public class ViewHandler {
       case "EventDetails" -> root = loadEventDescriptionViewController("EventDescriptionView.fxml");
       case "Login" -> root = loadLogInViewController("LogInView.fxml");
       case "Register" -> root = loadRegisterViewController("RegisterView.fxml");
+      case "CreateEvent" -> root = loadCreateEventView("CreateEventView.fxml");
     } currentScene.setRoot(root);
     String title = "";
     if (root.getUserData() != null) {
@@ -82,6 +84,24 @@ public class ViewHandler {
 
   public void closePopupView() {
     popupStage.close();
+  }
+  public Region loadCreateEventView(String fxmlFile){
+    if (createEventController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        createEventController = loader.getController();
+        createEventController.init(this, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      createEventController.reset();
+    }
+    return createEventController.getRoot();
   }
   public Region loadRegisterViewController(String fxmlFile) {
     if (registerViewController == null) {

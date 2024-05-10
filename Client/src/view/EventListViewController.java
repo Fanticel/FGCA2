@@ -27,6 +27,7 @@ public class EventListViewController implements ViewController
   @FXML private Text filterError;
   @FXML private Text searchError;
   @FXML private Text noEventsError;
+  @FXML private Button createButton;
 
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory, Region root)
@@ -41,17 +42,17 @@ public class EventListViewController implements ViewController
     {
       loadEventView(viewModelFactory.getSimpleEventViewModel(event), container);
     }
-
     filterError.setVisible(false);
     searchError.setVisible(false);
-
     searchBar.setPromptText("Search...");
-
     // Add event listener to search bar
     searchBar.setOnKeyReleased(event -> {
       String query = searchBar.getText().toLowerCase();
       searchEvents(query);
     });
+    if (eventListViewModel.isModerator()){
+      createButton.visibleProperty().set(true);
+    }
   }
 
   private void loadEventView(SimpleEventViewModel viewModel, VBox container)
@@ -168,5 +169,8 @@ public class EventListViewController implements ViewController
   @FXML void backButtonPressed()
   {
     viewHandler.openPopupView("");
+  }
+  @FXML void createButtonPressed(){
+    viewHandler.openView("CreateEvent");
   }
 }
