@@ -90,6 +90,23 @@ public class SQLFileManager implements FileManger {
     }
   }
 
+  @Override public void updateParticipant(String eventTitle, User user)
+  {
+    try (Connection connection = getConnected())
+    {
+      PreparedStatement updateParticipant = connection.prepareStatement(
+          "UPDATE fgcadb.Participants SET checkInStatus = ? WHERE userName = ? AND eventTitle = ?");
+      updateParticipant.setBoolean(1, true);
+      updateParticipant.setString(2, user.getUsername());
+      updateParticipant.setString(3, eventTitle);
+      updateParticipant.executeUpdate();
+    }
+    catch (SQLException e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+
   @Override public ArrayList<Event> getEventsFromFile() {
     ArrayList<Event> ans = new ArrayList<>();
     try (Connection connection = getConnected()) {
@@ -122,7 +139,11 @@ public class SQLFileManager implements FileManger {
           }
         }
         while (rsParticipant.next()) {
-          event.addParticipant(UserListSingleton.getInstance().getUserList().getUserByUsername(rsParticipant.getString("userName")));
+          User user = UserListSingleton.getInstance().getUserList().getUserByUsername(rsParticipant.getString("userName"));
+          event.addParticipant(user);
+          if (rsParticipant.getBoolean("checkInStatus")){
+            event.checkIn(user);
+          }
         }
         ans.add(event);
       }

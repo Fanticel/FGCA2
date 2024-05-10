@@ -173,9 +173,15 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
     return startingHour;
   }
 
-  public void checkIn(User user)
+  public String checkIn(User user)
   {
-    confirmedParticipants.add(user);
+      if (confirmedParticipants.contains(user)){
+        return "You are already checked in_;_true";
+      }
+      else {
+        confirmedParticipants.add(user);
+        return "Check in successful_;_false";
+      }
   }
 
   public void activateMatchTimer(Match wantedMatch)

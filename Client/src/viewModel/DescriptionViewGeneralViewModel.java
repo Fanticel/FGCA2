@@ -3,6 +3,8 @@ package viewModel;
 import Model.Event;
 import Model.EventListModel;
 import Model.User;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
@@ -21,6 +23,7 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
   private StringProperty BRPRangeProperty;
   private StringProperty participantsNumberProperty;//property for how many participant there are and can join
   private StringProperty participantsListProperty;
+  private BooleanProperty disabledProperty;
   private ObservableList<SimplePlayerViewModel> list;
   private EventListModel model;
 
@@ -29,7 +32,7 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
   {
     this.model = model;
     this.model.addListener("EventChange",this);
-//    this.viewState = viewState;
+    //    this.viewState = viewState;
     errorProperty = new SimpleStringProperty();
     tittleProperty = new SimpleStringProperty();
     organizerProperty = new SimpleStringProperty();
@@ -39,6 +42,7 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
     BRPRangeProperty = new SimpleStringProperty();
     participantsNumberProperty = new SimpleStringProperty();
     participantsListProperty = new SimpleStringProperty();
+    disabledProperty = new SimpleBooleanProperty(true);
     list = FXCollections.observableArrayList();
     reset();
   }
@@ -48,7 +52,7 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
     Event event = model.getEvent(ViewState.getInstance().getTittle());
     errorProperty.set("");
     tittleProperty.set(event.getTittle());
-//    organizerProperty.set(event.getOrganizer().getUsername());
+    //    organizerProperty.set(event.getOrganizer().getUsername());
     statusProperty.set(event.getStatus());
     gameProperty.set(event.getGame());
     dateProperty.set(event.getStartingHour() + ", " + event.getStartDate());
@@ -64,6 +68,11 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
       {
         list.add(new SimplePlayerViewModel(participant, model));
       }
+    }
+    if (event.getStatus().equals("CheckIn")){
+      disabledProperty.set(false);
+    }else {
+      disabledProperty.set(true);
     }
   }
 
@@ -109,6 +118,12 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
     return list;
   }
 
+  public BooleanProperty isDisabledProperty()
+  {
+    return disabledProperty;
+  }
+
+
   private void join()
   {
     try
@@ -120,6 +135,9 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
       errorProperty.set(e.getMessage());
     }
 
+  }
+  public void checkIn(){
+    model.checkIn(getTittleProperty().get());
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)

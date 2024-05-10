@@ -107,9 +107,9 @@ public class EventListModelManager implements EventListModel,
     client.addParticipant(eventTittle);
   }
 
-  @Override public void checkIn(String eventTittle, User user)
+  @Override public void checkIn(String eventTittle)
   {
-    client.checkIn(eventTittle, user);
+    client.checkIn(eventTittle);
   }
 
   @Override public String login(String username, String password) {

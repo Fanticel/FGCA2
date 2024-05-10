@@ -129,7 +129,9 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
           serverMaster.privateAnswer(this, "User already exists.", "Register");
         }
       }
-      case "CONFIRMPARTICIPATION" -> {model.checkIn(reqSplit[1], gson.fromJson(reqSplit[2], User.class));}
+      case "CONFIRMPARTICIPATION" -> {
+        serverMaster.privateAnswer(this, model.checkIn(reqSplit[1], thisUser), "Notification");
+      }
       case "ADDOPPONENT" -> {
         switch (reqSplit[1].toUpperCase()){
           case "LOWER" -> model.addOpponent(thisUser, 1000, 0);

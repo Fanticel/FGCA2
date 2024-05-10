@@ -61,7 +61,13 @@ public class User
   {
     this.password = password;
   }
-
+  @Override public boolean equals(Object obj){
+    if (obj == null || getClass() != obj.getClass()){
+      return false;
+    }
+    User other = (User) obj;
+    return username.equals(other.username) && password.equals(other.password) && BRP == other.BRP && displayName.equals(other.displayName);
+  }
   @Override public String toString() {
     return username + ", " + displayName + ", " + password + ", " + BRP;
   }

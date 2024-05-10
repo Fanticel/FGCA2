@@ -11,6 +11,7 @@ public interface FileManger {
   void saveParticipantToFile(String eventTitle, String username);
   void saveMatchToFile(String eventTitle, Match match, String score);
   void updateEvent(Event event);
+  void updateParticipant(String eventTitle,User user);
   ArrayList<Event> getEventsFromFile();
   void saveUserToFile(User user);
   ArrayList<User> getUsersFromFile();

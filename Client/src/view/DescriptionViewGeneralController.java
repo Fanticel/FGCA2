@@ -42,6 +42,7 @@ public class DescriptionViewGeneralController implements ViewController{
   @FXML
   private TextField txtTimeUntilStart;
 
+
   @FXML
   private VBox vboxDetails;
   private ViewHandler viewHandler;
@@ -56,7 +57,7 @@ public class DescriptionViewGeneralController implements ViewController{
     txtTimeUntilStart.textProperty().bind(descriptionViewGeneralViewModel.getDateProperty());
     txtNumberOfPlayers.textProperty().bind(descriptionViewGeneralViewModel.getParticipantsProperty());
     txtSkillLevel.textProperty().bind(descriptionViewGeneralViewModel.getBRPRangeProperty());
-
+    btnCheckIn.disableProperty().bind(descriptionViewGeneralViewModel.isDisabledProperty());
     colName.setCellValueFactory(
         cellData -> cellData.getValue().getPlayerDisplayName());
     colSkillLevel.setCellValueFactory(
@@ -68,7 +69,9 @@ public class DescriptionViewGeneralController implements ViewController{
     tblPlayers.getItems().clear();
     descriptionViewGeneralViewModel.reset();
   }
-
+  @FXML void pressCheckInButton() {
+    descriptionViewGeneralViewModel.checkIn();
+  }
   @Override public Region getRoot() {
     return root;
   }

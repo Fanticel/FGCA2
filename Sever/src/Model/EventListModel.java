@@ -13,7 +13,7 @@ public interface EventListModel extends NamedPropertyChangeSubject
       int maxParticipants, String date, int startingHour, Moderator organizer);
   public void addEvent(Event event);
   public ArrayList<Object> addParticipant(String eventTittle, User user);
-  public void checkIn(String eventTitle, User user);
+  public String checkIn(String eventTitle, User user);
   public void removeParticipant(Event event, User user);
   public void removeParticipant(String eventTittle, User user);
   public void addMatch(Event event,User playerOne, User playerTwo);
