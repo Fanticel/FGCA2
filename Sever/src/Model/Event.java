@@ -190,13 +190,16 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
 
   public String checkIn(User user)
   {
-      if (confirmedParticipants.contains(user)){
-        return "You are already checked in_;_true";
-      }
-      else {
-        confirmedParticipants.add(user);
-        return "Check in successful_;_false";
-      }
+    if (!participants.contains(user)){
+      return "You didn't joined this event_;_true";
+    }
+    else if (confirmedParticipants.contains(user)){
+      return "You are already checked in_;_true";
+    }
+    else {
+      confirmedParticipants.add(user);
+      return "Check in successful_;_false";
+    }
   }
 
   public void activateMatchTimer(Match wantedMatch)
