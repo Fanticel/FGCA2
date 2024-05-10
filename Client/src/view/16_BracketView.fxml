@@ -28,14 +28,14 @@
         </HBox>
         <ScrollPane prefHeight="533.0" prefWidth="728.0" style="-fx-background-color: black;">
             <content>
-                <HBox fx:id="startHbox" prefHeight="2675.0" prefWidth="1669.0">
+                <HBox fx:id="startHbox" prefHeight="800.0" prefWidth="900.0">
                     <children>
                         <VBox alignment="TOP_CENTER" prefHeight="2673.0" prefWidth="253.0">
                             <children>
                                 <Label style="-fx-background-color: grey;" text="ROUND 1" textFill="#15e8e8">
-                           <VBox.margin>
-                              <Insets right="45.0" />
-                           </VBox.margin></Label>
+                                    <VBox.margin>
+                                        <Insets right="45.0" />
+                                    </VBox.margin></Label>
                                 <HBox prefHeight="54.0" prefWidth="100.0">
                                     <children>
                                         <VBox prefHeight="54.0" prefWidth="114.0">
@@ -67,7 +67,7 @@
                                         </VBox>
                                         <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
                                             <HBox.margin>
-                                                <Insets bottom="20.0" top="16.0" left="10.0" />
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
                                             </HBox.margin>
                                         </Button>
                                     </children>
@@ -75,279 +75,279 @@
                                         <Insets bottom="20.0" left="10.0" top="55.0" />
                                     </VBox.margin>
                                 </HBox>
-                        <HBox layoutX="10.0" layoutY="1421.0" prefHeight="54.0" prefWidth="100.0">
-                           <children>
-                              <VBox prefHeight="54.0" prefWidth="114.0">
-                                 <children>
-                                    <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" top="16.0" left="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="10.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox layoutX="10.0" layoutY="1724.0" prefHeight="54.0" prefWidth="100.0">
-                           <children>
-                              <VBox prefHeight="54.0" prefWidth="114.0">
-                                 <children>
-                                    <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" top="16.0" left="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="10.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox layoutX="10.0" layoutY="1785.0" prefHeight="54.0" prefWidth="100.0">
-                           <children>
-                              <VBox prefHeight="54.0" prefWidth="114.0">
-                                 <children>
-                                    <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" top="16.0" left="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="10.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox layoutX="10.0" layoutY="1906.0" prefHeight="54.0" prefWidth="100.0">
-                           <children>
-                              <VBox prefHeight="54.0" prefWidth="114.0">
-                                 <children>
-                                    <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" top="16.0" left="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="10.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox layoutX="10.0" layoutY="1967.0" prefHeight="54.0" prefWidth="100.0">
-                           <children>
-                              <VBox prefHeight="54.0" prefWidth="114.0">
-                                 <children>
-                                    <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" top="16.0" left="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="10.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox layoutX="10.0" layoutY="2027.0" prefHeight="54.0" prefWidth="100.0">
-                           <children>
-                              <VBox prefHeight="54.0" prefWidth="114.0">
-                                 <children>
-                                    <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" top="16.0" left="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="20.0" left="10.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox layoutX="20.0" layoutY="567.0" prefHeight="54.0" prefWidth="100.0">
-                           <children>
-                              <VBox prefHeight="54.0" prefWidth="114.0">
-                                 <children>
-                                    <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" top="16.0" left="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets left="10.0" />
-                           </VBox.margin>
-                        </HBox>
+                                <HBox layoutX="10.0" layoutY="1421.0" prefHeight="54.0" prefWidth="100.0">
+                                    <children>
+                                        <VBox prefHeight="54.0" prefWidth="114.0">
+                                            <children>
+                                                <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets bottom="20.0" left="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox layoutX="10.0" layoutY="1724.0" prefHeight="54.0" prefWidth="100.0">
+                                    <children>
+                                        <VBox prefHeight="54.0" prefWidth="114.0">
+                                            <children>
+                                                <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets bottom="20.0" left="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox layoutX="10.0" layoutY="1785.0" prefHeight="54.0" prefWidth="100.0">
+                                    <children>
+                                        <VBox prefHeight="54.0" prefWidth="114.0">
+                                            <children>
+                                                <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets bottom="20.0" left="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox layoutX="10.0" layoutY="1906.0" prefHeight="54.0" prefWidth="100.0">
+                                    <children>
+                                        <VBox prefHeight="54.0" prefWidth="114.0">
+                                            <children>
+                                                <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets bottom="20.0" left="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox layoutX="10.0" layoutY="1967.0" prefHeight="54.0" prefWidth="100.0">
+                                    <children>
+                                        <VBox prefHeight="54.0" prefWidth="114.0">
+                                            <children>
+                                                <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets bottom="20.0" left="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox layoutX="10.0" layoutY="2027.0" prefHeight="54.0" prefWidth="100.0">
+                                    <children>
+                                        <VBox prefHeight="54.0" prefWidth="114.0">
+                                            <children>
+                                                <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets bottom="20.0" left="10.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox layoutX="20.0" layoutY="567.0" prefHeight="54.0" prefWidth="100.0">
+                                    <children>
+                                        <VBox prefHeight="54.0" prefWidth="114.0">
+                                            <children>
+                                                <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets left="10.0" />
+                                    </VBox.margin>
+                                </HBox>
                             </children>
                             <HBox.margin>
                                 <Insets left="20.0" right="30.0" />
@@ -359,9 +359,9 @@
                         <VBox alignment="TOP_CENTER" layoutX="10.0" layoutY="10.0" prefHeight="2677.0" prefWidth="253.0">
                             <children>
                                 <Label style="-fx-background-color: grey;" text="ROUND 2" textFill="#15e8e8">
-                           <VBox.margin>
-                              <Insets right="45.0" />
-                           </VBox.margin></Label>
+                                    <VBox.margin>
+                                        <Insets right="45.0" />
+                                    </VBox.margin></Label>
                                 <HBox prefHeight="54.0" prefWidth="100.0">
                                     <children>
                                         <VBox prefHeight="54.0" prefWidth="114.0">
@@ -393,140 +393,140 @@
                                         </VBox>
                                         <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
                                             <HBox.margin>
-                                                <Insets bottom="20.0" top="16.0" left="10.0" />
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
                                             </HBox.margin>
                                         </Button>
                                     </children>
                                     <VBox.margin>
                                         <Insets bottom="5.0" left="30.0" top="120.0" />
                                     </VBox.margin>
-                           <padding>
-                              <Insets left="10.0" />
-                           </padding>
+                                    <padding>
+                                        <Insets left="10.0" />
+                                    </padding>
                                 </HBox>
-                        <HBox layoutX="10.0" layoutY="976.0" prefHeight="54.0" prefWidth="100.0">
-                           <children>
-                              <VBox prefHeight="54.0" prefWidth="114.0">
-                                 <children>
-                                    <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" top="16.0" left="10" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets left="40.0" top="20.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox layoutX="28.0" layoutY="241.0" prefHeight="54.0" prefWidth="100.0">
-                           <children>
-                              <VBox prefHeight="54.0" prefWidth="114.0">
-                                 <children>
-                                    <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                       <opaqueInsets>
-                                          <Insets />
-                                       </opaqueInsets>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" top="16.0" left="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="40.0" top="20.0" />
-                           </VBox.margin>
-                        </HBox>
-                        <HBox prefHeight="54.0" prefWidth="100.0">
-                           <children>
-                              <VBox prefHeight="54.0" prefWidth="114.0">
-                                 <children>
-                                    <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" top="16.0" left="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets bottom="10.0" left="40.0" />
-                           </VBox.margin>
-                        </HBox>
+                                <HBox layoutX="10.0" layoutY="976.0" prefHeight="54.0" prefWidth="100.0">
+                                    <children>
+                                        <VBox prefHeight="54.0" prefWidth="114.0">
+                                            <children>
+                                                <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <opaqueInsets>
+                                                        <Insets />
+                                                    </opaqueInsets>
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="10" top="16.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets left="40.0" top="20.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox layoutX="28.0" layoutY="241.0" prefHeight="54.0" prefWidth="100.0">
+                                    <children>
+                                        <VBox prefHeight="54.0" prefWidth="114.0">
+                                            <children>
+                                                <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <opaqueInsets>
+                                                        <Insets />
+                                                    </opaqueInsets>
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="40.0" top="20.0" />
+                                    </VBox.margin>
+                                </HBox>
+                                <HBox prefHeight="54.0" prefWidth="100.0">
+                                    <children>
+                                        <VBox prefHeight="54.0" prefWidth="114.0">
+                                            <children>
+                                                <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets bottom="10.0" left="40.0" />
+                                    </VBox.margin>
+                                </HBox>
                             </children>
                             <HBox.margin>
                                 <Insets right="30.0" />
@@ -535,10 +535,10 @@
                         <VBox alignment="TOP_CENTER" layoutX="193.0" layoutY="10.0" prefHeight="2677.0" prefWidth="240.0">
                             <children>
                                 <Label style="-fx-background-color: grey;" text="ROUND 3" textFill="#15e8e8">
-                           <VBox.margin>
-                              <Insets right="40.0" />
-                           </VBox.margin>
-                        </Label>
+                                    <VBox.margin>
+                                        <Insets right="40.0" />
+                                    </VBox.margin>
+                                </Label>
                                 <HBox prefHeight="54.0" prefWidth="100.0">
                                     <children>
                                         <VBox prefHeight="54.0" prefWidth="114.0">
@@ -570,7 +570,7 @@
                                         </VBox>
                                         <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
                                             <HBox.margin>
-                                                <Insets bottom="20.0" top="16.0" left="10.0" />
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
                                             </HBox.margin>
                                         </Button>
                                     </children>
@@ -578,45 +578,45 @@
                                         <Insets bottom="20.0" left="15.0" top="160.0" />
                                     </VBox.margin>
                                 </HBox>
-                        <HBox layoutX="10.0" layoutY="599.0" prefHeight="54.0" prefWidth="100.0">
-                           <children>
-                              <VBox prefHeight="54.0" prefWidth="114.0">
-                                 <children>
-                                    <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                       <VBox.margin>
-                                          <Insets bottom="5.0" />
-                                       </VBox.margin>
-                                    </HBox>
-                                    <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
-                                       <children>
-                                          <Label text="Player 1" />
-                                          <Label text="0">
-                                             <HBox.margin>
-                                                <Insets left="40.0" />
-                                             </HBox.margin>
-                                          </Label>
-                                       </children>
-                                    </HBox>
-                                 </children>
-                              </VBox>
-                              <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
-                                 <HBox.margin>
-                                    <Insets bottom="20.0" top="16.0" left="10.0" />
-                                 </HBox.margin>
-                              </Button>
-                           </children>
-                           <VBox.margin>
-                              <Insets left="15.0" top="20.0" />
-                           </VBox.margin>
-                        </HBox>
+                                <HBox layoutX="10.0" layoutY="599.0" prefHeight="54.0" prefWidth="100.0">
+                                    <children>
+                                        <VBox prefHeight="54.0" prefWidth="114.0">
+                                            <children>
+                                                <HBox prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" />
+                                                    </VBox.margin>
+                                                </HBox>
+                                                <HBox layoutX="10.0" layoutY="10.0" prefHeight="27.0" prefWidth="114.0" style="-fx-border-color: black;">
+                                                    <children>
+                                                        <Label text="Player 1" />
+                                                        <Label text="0">
+                                                            <HBox.margin>
+                                                                <Insets left="40.0" />
+                                                            </HBox.margin>
+                                                        </Label>
+                                                    </children>
+                                                </HBox>
+                                            </children>
+                                        </VBox>
+                                        <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="48.0" text="Vote">
+                                            <HBox.margin>
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
+                                            </HBox.margin>
+                                        </Button>
+                                    </children>
+                                    <VBox.margin>
+                                        <Insets left="15.0" top="20.0" />
+                                    </VBox.margin>
+                                </HBox>
                             </children>
                             <HBox.margin>
                                 <Insets left="20.0" />
@@ -656,7 +656,7 @@
                                         </VBox>
                                         <Button mnemonicParsing="false" prefHeight="49.0" prefWidth="51.0" text="Vote">
                                             <HBox.margin>
-                                                <Insets bottom="20.0" top="16.0" left="10.0" />
+                                                <Insets bottom="20.0" left="10.0" top="16.0" />
                                             </HBox.margin>
                                         </Button>
                                     </children>
@@ -675,6 +675,7 @@
         </ScrollPane>
     </children>
     <stylesheets>
+        <URL value="@../CSS/style.css" />
         <URL value="@../CSS/Common.css" />
     </stylesheets>
 </VBox>
