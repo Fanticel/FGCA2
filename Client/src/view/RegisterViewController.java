@@ -22,7 +22,10 @@ public class RegisterViewController implements ViewController{
     this.viewHandler = viewHandler;
     registerViewModel = viewModelFactory.getRegisterViewModel();
     this.root = root;
-    errorLabel.textProperty().set("");
+    userNameField.textProperty().bindBidirectional(registerViewModel.getUsername());
+    displayNameField.textProperty().bindBidirectional(registerViewModel.getDisplayname());
+    passwordField.textProperty().bindBidirectional(registerViewModel.getPassword());
+    errorLabel.textProperty().bindBidirectional(registerViewModel.getError());
   }
 
   @Override public void reset() {
@@ -37,7 +40,9 @@ public class RegisterViewController implements ViewController{
     viewHandler.openView("Login");
   }
   @FXML void PressRegisterButton(){
-    System.err.println("Going to implement the register logic");
+    if (registerViewModel.PressRegisterButton()){
+      viewHandler.openView("Login");
+    }
   }
   @FXML void OnEnterUser(){
     displayNameField.requestFocus();

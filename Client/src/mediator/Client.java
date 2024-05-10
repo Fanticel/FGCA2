@@ -213,7 +213,17 @@ public class Client implements EventListModel
   }
 
   @Override public synchronized String register(String username,String display, String password) {
-    return null;
+    out.println("register;" + username+";"+display+";"+password);
+    try
+    {
+      wait();
+    }
+    catch (InterruptedException e)
+    {
+      throw new RuntimeException(e);
+    }
+    System.out.println(answer);
+    return answer;
   }
 
   public synchronized void receivedNotification(String message, boolean error){

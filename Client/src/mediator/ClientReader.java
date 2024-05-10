@@ -29,6 +29,10 @@ public class ClientReader implements Runnable {
         {
           client.receiveMessage(tmp.split(": ")[1]);
         }
+        else if(tmp.split(": ")[0].contains("Register"))
+        {
+          client.receiveMessage(tmp.split(": ")[1]);
+        }
         else if (tmp.split(": ")[0].contains("Notification"))
         {
           String ans = tmp.split(": ")[1];

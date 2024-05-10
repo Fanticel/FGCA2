@@ -127,7 +127,7 @@ public class EventListModelManager implements EventListModel,
   }
 
   @Override public String register(String username,String display, String password) {
-    return null;
+    return client.register(username, display, password);
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)

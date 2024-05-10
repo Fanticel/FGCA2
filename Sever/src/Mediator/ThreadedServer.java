@@ -118,6 +118,18 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
         }
         serverMaster.addListener(thisUser, this);
       }
+      case "REGISTER" -> {
+        if (UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[1])==null){
+          User tempUser = new User(reqSplit[1], reqSplit[2], reqSplit[3]);
+          UserListSingleton.getInstance().getUserList().addUser(tempUser);
+          model.registerUser(tempUser);
+          serverMaster.privateAnswer(this, "pog", "Register");
+          serverMaster.privateAnswer(this, "Account successfully created!_;_false", "Notification");
+        }
+        else {
+          serverMaster.privateAnswer(this, "User already exists.", "Register");
+        }
+      }
       case "CONFIRMPARTICIPATION" -> {model.checkIn(reqSplit[1], gson.fromJson(reqSplit[2], User.class));}
 //      case "STARTVOTING" -> {model.checkIn(reqSplit[1], gson.fromJson(reqSplit[2], User.class));}
       case "^Q" -> {
