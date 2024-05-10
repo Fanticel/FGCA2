@@ -2,12 +2,9 @@
 {
 -fx-background-color : #05071F;
 -fx-text-fill : #e7e5e5;
-
 }
 .button:hover{
 -fx-background-color : #8B008B;
-
-
 }
 .button:pressed
 {

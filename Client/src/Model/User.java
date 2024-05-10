@@ -11,7 +11,7 @@ public class User
   {
     this.username = username;
     this.displayName = displayName;
-    BRP = 0;
+    BRP = 500;
     this.password = password;
   }
 
@@ -56,6 +56,6 @@ public class User
   }
 
   @Override public String toString() {
-    return "\t" + username + ", " + displayName + ", " + password;
+    return "\t" + username + ", " + displayName + ", " + password + ", " + BRP;
   }
 }

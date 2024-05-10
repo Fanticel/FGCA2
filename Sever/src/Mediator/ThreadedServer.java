@@ -82,7 +82,6 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
         serverMaster.privateAnswer(this, "initCallReply", "Server");
       }
       case "GETEVENTLIST" -> {
-        System.out.println(model.getAllEvents());
         EventListPackage eventListPackage = new EventListPackage();
         eventListPackage.addEnMasse(model.getAllEvents());
         serverMaster.privateAnswer(this,
@@ -104,14 +103,18 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
       }
       case "LOG" -> {
         if (UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[1])!=null){
-          thisUser = UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[1]);
-          System.out.println("poglog");
+          User potentialUser = UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[1]);
+          if (reqSplit[2].equals(potentialUser.getPassword())){
+            thisUser = potentialUser;
+            serverMaster.privateAnswer(this, "pog;"+thisUser.getClass()+";"+gson.toJson(thisUser), "Login");
+            System.out.println(thisUser.getClass());
+          }
+          else {
+            serverMaster.privateAnswer(this, "Incorrect password.", "Login");
+          }
         }
         else {
-          thisUser = new User(reqSplit[1], reqSplit[2], reqSplit[3]);
-          UserListSingleton.getInstance().getUserList().addUser(thisUser);
-          model.registerUser(thisUser);
-          System.out.println("notpoglog");
+          serverMaster.privateAnswer(this, "No such user exists.", "Login");
         }
         serverMaster.addListener(thisUser, this);
       }

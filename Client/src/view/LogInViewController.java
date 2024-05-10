@@ -24,7 +24,9 @@ public class LogInViewController implements ViewController{
     this.viewHandler = viewHandler;
     logInViewModel = viewModelFactory.getLogInViewModel();
     this.root = root;
-    errorLabel.textProperty().set("");
+    errorLabel.textProperty().bind(logInViewModel.getErrorProperty());
+    userNameField.textProperty().bindBidirectional(logInViewModel.getUsernameProperty());
+    passwordField.textProperty().bindBidirectional(logInViewModel.getPasswordProperty());
     linkLabel.setVisited(false);
   }
 
@@ -42,7 +44,9 @@ public class LogInViewController implements ViewController{
     PressLoginButton();
   }
   @FXML void PressLoginButton(){
-
+    if (logInViewModel.PressLoginButton()){
+      viewHandler.openView("EventList");
+    }
   }
   @FXML void CreateAccount(){
     linkLabel.setVisited(false);

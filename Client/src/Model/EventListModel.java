@@ -7,21 +7,23 @@ import java.util.ArrayList;
 
 public interface EventListModel extends NamedPropertyChangeSubject
 {
-  public User getUser();
-  public ArrayList<Event> getAllEvents();
-  public Event getEvent(String tittle);
-  public void addEvent(String tittle, String game, int minBRP, int maxBRP,
+  String login(String username, String password);
+  String register(String username,String display, String password);
+  User getUser();
+  ArrayList<Event> getAllEvents();
+  Event getEvent(String tittle);
+  void addEvent(String tittle, String game, int minBRP, int maxBRP,
       int maxParticipants, String date, int startingHour, Moderator organizer);
-  public void addParticipant(String eventTittle);
-  public void checkIn(String eventTittle, User user);
-  public void removeParticipant(Event event, User user);
-  public void removeParticipant(String eventTittle, User user);
-  public void addMatch(Event event, User playerOne, User playerTwo);
-  public void addMatch(String eventTittle, User playerOne, User playerTwo);
-  public void setMatchScore(Event event, Match match, String score);
-  public void setMatchScore(String eventTittle, Match match, String score);
-  public void startVoting(Event eventTitle, Match match);
-  public ArrayList<Event> getEventsByGame(String game);
-  public ArrayList<Event> getEventsBySkillLevel(String skillLevel);
-  public ArrayList<Event> getEventsByStatus(String status);
+  void addParticipant(String eventTittle);
+  void checkIn(String eventTittle, User user);
+  void removeParticipant(Event event, User user);
+  void removeParticipant(String eventTittle, User user);
+  void addMatch(Event event, User playerOne, User playerTwo);
+  void addMatch(String eventTittle, User playerOne, User playerTwo);
+  void setMatchScore(Event event, Match match, String score);
+  void setMatchScore(String eventTittle, Match match, String score);
+  void startVoting(Event eventTitle, Match match);
+  ArrayList<Event> getEventsByGame(String game);
+  ArrayList<Event> getEventsBySkillLevel(String skillLevel);
+  ArrayList<Event> getEventsByStatus(String status);
 }

@@ -58,7 +58,7 @@
                               </ImageView>
                               <Label text="Game" textFill="WHITE">
                                  <HBox.margin>
-                                    <Insets left="17.0" />
+                                    <Insets left="10.0" />
                                  </HBox.margin>
                               </Label>
                            </children>
@@ -76,7 +76,7 @@
                                     <Insets left="17.0" />
                                  </HBox.margin>
                               </ImageView>
-                              <Label text="Start Date" textFill="#f4f4f4">
+                              <Label text="Start" textFill="#f4f4f4">
                                  <HBox.margin>
                                     <Insets left="14.0" />
                                  </HBox.margin>
@@ -107,19 +107,18 @@
                         </HBox>
                         <HBox prefHeight="100.0" prefWidth="200.0">
                            <children>
-                              <ImageView fitHeight="23.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
+                              <ImageView fitHeight="24.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="ALWAYS">
                                  <image>
                                     <Image url="@../images/icons8_Slider__32px.png" />
                                  </image>
                                  <HBox.margin>
-                                    <Insets left="7.0" />
+                                    <Insets left="10.0" />
                                  </HBox.margin>
                               </ImageView>
                               <Label prefHeight="17.0" prefWidth="67.0" text="Skill Level" textFill="WHITE">
                                  <HBox.margin>
                                     <Insets left="12.0" />
-                                 </HBox.margin>
-                              </Label>
+                                 </HBox.margin></Label>
                            </children>
                            <VBox.margin>
                               <Insets left="10.0" />

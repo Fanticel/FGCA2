@@ -28,7 +28,7 @@
         </HBox>
         <ScrollPane prefHeight="533.0" prefWidth="728.0" style="-fx-background-color: black;">
             <content>
-                <HBox fx:id="startHbox" prefHeight="2675.0" prefWidth="800.0">
+                <HBox fx:id="startHbox" prefHeight="2675.0" prefWidth="1669.0">
                     <children>
                         <VBox alignment="TOP_CENTER" prefHeight="2673.0" prefWidth="253.0">
                             <children>
@@ -354,8 +354,8 @@
             </content>
         </ScrollPane>
     </children>
-   <stylesheets>
-      <URL value="@../CSS/style.css" />
-      <URL value="@../CSS/Common.css" />
-   </stylesheets>
+    <stylesheets>
+        <URL value="@../CSS/Common.css" />
+        <URL value="@../CSS/Common.css" />
+    </stylesheets>
 </VBox>
