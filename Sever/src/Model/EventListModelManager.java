@@ -63,8 +63,8 @@ public class EventListModelManager
   }
 
   @Override public void addEvent(Event event) {
-    fileManager.saveEventToFile(event);
     eventList.addEvent(event);
+    fileManager.saveEventToFile(event);
   }
 
   @Override public void setMatchScore(String eventTittle, Match match,

@@ -101,4 +101,7 @@ public class EventInformationPackage
   public Event convertToEvent(){
     return new Event(tittle, game, minBRP, maxBRP, status, maxParticipants, startDate, startingHour, organizer);
   }
+  public Event convertToEvent(Moderator organizer){
+    return new Event(tittle, game, minBRP, maxBRP, maxParticipants, startDate, startingHour, organizer);
+  }
 }

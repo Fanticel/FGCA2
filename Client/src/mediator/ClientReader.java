@@ -25,6 +25,9 @@ public class ClientReader implements Runnable {
         else if (tmp.split(": ")[0].contains("GetEvent")){
           client.receiveMessage(tmp.split(": ")[1]);
         }
+        else if (tmp.split(": ")[0].contains("AddEvent")){
+          client.receiveMessage(tmp.split(": ")[1]);
+        }
         else if(tmp.split(": ")[0].contains("Login"))
         {
           client.receiveMessage(tmp.split(": ")[1]);

@@ -42,11 +42,10 @@ public class EventListModelManager implements EventListModel,
     return client.getEvent(tittle);
   }
 
-  @Override public void addEvent(String tittle, String game, int minBRP,
-      int maxBRP, int maxParticipants, String date, int startingHour, Moderator organizer)
+  @Override public String addEvent(String tittle, String game, int minBRP,
+      int maxBRP, int maxParticipants, String date, int startingHour)
   {
-    client.addEvent(tittle, game, minBRP, maxBRP, maxParticipants, date, startingHour,
-        organizer);
+   return client.addEvent(tittle, game, minBRP, maxBRP, maxParticipants, date, startingHour);
 
   }
 

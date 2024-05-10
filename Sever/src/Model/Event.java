@@ -32,13 +32,28 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
       String status, int maxParticipants, String date, int startingHour,
       Moderator organizer)
   {
-    this.tittle = tittle;
+    if (tittle.replaceAll("[0-9]","").isEmpty()){
+      throw new IllegalArgumentException("Title cannot have just numbers");
+    }
+    else {
+      this.tittle = tittle;
+    }
     this.game = game;
-    this.minBRP = minBRP;
-    this.maxBRP = maxBRP;
+    if (minBRP >= maxBRP){
+      throw new IllegalStateException("minBRP cannot be higher or equal than maxBRP");
+    }else {
+      this.minBRP = minBRP;
+      this.maxBRP = maxBRP;
+    }
     this.status = status;
     this.maxParticipants = maxParticipants;
-    this.startDate = date;
+    LocalDate currentDate = LocalDate.now();
+    LocalDate givenDate = LocalDate.parse(date);
+    if (givenDate.isBefore(currentDate) || givenDate.isEqual(currentDate)){
+      throw new IllegalArgumentException("Date cannot be today or before");
+    }else {
+      this.startDate = date;
+    }
     this.startingHour = startingHour;
     Organizer = organizer;
     matches = new ArrayList<>();

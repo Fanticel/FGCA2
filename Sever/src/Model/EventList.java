@@ -32,10 +32,15 @@ public class EventList implements PropertyChangeListener,
     }
     return null;
   }
-  public void addEvent(Event event){
-    events.add(event);
-    event.addListener("EventChange", this);
-    event.addListener("CheckIn", this);
+  public void addEvent(Event newEvent){
+    for (Event event: events){
+      if (event.getTittle().equals(newEvent.getTittle())){
+        throw new IllegalArgumentException("Event title has to be unique");
+      }
+    }
+    events.add(newEvent);
+    newEvent.addListener("EventChange", this);
+    newEvent.addListener("CheckIn", this);
   }
 
   public ArrayList<Object> addParticipant(String eventTittle, User user){

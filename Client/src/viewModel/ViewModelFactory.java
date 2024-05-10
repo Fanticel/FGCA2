@@ -65,7 +65,7 @@ public class ViewModelFactory {
     return registerViewModel;
   }
   public CreateEventViewModel getCreateEventViewModel(){
-    createEventViewModel = new CreateEventViewModel();
+    createEventViewModel = new CreateEventViewModel(model);
     return createEventViewModel;
   }
 }

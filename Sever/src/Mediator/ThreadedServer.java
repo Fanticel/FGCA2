@@ -140,7 +140,16 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
           case "ANY" -> model.addOpponent(thisUser, 9999, 9999);
         }
       }
-//      case "ADDEVENT" -> {model.addEvent(gson.fromJson(reqSplit[1], EventInformationPackage.class).convertToEvent());}
+      case "ADDEVENT" -> {
+        try
+        {
+          model.addEvent(gson.fromJson(reqSplit[1], EventInformationPackage.class).convertToEvent((Moderator) thisUser));
+          serverMaster.privateAnswer(this, "pog", "AddEvent");
+          serverMaster.privateAnswer(this, "Event successfully created!_;_false", "Notification");
+        }catch (Exception e){
+          serverMaster.privateAnswer(this, e.getMessage(), "AddEvent");
+        }
+      }
 //      case "STARTVOTING" -> {model.checkIn(reqSplit[1], gson.fromJson(reqSplit[2], User.class));}
       case "^Q" -> {
         working = false;

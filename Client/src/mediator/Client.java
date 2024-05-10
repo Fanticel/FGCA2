@@ -82,12 +82,21 @@ public class Client implements EventListModel
     return gson.fromJson(answer, EventInformationPackage.class).convertToEvent();
   }
 
-  @Override public void addEvent(String title, String game, int minBRP,
-      int maxBRP, int maxParticipants, String date, int startingHour, Moderator organizer)
+  @Override synchronized public String addEvent(String title, String game, int minBRP,
+      int maxBRP, int maxParticipants, String date, int startingHour)
   {
     out.println("addEvent;" + gson.toJson(
         new Event(title, game, minBRP, maxBRP, maxParticipants, date, startingHour,
-            organizer)));
+            null)));
+    try
+    {
+      wait();
+    }
+    catch (InterruptedException e)
+    {
+      throw new RuntimeException(e);
+    }
+    return answer;
   }
 
   @Override public void addParticipant(String eventTittle)
