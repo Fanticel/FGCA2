@@ -107,8 +107,15 @@ public class EventListModelManager
     return response;
   }
 
-  @Override public void checkIn(String eventTitle, User user) {
-    eventList.checkIn(eventTitle, user);
+  @Override public String checkIn(String eventTitle, User user) {
+    try
+    {
+      String answer = eventList.checkIn(eventTitle, user);
+      fileManager.updateParticipant(eventTitle, user);
+      return answer;
+    }catch (Exception e){
+      return "Somethin went wrong_;_true";
+    }
   }
 
   @Override public void registerUser(User user) {

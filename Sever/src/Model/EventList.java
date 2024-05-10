@@ -50,15 +50,15 @@ public class EventList implements PropertyChangeListener,
     response.add(true);
     return response;
   }
-  public void checkIn(String eventTitle, User user)
+  public String checkIn(String eventTitle, User user)
   {
     for (Event event:events)
     {
       if (eventTitle.equals(event.getTittle())){
-        event.checkIn(user);
-        break;
+        return event.checkIn(user);
       }
     }
+    return "Event not found_;_true";
   }
   public void activateMatchTimer(String eventTitle, Match match)
   {
