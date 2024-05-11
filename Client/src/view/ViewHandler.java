@@ -17,6 +17,7 @@ public class ViewHandler {
   private LogInViewController logInViewController;
   private RegisterViewController registerViewController;
   private CreateEventController createEventController;
+  private ReportScoreViewController reportScoreViewController;
   private EventTemplateViewController eventTemplateViewController;
   private BracketViewController bracketViewController;
   private ViewModelFactory viewModelFactory;
@@ -30,6 +31,7 @@ public class ViewHandler {
   public void start(Stage primaryStage) {
     this.primaryStage = primaryStage;
     openView("Login");
+//    openView("Report");
   }
 
   public void startPopup(Stage popupStage) {
@@ -66,6 +68,7 @@ public class ViewHandler {
       case "Login" -> root = loadLogInViewController("LogInView.fxml");
       case "Register" -> root = loadRegisterViewController("RegisterView.fxml");
       case "CreateEvent" -> root = loadCreateEventView("CreateEventView.fxml");
+      case "Report" -> root = loadReportScoreView("ReportScoreView.fxml");
     } currentScene.setRoot(root);
     String title = "";
     if (root.getUserData() != null) {
@@ -84,6 +87,24 @@ public class ViewHandler {
 
   public void closePopupView() {
     popupStage.close();
+  }
+  public Region loadReportScoreView(String fxmlFile){
+    if (reportScoreViewController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        reportScoreViewController = loader.getController();
+        reportScoreViewController.init(this, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      reportScoreViewController.reset();
+    }
+    return reportScoreViewController.getRoot();
   }
   public Region loadCreateEventView(String fxmlFile){
     if (createEventController == null) {

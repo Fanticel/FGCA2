@@ -16,6 +16,7 @@ public class ViewModelFactory {
   private LogInViewModel logInViewModel;
   private RegisterViewModel registerViewModel;
   private CreateEventViewModel createEventViewModel;
+  private ReportScoreViewModel reportScoreViewModel;
   private ViewState viewState;
   private EventListModel model;
 
@@ -67,5 +68,9 @@ public class ViewModelFactory {
   public CreateEventViewModel getCreateEventViewModel(){
     createEventViewModel = new CreateEventViewModel(model);
     return createEventViewModel;
+  }
+  public ReportScoreViewModel getReportScoreViewModel(){
+    reportScoreViewModel = new ReportScoreViewModel(model);
+    return reportScoreViewModel;
   }
 }

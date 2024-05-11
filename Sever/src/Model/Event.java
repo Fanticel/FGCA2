@@ -49,11 +49,12 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
     this.maxParticipants = maxParticipants;
     LocalDate currentDate = LocalDate.now();
     LocalDate givenDate = LocalDate.parse(date);
-    if (givenDate.isBefore(currentDate) || givenDate.isEqual(currentDate)){
-      throw new IllegalArgumentException("Date cannot be today or before");
-    }else {
-      this.startDate = date;
-    }
+//    if (givenDate.isBefore(currentDate) || givenDate.isEqual(currentDate)){
+//      throw new IllegalArgumentException("Date cannot be today or before");
+//    }else {
+//      this.startDate = date;
+//    }
+    this.startDate = date;
     this.startingHour = startingHour;
     Organizer = organizer;
     matches = new ArrayList<>();
@@ -226,7 +227,7 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
           status = "CheckIn";
           property.firePropertyChange("CheckIn", tittle, this);
         }
-        if (currentDate.getHour() == startingHour+27) //27 to disable this from breaking everything else
+        if (currentDate.getHour() == startingHour)
         {
           status = "In progress";
           checkInTimer.setActive(false);

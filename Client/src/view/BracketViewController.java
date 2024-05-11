@@ -120,6 +120,7 @@ public class BracketViewController implements ViewController
       }*/
       bracketViewModel.startVote(buttons.indexOf(button));
       event.consume();
+      viewHandler.openView("Report");
     });
   }
 
