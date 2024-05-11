@@ -29,6 +29,7 @@ public class BracketViewModel
     matches = event.getMatches();
     for (Match match : matches)
     {
+      System.out.println(match);
       String[] scores = match.getScore().split("-");
       if (match.getPlayers().get(0) == null){
         labels.add(new SimpleStringProperty());

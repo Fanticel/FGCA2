@@ -16,7 +16,7 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
 
   public Match(User playerOne, User playerTwo)
   {
-    this.score = "";
+    this.score = "0-0";
     this.players = new ArrayList<>(2);
     players.add(playerOne);
     players.add(playerTwo);

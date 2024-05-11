@@ -36,4 +36,7 @@ public class Match
     return players;
   }
 
+  @Override public String toString() {
+    return "Match{" + "score='" + score + '\'' + ", players=" + players + '}';
+  }
 }
