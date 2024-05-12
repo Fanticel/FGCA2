@@ -100,6 +100,11 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
         ArrayList<Object> ans = model.addParticipant(reqSplit[1], thisUser);
         serverMaster.privateAnswer(this, ans.get(0) + "_;_" + ans.get(1), "Notification");
       }
+      case "REMOVEPARTICIPANT" -> {
+         model.removeParticipant(reqSplit[1], thisUser);
+        serverMaster.privateAnswer(this, "You have successfully quit from the event_;_false"  , "Notification");
+        System.out.println("Quit");
+      }
       case "LOG" -> {
         if (UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[1])!=null){
           User potentialUser = UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[1]);
