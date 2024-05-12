@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 
 public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
   private StringProperty errorProperty;
@@ -134,7 +135,20 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
     {
       errorProperty.set(e.getMessage());
     }
+  }
 
+  public void quitEvent(){
+    Event event = model.getEvent(ViewState.getInstance().getTittle());
+    model.removeParticipant(tittleProperty.get(), model.getUser());
+  }
+
+  public boolean isUserRegistered(){
+
+    for(int i=0;i<list.size();i++){
+      System.out.println(list.get(i).getPlayerDisplayName());
+    }
+    int br=0;
+    return true;
   }
   public void checkIn(){
     model.checkIn(getTittleProperty().get());

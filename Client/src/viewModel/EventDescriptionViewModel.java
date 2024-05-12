@@ -111,6 +111,8 @@ public class EventDescriptionViewModel implements PropertyChangeListener
     return strings[1];
   }
 
+
+
   private void join()
   {
     try

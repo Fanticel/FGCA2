@@ -74,7 +74,7 @@
 
                     <Button fx:id="btnCheckIn" maxWidth="Infinity" onAction="#pressCheckInButton" style="-fx-font-size: 16px;" text="CHECK-IN" />
                     <Label fx:id="lblTimeLeft" style="-fx-font-size: 16px;" text="Time left for the check-in: xxx" textFill="#f2eeee" />
-                    <Button fx:id="btnQuit" maxWidth="Infinity" style="-fx-font-size: 16px;" text="QUIT" />
+                    <Button fx:id="btnQuit" maxWidth="Infinity" style="-fx-font-size: 16px;" text="QUIT" onAction="#onQuit"/>
                 </children>
             </VBox>
         </children>

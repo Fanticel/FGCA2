@@ -63,6 +63,9 @@ public class DescriptionViewGeneralController implements ViewController{
     colSkillLevel.setCellValueFactory(
         cellData -> cellData.getValue().getSkillLevel());
     tblPlayers.setItems(descriptionViewGeneralViewModel.getList());
+
+    boolean isUserRegistered = descriptionViewGeneralViewModel.isUserRegistered();
+    btnQuit.setDisable(!isUserRegistered);
   }
 
   @Override public void reset() {
@@ -72,6 +75,11 @@ public class DescriptionViewGeneralController implements ViewController{
   @FXML void pressCheckInButton() {
     descriptionViewGeneralViewModel.checkIn();
   }
+
+  @FXML public void onQuit(){
+    descriptionViewGeneralViewModel.quitEvent();
+  }
+
   @Override public Region getRoot() {
     return root;
   }
