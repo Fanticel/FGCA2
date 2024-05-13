@@ -121,12 +121,20 @@ public class EventListModelManager implements EventListModel,
         user = gson.fromJson(ans.split(";")[2], User.class);
       }
     }
-    System.out.println(user.getClass()+": "+user);
     return client.login(username, password).split(";")[0];
+  }
+
+  @Override public void showLocalNotification(String message, boolean error) {
+    property.firePropertyChange(new PropertyChangeEvent(this, "Notification", error, message));
   }
 
   @Override public String register(String username,String display, String password) {
     return client.register(username, display, password);
+  }
+
+  @Override public void voteOnOutcome(String title, String usernameOne,
+      String usernameTwo, int playerOneScore, int playerTwoScore) {
+    client.voteOnOutcome(title, usernameOne, usernameTwo, playerOneScore, playerTwoScore);
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)

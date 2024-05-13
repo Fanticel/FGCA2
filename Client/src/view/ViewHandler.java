@@ -46,6 +46,7 @@ public class ViewHandler {
         root = loadNotificationPopupViewController(
             "NotificationPopupView.fxml");
       }
+      case "Report" -> root = loadReportScoreView("ReportScoreView.fxml");
     }
     popupScene.setRoot(root);
     String title = "";
@@ -68,7 +69,6 @@ public class ViewHandler {
       case "Login" -> root = loadLogInViewController("LogInView.fxml");
       case "Register" -> root = loadRegisterViewController("RegisterView.fxml");
       case "CreateEvent" -> root = loadCreateEventView("CreateEventView.fxml");
-      case "Report" -> root = loadReportScoreView("ReportScoreView.fxml");
     } currentScene.setRoot(root);
     String title = "";
     if (root.getUserData() != null) {

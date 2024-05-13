@@ -97,8 +97,16 @@ public class BracketViewModel
       }
     }
   }
-  public void startVote(int matchIndex){
-    //model.startVoting(viewState.getTittle(), matches.get(matchIndex));
-    //viewState.setVoteInfo();
+  public boolean startVote(int matchIndex){
+    Match currentMatch = matches.get(matchIndex);
+    if (model.getUser().getUsername().equals(currentMatch.getPlayers().get(0).getUsername()) ||
+        model.getUser().getUsername().equals(currentMatch.getPlayers().get(1).getUsername()) ||
+        model.isModerator()){
+      viewState.setMatch(currentMatch);
+      return true;
+    }
+    model.showLocalNotification("You cannot vote in a match you didn't participate in.", true);
+    return false;
+//    viewState.setVoteInfo();
   }
 }

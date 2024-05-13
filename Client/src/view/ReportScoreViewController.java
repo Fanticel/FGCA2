@@ -14,6 +14,7 @@ public class ReportScoreViewController implements ViewController{
   @FXML private Label playerOneName;
   @FXML private Label playerTwoName;
   @FXML private Label errorLabel;
+  @FXML private Label verifyLabel;
   @FXML private Button btnPlayerOne;
   @FXML private Button btnPlayerTwo;
   private ViewHandler viewHandler;
@@ -30,6 +31,8 @@ public class ReportScoreViewController implements ViewController{
     playerTwoName.textProperty().bind(reportScoreViewModel.getPlayerTwoNameProperty());
     btnPlayerOne.textProperty().bind(reportScoreViewModel.getPlayerOneNameProperty());
     btnPlayerTwo.textProperty().bind(reportScoreViewModel.getPlayerTwoNameProperty());
+    errorLabel.textProperty().bind(reportScoreViewModel.getErrorProperty());
+    verifyLabel.textProperty().bind(reportScoreViewModel.getVerifyProperty());
   }
   @FXML void pressSubmit(){
     reportScoreViewModel.pressSubmit();
@@ -41,7 +44,7 @@ public class ReportScoreViewController implements ViewController{
     reportScoreViewModel.pressPlayerTwo();
   }
   @Override public void reset() {
-
+    reportScoreViewModel.reset();
   }
 
   @Override public Region getRoot() {

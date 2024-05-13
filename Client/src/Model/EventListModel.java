@@ -27,4 +27,6 @@ public interface EventListModel extends NamedPropertyChangeSubject
   ArrayList<Event> getEventsBySkillLevel(String skillLevel);
   ArrayList<Event> getEventsByStatus(String status);
   boolean isModerator();
+  void showLocalNotification(String message, boolean error);
+  void voteOnOutcome(String title, String usernameOne, String usernameTwo, int playerOneScore, int playerTwoScore);
 }

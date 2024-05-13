@@ -101,9 +101,8 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
         serverMaster.privateAnswer(this, ans.get(0) + "_;_" + ans.get(1), "Notification");
       }
       case "REMOVEPARTICIPANT" -> {
-         model.removeParticipant(reqSplit[1], thisUser);
+        model.removeParticipant(reqSplit[1], thisUser);
         serverMaster.privateAnswer(this, "You have successfully quit from the event_;_false"  , "Notification");
-        System.out.println("Quit");
       }
       case "LOG" -> {
         if (UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[1])!=null){
@@ -155,12 +154,34 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
           serverMaster.privateAnswer(this, e.getMessage(), "AddEvent");
         }
       }
-//      case "STARTVOTING" -> {model.checkIn(reqSplit[1], gson.fromJson(reqSplit[2], User.class));}
       case "^Q" -> {
         working = false;
         currentSocket.close();
       }
       case "PUSHNOTIFICATION" -> {serverMaster.broadcast(reqSplit[1] + "_;_" + reqSplit[2], "Notification");}
+      case "VOTE" -> { //VOTE;{[1]EventName};{[2]usernameOne};{[3]usernameTwo};{[4]scoreOne};{[5]scoreTwo}
+        try{
+          System.out.println("voting is happening!");
+          String ans = model.voteOnOutcome(thisUser, reqSplit[1], reqSplit[2],reqSplit[3],Integer.parseInt(reqSplit[4]),Integer.parseInt(reqSplit[5]));
+          System.out.println(ans);
+          String[] ansSplit = ans.split(":");
+          switch (ansSplit[0]){
+            case "PN" -> serverMaster.privateAnswer(this, ansSplit[1], "Notification");
+            case "BMN" -> {
+              ArrayList<User> userList = model.getEvent(reqSplit[1]).getMatchByParticipants(reqSplit[2], reqSplit[3]).getPlayers();
+              userList.add(model.getEvent(reqSplit[1]).getOrganizer());
+              serverMaster.useredBroadcast(userList, ansSplit[1], "Notification");
+            }
+            case "BN" -> {
+              ArrayList<User> userList = model.getEvent(reqSplit[1]).getMatchByParticipants(reqSplit[2], reqSplit[3]).getPlayers();
+              serverMaster.useredBroadcast(userList, ansSplit[1], "Notification");
+            }
+          }
+        }
+        catch (Error e){
+          serverMaster.privateAnswer(this, "Something went wrong :(_;_true", "Notification");
+        }
+      }
       default -> {
         serverMaster.privateAnswer(this, "Error01: unknown server request",
             "->System");

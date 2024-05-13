@@ -50,6 +50,5 @@ public class SimpleEventViewModel
   }
   public void setViewModel(String tittle){
     ViewState.getInstance().setTittle(tittle);
-    System.out.println(ViewState.getInstance().getTittle());
   }
 }

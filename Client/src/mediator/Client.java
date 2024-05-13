@@ -39,9 +39,7 @@ public class Client implements EventListModel
     out = new PrintWriter(socket.getOutputStream(), true);
     //not sure if it is right
     property = new PropertyChangeSupport(model);
-
   }
-
   public synchronized void receiveMessage(String message)
   {
     answer = message;
@@ -208,7 +206,7 @@ public class Client implements EventListModel
   }
 
   @Override public synchronized String login(String username, String password) {
-    out.println("log;" + username+";"+password);
+    out.println("log;"+username+";"+password);
     try
     {
       wait();
@@ -217,9 +215,10 @@ public class Client implements EventListModel
     {
       throw new RuntimeException(e);
     }
-    System.out.println(answer);
     return answer;
   }
+
+  @Override public void showLocalNotification(String message, boolean error) {}
 
   @Override public synchronized String register(String username,String display, String password) {
     out.println("register;" + username+";"+display+";"+password);
@@ -231,12 +230,16 @@ public class Client implements EventListModel
     {
       throw new RuntimeException(e);
     }
-    System.out.println(answer);
     return answer;
   }
 
   @Override public boolean isModerator() {
     return false;
+  }
+
+  @Override public void voteOnOutcome(String title, String usernameOne,
+      String usernameTwo, int playerOneScore, int playerTwoScore) {
+    out.println("VOTE;"+title+";"+usernameOne+";"+usernameTwo+";"+playerOneScore+";"+playerTwoScore);
   }
 
   public synchronized void receivedNotification(String message, boolean error){

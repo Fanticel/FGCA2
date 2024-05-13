@@ -118,7 +118,7 @@ public class EventListModelManager
       fileManager.updateParticipant(eventTitle, user);
       return answer;
     }catch (Exception e){
-      return "Somethin went wrong_;_true";
+      return "Something went wrong_;_true";
     }
   }
 
@@ -129,6 +129,15 @@ public class EventListModelManager
   @Override public void addOpponent(User user, int minusOffset,
       int plusOffset) {
     opponentList.addUserToList(user, minusOffset, plusOffset);
+  }
+
+  @Override public String voteOnOutcome(User user, String title, String usernameOne,
+      String usernameTwo, int playerOneScore, int playerTwoScore) {
+    String ans = eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo).voteOnOutcome(user, playerOneScore, playerTwoScore);
+    if (!eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo).getScore().equals(" - ")){
+      fileManager.saveMatchToFile(title, eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo));
+    }
+    return ans;
   }
 
   @Override public void addListener(String propertyName,

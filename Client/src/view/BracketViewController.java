@@ -109,18 +109,10 @@ public class BracketViewController implements ViewController
   private void addMouseClickedEventHandler(Button button)
   {
     button.setOnMouseClicked(event -> {
-      /*VBox vBox = (VBox) button.getParent();
-      hboxes.clear();
-      hboxes.add((HBox) vBox.getChildren());
-      ArrayList<Label> matchInformation = new ArrayList<>();
-      for (int i = 0; i < hboxes.size(); i++){
-        for (Node child: hboxes.get(i).getChildren()){
-          matchInformation.add((Label) child);
-        }
-      }*/
-      bracketViewModel.startVote(buttons.indexOf(button));
-      event.consume();
-      viewHandler.openView("Report");
+      if (bracketViewModel.startVote(buttons.indexOf(button))){
+        viewHandler.openPopupView("Report");
+        event.consume();
+      }
     });
   }
 

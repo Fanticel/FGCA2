@@ -211,8 +211,22 @@ public class SQLFileManager implements FileManger {
     return ans;
   }
 
+  @Override public void saveMatchToFile(String eventTitle, Match match) {
+    try(Connection connection = getConnected()){ //UPDATE fgcadb.Participants SET checkInStatus = ? WHERE userName = ? AND eventTitle = ?
+      PreparedStatement ps = connection.prepareStatement("INSERT INTO fgcadb.Match VALUES(eventTitle=?, userName1=?, userName2=?, user1Score=?, user2Score=?)");
+      ps.setString(1, eventTitle);
+      ps.setString(2, match.getPlayers().get(0).getUsername());
+      ps.setString(2, match.getPlayers().get(1).getUsername());
+      ps.setInt(3, match.getPlayerOneScore());
+      ps.setInt(4, match.getPlayerTwoScore());
+    }
+    catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+  }
+
   private Connection getConnected() throws SQLException {
     return DriverManager.getConnection(
-        "jdbc:postgresql://localhost:5432/postgres", "postgres", "420690");
+        "jdbc:postgresql://localhost:5432/postgres", "postgres", "1234");
   }
 }

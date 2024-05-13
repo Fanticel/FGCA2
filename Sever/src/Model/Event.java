@@ -114,7 +114,14 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
   {
     return Organizer;
   }
-
+  public Match getMatchByParticipants(String usernameOne, String usernameTwo){
+    for (Match m : matches) {
+      if (m.hasBothPlayers(usernameOne, usernameTwo)){
+        return m;
+      }
+    }
+    return null;
+  }
   public ArrayList<Match> getMatches()
   {
     return matches;

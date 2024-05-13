@@ -1,6 +1,7 @@
 package viewModel;
 
 import Model.EventListModel;
+import Model.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -9,13 +10,34 @@ public class ReportScoreViewModel {
   private StringProperty playerOneScoreProperty;
   private StringProperty playerTwoNameProperty;
   private StringProperty playerTwoScoreProperty;
+  private String chosenPlayer;
+  private StringProperty errorProperty;
+  private StringProperty verifyProperty;
+  private User playerOne;
+  private User playerTwo;
   private EventListModel model;
   public ReportScoreViewModel(EventListModel model){
+    playerOne = ViewState.getInstance().getMatch().getPlayers().get(0);
+    playerTwo = ViewState.getInstance().getMatch().getPlayers().get(1);
     this.model = model;
+    verifyProperty = new SimpleStringProperty("Verify the winner");
+    errorProperty = new SimpleStringProperty("");
     playerOneNameProperty = new SimpleStringProperty("SamplePlayer1");
     playerTwoNameProperty = new SimpleStringProperty("SamplePlayer2");
     playerOneScoreProperty = new SimpleStringProperty("");
     playerTwoScoreProperty = new SimpleStringProperty("");
+    try{
+      reset();
+    }
+    catch (Error e){
+      System.err.println(e);
+    }
+  }
+  public void reset(){
+    playerOneNameProperty.set(playerOne.getDisplayName());
+    playerTwoNameProperty.set(playerTwo.getDisplayName());
+    playerOneScoreProperty.set("");
+    playerTwoScoreProperty.set("");
   }
   public StringProperty getPlayerOneNameProperty() {
     return playerOneNameProperty;
@@ -29,7 +51,37 @@ public class ReportScoreViewModel {
   public StringProperty getPlayerTwoScoreProperty() {
     return playerTwoScoreProperty;
   }
-  public void pressSubmit(){}
-  public void pressPlayerOne(){}
-  public void pressPlayerTwo(){}
+  public StringProperty getErrorProperty() {
+    return errorProperty;
+  }
+  public StringProperty getVerifyProperty() {
+    return verifyProperty;
+  }
+  public void pressSubmit(){
+    errorProperty.set("");
+    if (Integer.parseInt(playerOneScoreProperty.get()) > Integer.parseInt(playerTwoScoreProperty.get())){
+      if (chosenPlayer.equals(playerOneNameProperty.get())){
+        model.voteOnOutcome(ViewState.getInstance().getTittle(), playerOne.getUsername(), playerTwo.getUsername(), Integer.parseInt(playerOneScoreProperty.get()), Integer.parseInt(playerTwoScoreProperty.get()));
+      }
+      else {
+        errorProperty.set("Selected winner does not match up with the score");
+      }
+    }
+    if (Integer.parseInt(playerOneScoreProperty.get()) < Integer.parseInt(playerTwoScoreProperty.get())){
+      if (chosenPlayer.equals(playerTwoNameProperty.get())){
+        model.voteOnOutcome(ViewState.getInstance().getTittle(), playerOne.getUsername(), playerTwo.getUsername(), Integer.parseInt(playerOneScoreProperty.get()), Integer.parseInt(playerTwoScoreProperty.get()));
+      }
+      else {
+        errorProperty.set("Selected winner does not match up with the score");
+      }
+    }
+  }
+  public void pressPlayerOne(){
+    verifyProperty.set("You have selected " + playerOneNameProperty.get() + " as the winner");
+    chosenPlayer = playerOneNameProperty.get();
+  }
+  public void pressPlayerTwo(){
+    verifyProperty.set("You have selected " + playerTwoNameProperty.get() + " as the winner");
+    chosenPlayer = playerTwoScoreProperty.get();
+  }
 }
