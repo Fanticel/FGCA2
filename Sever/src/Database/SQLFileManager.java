@@ -213,12 +213,13 @@ public class SQLFileManager implements FileManger {
 
   @Override public void saveMatchToFile(String eventTitle, Match match) {
     try(Connection connection = getConnected()){ //UPDATE fgcadb.Participants SET checkInStatus = ? WHERE userName = ? AND eventTitle = ?
-      PreparedStatement ps = connection.prepareStatement("INSERT INTO fgcadb.Match VALUES(eventTitle=?, userName1=?, userName2=?, user1Score=?, user2Score=?)");
+      PreparedStatement ps = connection.prepareStatement("INSERT INTO fgcadb.Match(eventTitle, userName1, userName2, user1Score, user2Score) VALUES (?, ?, ?, ?, ?)");
       ps.setString(1, eventTitle);
       ps.setString(2, match.getPlayers().get(0).getUsername());
-      ps.setString(2, match.getPlayers().get(1).getUsername());
-      ps.setInt(3, match.getPlayerOneScore());
-      ps.setInt(4, match.getPlayerTwoScore());
+      ps.setString(3, match.getPlayers().get(1).getUsername());
+      ps.setInt(4, match.getPlayerOneScore());
+      ps.setInt(5, match.getPlayerTwoScore());
+      ps.executeUpdate();
     }
     catch (SQLException e){
       throw new RuntimeException(e);

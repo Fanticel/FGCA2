@@ -59,7 +59,7 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
       return "BMN:There was a discrepancy in voting!_;_true";
     }
     score = playerOneScoreVote + "-" + playerTwoScoreVote;
-    return "BN:Match ended with score: " + score + "_;_false";
+    return "BN:Match ended with score " + score + "_;_false";
   }
   public String getScore()
   {

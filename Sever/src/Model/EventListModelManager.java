@@ -135,7 +135,9 @@ public class EventListModelManager
       String usernameTwo, int playerOneScore, int playerTwoScore) {
     String ans = eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo).voteOnOutcome(user, playerOneScore, playerTwoScore);
     if (!eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo).getScore().equals(" - ")){
+      System.out.println("a");
       fileManager.saveMatchToFile(title, eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo));
+      System.out.println("b");
     }
     return ans;
   }

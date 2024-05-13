@@ -66,6 +66,8 @@ public class ReportScoreViewModel {
       else {
         errorProperty.set("Selected winner does not match up with the score");
       }
+      System.out.println(chosenPlayer);
+      System.out.println(playerOneNameProperty.get());
     }
     if (Integer.parseInt(playerOneScoreProperty.get()) < Integer.parseInt(playerTwoScoreProperty.get())){
       if (chosenPlayer.equals(playerTwoNameProperty.get())){
@@ -74,6 +76,8 @@ public class ReportScoreViewModel {
       else {
         errorProperty.set("Selected winner does not match up with the score");
       }
+      System.out.println(chosenPlayer);
+      System.out.println(playerTwoNameProperty.get());
     }
   }
   public void pressPlayerOne(){
@@ -82,6 +86,6 @@ public class ReportScoreViewModel {
   }
   public void pressPlayerTwo(){
     verifyProperty.set("You have selected " + playerTwoNameProperty.get() + " as the winner");
-    chosenPlayer = playerTwoScoreProperty.get();
+    chosenPlayer = playerTwoNameProperty.get();
   }
 }
