@@ -25,6 +25,7 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
   private StringProperty participantsNumberProperty;//property for how many participant there are and can join
   private StringProperty participantsListProperty;
   private BooleanProperty disabledProperty;
+  private BooleanProperty quitProperty;
   private ObservableList<SimplePlayerViewModel> list;
   private EventListModel model;
 
@@ -44,6 +45,7 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
     participantsNumberProperty = new SimpleStringProperty();
     participantsListProperty = new SimpleStringProperty();
     disabledProperty = new SimpleBooleanProperty(true);
+    quitProperty = new SimpleBooleanProperty(true);
     list = FXCollections.observableArrayList();
     reset();
   }
@@ -143,10 +145,6 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
   }
 
   public boolean isUserRegistered(){
-
-    for(int i=0;i<list.size();i++){
-      System.out.println(list.get(i).getPlayerDisplayName());
-    }
     int br=0;
     return true;
   }

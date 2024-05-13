@@ -15,4 +15,6 @@ public interface FileManger {
   ArrayList<Event> getEventsFromFile();
   void saveUserToFile(User user);
   ArrayList<User> getUsersFromFile();
+
+  void removeParticipant (String eventTitle, User user);
 }

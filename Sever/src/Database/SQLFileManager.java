@@ -107,6 +107,22 @@ public class SQLFileManager implements FileManger {
     }
   }
 
+  @Override
+  public void removeParticipant(String eventTitle, User user) {
+    try (Connection connection = getConnected()) {
+      PreparedStatement deleteParticipant = connection.prepareStatement(
+          "DELETE FROM fgcadb.Participants WHERE userName = ? AND eventTitle = ?");
+
+      deleteParticipant.setString(1, user.getUsername());
+      deleteParticipant.setString(2, eventTitle);
+
+      deleteParticipant.executeUpdate();
+    } catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+
   @Override public ArrayList<Event> getEventsFromFile() {
     ArrayList<Event> ans = new ArrayList<>();
     try (Connection connection = getConnected()) {
@@ -197,6 +213,6 @@ public class SQLFileManager implements FileManger {
 
   private Connection getConnected() throws SQLException {
     return DriverManager.getConnection(
-        "jdbc:postgresql://localhost:5432/postgres", "postgres", "1234");
+        "jdbc:postgresql://localhost:5432/postgres", "postgres", "420690");
   }
 }

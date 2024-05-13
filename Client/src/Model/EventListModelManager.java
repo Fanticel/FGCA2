@@ -46,7 +46,6 @@ public class EventListModelManager implements EventListModel,
       int maxBRP, int maxParticipants, String date, int startingHour)
   {
    return client.addEvent(tittle, game, minBRP, maxBRP, maxParticipants, date, startingHour);
-
   }
 
   @Override public void setMatchScore(String eventTittle, Match match,
@@ -94,6 +93,7 @@ public class EventListModelManager implements EventListModel,
   @Override public void removeParticipant(String eventTittle, User user)
   {
     client.removeParticipant(eventTittle, user);
+
   }
 
   @Override public void removeParticipant(Event event, User user)

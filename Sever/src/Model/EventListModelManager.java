@@ -93,10 +93,12 @@ public class EventListModelManager
 
   @Override public void removeParticipant(String eventTittle, User user) {
     eventList.removeParticipant(eventTittle, user);
+    fileManager.removeParticipant(eventTittle, user);
   }
 
   @Override public void removeParticipant(Event event, User user) {
     eventList.removeParticipant(event, user);
+    fileManager.removeParticipant(event.getTittle(), user);
   }
 
   @Override public ArrayList<Object> addParticipant(String eventTittle,

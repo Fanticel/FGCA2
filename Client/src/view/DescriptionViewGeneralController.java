@@ -64,8 +64,6 @@ public class DescriptionViewGeneralController implements ViewController{
         cellData -> cellData.getValue().getSkillLevel());
     tblPlayers.setItems(descriptionViewGeneralViewModel.getList());
 
-    boolean isUserRegistered = descriptionViewGeneralViewModel.isUserRegistered();
-    btnQuit.setDisable(!isUserRegistered);
   }
 
   @Override public void reset() {
