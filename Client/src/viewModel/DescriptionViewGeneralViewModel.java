@@ -14,7 +14,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
-public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
+public class DescriptionViewGeneralViewModel implements PropertyChangeListener
+{
   private StringProperty errorProperty;
   private StringProperty tittleProperty;
   private StringProperty organizerProperty;
@@ -33,7 +34,7 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
       ViewState viewState)
   {
     this.model = model;
-    this.model.addListener("EventChange",this);
+    this.model.addListener("EventChange", this);
     //    this.viewState = viewState;
     errorProperty = new SimpleStringProperty();
     tittleProperty = new SimpleStringProperty();
@@ -59,23 +60,45 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
     statusProperty.set(event.getStatus());
     gameProperty.set(event.getGame());
     dateProperty.set(event.getStartingHour() + ", " + event.getStartDate());
-    BRPRangeProperty.set(
-        event.getMinBRP() + " - " + event.getMaxBRP());
-    participantsNumberProperty.set(event.getParticipants().size() + "/"
-        + event.getMaxParticipants());
+    BRPRangeProperty.set(event.getMinBRP() + " - " + event.getMaxBRP());
+    participantsNumberProperty.set(
+        event.getParticipants().size() + "/" + event.getMaxParticipants());
     if (event.getParticipants().isEmpty())
     {
       //participantsListProperty.set("No participants yet.");
-    }else {
+    }
+    else
+    {
       for (User participant : event.getParticipants())
       {
         list.add(new SimplePlayerViewModel(participant, model));
       }
     }
-    if (event.getStatus().equals("CheckIn")){
+    if (event.getStatus().equals("CheckIn"))
+    {
       disabledProperty.set(false);
-    }else {
+    }
+    else
+    {
       disabledProperty.set(true);
+    }
+
+    if (!event.getStatus().equals("Ongoing") || !event.getStatus()
+        .equals("Finished"))
+    {
+      for (User participant : event.getParticipants())
+      {
+        if (model.getUser().getDisplayName()
+            .equals(participant.getDisplayName()))
+        {
+          quitProperty.set(false);
+          break;
+        }
+        else
+        {
+          quitProperty.set(true);
+        }
+      }
     }
   }
 
@@ -103,9 +126,12 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
   {
     return gameProperty;
   }
-  public StringProperty getDateProperty(){
+
+  public StringProperty getDateProperty()
+  {
     return dateProperty;
   }
+
   public StringProperty getBRPRangeProperty()
   {
     return BRPRangeProperty;
@@ -126,6 +152,9 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
     return disabledProperty;
   }
 
+  public BooleanProperty getQuitProperty(){
+    return quitProperty;
+  }
 
   private void join()
   {
@@ -139,30 +168,37 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener {
     }
   }
 
-  public void quitEvent(){
+  public void quitEvent()
+  {
     Event event = model.getEvent(ViewState.getInstance().getTittle());
     model.removeParticipant(tittleProperty.get(), model.getUser());
   }
 
-  public boolean isUserRegistered(){
-    int br=0;
+  public boolean isUserRegistered()
+  {
+    int br = 0;
     return true;
   }
-  public void checkIn(){
+
+  public void checkIn()
+  {
     model.checkIn(getTittleProperty().get());
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-    if (evt.getPropertyName().equals(tittleProperty.get())){
+    if (evt.getPropertyName().equals(tittleProperty.get()))
+    {
       Event event = (Event) evt.getNewValue();
       statusProperty.set(event.getStatus());
-      participantsNumberProperty.set(event.getParticipants().size() + "/"
-          + event.getMaxParticipants());
+      participantsNumberProperty.set(
+          event.getParticipants().size() + "/" + event.getMaxParticipants());
       if (event.getParticipants().isEmpty())
       {
         participantsListProperty.set("No participants yet.");
-      }else {
+      }
+      else
+      {
         String string = "";
         for (User participant : event.getParticipants())
         {

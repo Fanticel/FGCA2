@@ -63,7 +63,7 @@ public class DescriptionViewGeneralController implements ViewController{
     colSkillLevel.setCellValueFactory(
         cellData -> cellData.getValue().getSkillLevel());
     tblPlayers.setItems(descriptionViewGeneralViewModel.getList());
-
+    btnQuit.disableProperty().bind(descriptionViewGeneralViewModel.getQuitProperty());
   }
 
   @Override public void reset() {
