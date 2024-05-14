@@ -246,6 +246,15 @@ public class Client implements EventListModel
     property.firePropertyChange(new PropertyChangeEvent(this, "Notification", error, message));
   }
 
+  public void receiveOpponent(){
+
+  }
+
+  @Override public void addOpponent(String skillLevel, String gameTitle){
+    out.println(
+        "addOpponent;" + skillLevel + ";" + gameTitle);
+  }
+
   @Override public void addListener(String propertyName,
       PropertyChangeListener listener) {
     property.addPropertyChangeListener(listener);

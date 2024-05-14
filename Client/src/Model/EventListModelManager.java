@@ -137,6 +137,11 @@ public class EventListModelManager implements EventListModel,
     client.voteOnOutcome(title, usernameOne, usernameTwo, playerOneScore, playerTwoScore);
   }
 
+  @Override public void addOpponent(String skillLevel, String gameTitle)
+  {
+    client.addOpponent(skillLevel, gameTitle);
+  }
+
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
     property.firePropertyChange(evt);
