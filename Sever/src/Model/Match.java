@@ -29,7 +29,7 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
     this.players = new ArrayList<>(2);
     players.add(playerOne);
     players.add(playerTwo);
-    timer = new MachVoteTimer(6);
+    timer = new MachVoteTimer(150);
     timer.addListener("OutOfTime", this);
     this.score = score;
     hasVoted = false;
