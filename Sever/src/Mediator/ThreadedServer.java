@@ -40,6 +40,7 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
     currentSocket = null;
     out = null;
     in = null;
+    thisUser = null;
     gson = new Gson();
   }
 
@@ -155,6 +156,9 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
         }
       }
       case "^Q" -> {
+        if (thisUser!=null){
+          model.removeOpponent(thisUser);
+        }
         working = false;
         currentSocket.close();
       }
