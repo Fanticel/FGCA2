@@ -163,6 +163,7 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
         currentSocket.close();
       }
       case "PUSHNOTIFICATION" -> {serverMaster.broadcast(reqSplit[1] + "_;_" + reqSplit[2], "Notification");}
+
       case "VOTE" -> { //VOTE;{[1]EventName};{[2]usernameOne};{[3]usernameTwo};{[4]scoreOne};{[5]scoreTwo}
         try{
           String ans = model.voteOnOutcome(thisUser, reqSplit[1], reqSplit[2],reqSplit[3],Integer.parseInt(reqSplit[4]),Integer.parseInt(reqSplit[5]));

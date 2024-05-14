@@ -54,6 +54,16 @@ public class EventListViewController implements ViewController
       createButton.visibleProperty().set(true);
     }
   }
+  @Override public void reset()
+  {
+    ArrayList<Event> allEvents = eventListViewModel.getAllEvents();
+    VBox container = new VBox();
+    for (Event event : allEvents)
+    {
+      loadEventView(viewModelFactory.getSimpleEventViewModel(event), container);
+    }
+    eventListViewModel.clear();
+  }
 
   private void loadEventView(SimpleEventViewModel viewModel, VBox container)
   {
@@ -156,11 +166,6 @@ public class EventListViewController implements ViewController
     }
   }
 
-  @Override public void reset()
-  {
-    eventListViewModel.clear();
-  }
-
   @Override public Region getRoot()
   {
     return root;
@@ -168,7 +173,7 @@ public class EventListViewController implements ViewController
 
   @FXML void backButtonPressed()
   {
-    viewHandler.openPopupView("");
+    viewHandler.openView("");
   }
   @FXML void createButtonPressed(){
     viewHandler.openView("CreateEvent");

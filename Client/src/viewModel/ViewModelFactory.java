@@ -4,6 +4,7 @@ import Model.Event;
 import Model.EventListModel;
 import Model.EventListModelManager;
 import view.CreateEventController;
+import view.MainPageViewController;
 
 public class ViewModelFactory {
   private EventListViewModel eventListViewModel;
@@ -17,6 +18,7 @@ public class ViewModelFactory {
   private RegisterViewModel registerViewModel;
   private CreateEventViewModel createEventViewModel;
   private ReportScoreViewModel reportScoreViewModel;
+  private MainPageViewModel mainPageViewModel;
   private ViewState viewState;
   private EventListModel model;
 
@@ -72,5 +74,9 @@ public class ViewModelFactory {
   public ReportScoreViewModel getReportScoreViewModel(){
     reportScoreViewModel = new ReportScoreViewModel(model);
     return reportScoreViewModel;
+  }
+  public MainPageViewModel getMainPageViewModel(){
+    mainPageViewModel = new MainPageViewModel(model);
+    return mainPageViewModel;
   }
 }

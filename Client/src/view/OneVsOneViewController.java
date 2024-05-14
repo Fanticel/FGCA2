@@ -12,10 +12,10 @@ public class OneVsOneViewController implements ViewController
   private ViewHandler viewHandler;
   private Region root;
 
-  @FXML private Button backButton;
+//  @FXML private Button backButton;
+//  @FXML private Button searchButton;
   @FXML private ChoiceBox<String> gameButton;
   @FXML private ChoiceBox<String> skillButton;
-  @FXML private Button searchButton;
 
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory, Region root)
@@ -29,8 +29,8 @@ public class OneVsOneViewController implements ViewController
 
     skillButton.setItems(
         FXCollections.observableArrayList("Lower", "Same", "Higher", "Any"));
-    backButton.setOnAction(event -> viewHandler.openView(""));
-    searchButton.setOnAction(event -> viewHandler.openView("MatchInfoView.fxml"));
+//    backButton.setOnAction(event -> viewHandler.openView(""));
+//    searchButton.setOnAction(event -> viewHandler.openView("MatchInfoView.fxml"));
 
   }
 
@@ -43,6 +43,12 @@ public class OneVsOneViewController implements ViewController
   @Override public Region getRoot()
   {
     return root;
+  }
+  @FXML public void btnSearchPress(){
+    System.out.println("Search button pressed in 1v1 view");
+  }
+  @FXML public void btnBackPress(){
+    viewHandler.openView("");
   }
 }
 

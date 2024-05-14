@@ -45,7 +45,7 @@ public class LogInViewController implements ViewController{
   }
   @FXML void PressLoginButton(){
     if (logInViewModel.PressLoginButton()){
-      viewHandler.openView("EventList");
+      viewHandler.openView("");
     }
   }
   @FXML void CreateAccount(){

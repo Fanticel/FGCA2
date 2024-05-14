@@ -18,6 +18,8 @@ public class ViewHandler {
   private RegisterViewController registerViewController;
   private CreateEventController createEventController;
   private ReportScoreViewController reportScoreViewController;
+  private MainPageViewController mainPageViewController;
+  private OneVsOneViewController oneVsOneViewController;
   private EventTemplateViewController eventTemplateViewController;
   private BracketViewController bracketViewController;
   private ViewModelFactory viewModelFactory;
@@ -31,7 +33,7 @@ public class ViewHandler {
   public void start(Stage primaryStage) {
     this.primaryStage = primaryStage;
     openView("Login");
-//    openView("Report");
+//    openView("1v1");
   }
 
   public void startPopup(Stage popupStage) {
@@ -69,6 +71,8 @@ public class ViewHandler {
       case "Login" -> root = loadLogInViewController("LogInView.fxml");
       case "Register" -> root = loadRegisterViewController("RegisterView.fxml");
       case "CreateEvent" -> root = loadCreateEventView("CreateEventView.fxml");
+      case "1v1" -> root = loadOneVsOneView("1v1view.fxml");
+      default -> root = loadMainPageView("MainPageView.fxml");
     } currentScene.setRoot(root);
     String title = "";
     if (root.getUserData() != null) {
@@ -87,6 +91,42 @@ public class ViewHandler {
 
   public void closePopupView() {
     popupStage.close();
+  }
+  public Region loadOneVsOneView(String fxmlFile){
+    if (oneVsOneViewController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        oneVsOneViewController = loader.getController();
+        oneVsOneViewController.init(this, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      oneVsOneViewController.reset();
+    }
+    return oneVsOneViewController.getRoot();
+  }
+  public Region loadMainPageView(String fxmlFile){
+    if (mainPageViewController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        mainPageViewController = loader.getController();
+        mainPageViewController.init(this, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      mainPageViewController.reset();
+    }
+    return mainPageViewController.getRoot();
   }
   public Region loadReportScoreView(String fxmlFile){
     if (reportScoreViewController == null) {
