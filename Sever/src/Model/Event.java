@@ -186,11 +186,6 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
     matches.add(new Match(playerOne, playerTwo, score));
   }
 
-  public void setMatchScore(Match match, String score)
-  {
-    match.setMatchScore(score);
-  }
-
   public int getStartingHour()
   {
     return startingHour;

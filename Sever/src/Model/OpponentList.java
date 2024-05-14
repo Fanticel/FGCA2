@@ -3,7 +3,6 @@ package Model;
 import Mediator.ServerMaster;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 public class OpponentList {
   private ArrayList<Opponent> opponents;
@@ -20,10 +19,9 @@ public class OpponentList {
     Opponent opponent = new Opponent(user, user.getBRP() - minusOffset, user.getBRP() + plusOffset);
     boolean found = false;
     for (Opponent o : opponents) {
-      System.out.println("_________\n"+opponent+"\n"+o);
       if (opponent.compareToAnotherOpponent(o) && o.compareToAnotherOpponent(opponent)){
-        serverMaster.useredAnswer(o.getOpponent(), "A match has been found with player: " + opponent.getOpponent().getDisplayName(), "Opponent");
-        serverMaster.useredAnswer(opponent.getOpponent(), "A match has been found with player: " + o.getOpponent().getDisplayName(), "Opponent");
+        serverMaster.useredAnswer(o.getUser(), "A match has been found with player: " + opponent.getUser().getDisplayName(), "Opponent");
+        serverMaster.useredAnswer(opponent.getUser(), "A match has been found with player: " + o.getUser().getDisplayName(), "Opponent");
         opponents.remove(o);
         found = true;
         break;

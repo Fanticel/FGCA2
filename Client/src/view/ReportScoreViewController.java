@@ -35,7 +35,9 @@ public class ReportScoreViewController implements ViewController{
     verifyLabel.textProperty().bind(reportScoreViewModel.getVerifyProperty());
   }
   @FXML void pressSubmit(){
-    reportScoreViewModel.pressSubmit();
+    if (reportScoreViewModel.pressSubmit()){
+      viewHandler.closePopupView();
+    }
   }
   @FXML void pressPlayerOne(){
     reportScoreViewModel.pressPlayerOne();

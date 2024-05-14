@@ -38,6 +38,7 @@ public class ClientReader implements Runnable {
         }
         else if (tmp.split(": ")[0].contains("Notification"))
         {
+          System.out.println("a");
           String ans = tmp.split(": ")[1];
           client.receivedNotification(ans.split("_;_")[0], ans.split("_;_")[1].equalsIgnoreCase("TRUE"));
         }

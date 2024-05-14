@@ -67,16 +67,6 @@ public class EventListModelManager
     fileManager.saveEventToFile(event);
   }
 
-  @Override public void setMatchScore(String eventTittle, Match match,
-      String score) {
-    eventList.setMatchScore(eventTittle, match, score);
-  }
-
-  @Override public void setMatchScore(Event event, Match match, String score) {
-    fileManager.saveMatchToFile(event.getTittle(), match, score);
-    eventList.setMatchScore(event, match, score);
-  }
-
   @Override public void addMatch(String eventTittle, User playerOne,
       User playerTwo) {
     eventList.addMatch(eventTittle, playerOne, playerTwo);
@@ -133,13 +123,17 @@ public class EventListModelManager
 
   @Override public String voteOnOutcome(User user, String title, String usernameOne,
       String usernameTwo, int playerOneScore, int playerTwoScore) {
-    String ans = eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo).voteOnOutcome(user, playerOneScore, playerTwoScore);
-    if (!eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo).getScore().equals(" - ")){
-      System.out.println("a");
+    String ans = getMatchByParticipants(title, usernameOne, usernameTwo).voteOnOutcome(user, playerOneScore, playerTwoScore);
+    getMatchByParticipants(title, usernameOne, usernameTwo).addListener(null, this);
+    if (ans.split(":")[0].equals("BN")){
       fileManager.saveMatchToFile(title, eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo));
-      System.out.println("b");
     }
     return ans;
+  }
+
+  @Override public Match getMatchByParticipants(String title, String usernameOne,
+      String usernameTwo) {
+    return eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo);
   }
 
   @Override public void addListener(String propertyName,
@@ -152,12 +146,15 @@ public class EventListModelManager
     property.removePropertyChangeListener(propertyName, listener);
   }
 
+
   @Override public void propertyChange(PropertyChangeEvent evt) {
     if (evt.getPropertyName().equals("CheckIn")) {
-//      fileManager.updateEvent(getEvent(evt.getOldValue().toString()));
       serverMaster.useredBroadcast(((Event)evt.getNewValue()).getParticipants(),
           "Check in is now available for an event '" + evt.getOldValue()
               + "'_;_false", "Notification");
+    }
+    if (evt.getPropertyName().equals("OutOfTime")){
+      serverMaster.useredBroadcast(((Match) evt.getSource()).getPlayers(), "The time for voting has finished. Contact the moderator dum dum_;_true", "Notification");
     }
   }
 }

@@ -29,17 +29,14 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
     this.players = new ArrayList<>(2);
     players.add(playerOne);
     players.add(playerTwo);
-//    timer = new MachVoteTimer(60);
-//    this.timer.addListener("Time", this);
-//    this.timer.addListener("OutOfTIme", this);
-//    Thread t = new Thread(timer);
-//    t.start();
-    property = new PropertyChangeSupport(this);
+    timer = new MachVoteTimer(6);
+    timer.addListener("OutOfTime", this);
     this.score = score;
     hasVoted = false;
     hasVotedMap = new HashMap<>();
     hasVotedMap.put(players.get(0), false);
     hasVotedMap.put(players.get(1), false);
+    property = new PropertyChangeSupport(this);
   }
   public synchronized String voteOnOutcome(User user,int playerOneScore, int playerTwoScore){
     if (!score.equals(" - ")){
@@ -53,23 +50,19 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
       playerTwoScoreVote = playerTwoScore;
       hasVoted = true;
       hasVotedMap.put(user, true);
+      activateMatchTimer();
       return "PN:Voted successfully!_;_false";
     }
     if (playerOneScore != playerOneScoreVote || playerTwoScore != playerTwoScoreVote){
       return "BMN:There was a discrepancy in voting!_;_true";
     }
     score = playerOneScoreVote + "-" + playerTwoScoreVote;
+    timer.setActive(false);
     return "BN:Match ended with score " + score + "_;_false";
   }
   public String getScore()
   {
     return score;
-  }
-
-  public void setMatchScore(String score)
-  {
-    this.score = score;
-    property.firePropertyChange("Score",null, score);
   }
   public boolean hasBothPlayers(String usernameOne, String usernameTwo){
     if (players.get(0) != null && players.get(1) != null){
@@ -89,7 +82,7 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
     players.set(index, player);
   }
   public void activateMatchTimer(){
-    if (timer.isActive()){
+    if (!timer.isActive()){
       timer.setActive(true);
       Thread t = new Thread(timer);
       t.setDaemon(true);
@@ -106,7 +99,8 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-    property.firePropertyChange(evt);
+    score = "0-0";
+    property.firePropertyChange(new PropertyChangeEvent(this, "OutOfTime", null, null));
   }
 
   @Override public void addListener(String propertyName,
@@ -114,6 +108,7 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
   {
     if (propertyName == null)
     {
+      System.out.println("aa");
       property.addPropertyChangeListener(listener);
     }
     else

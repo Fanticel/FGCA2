@@ -1,17 +1,17 @@
 package Model;
 
 public class Opponent {
-  private User opponent;
+  private User user;
   private Integer minBRP;
   private Integer maxBRP;
   public Opponent(User opponent, Integer minBRP, Integer maxBRP){
-    this.opponent = opponent;
+    this.user = opponent;
     this.minBRP = minBRP;
     this.maxBRP = maxBRP;
   }
 
-  public User getOpponent() {
-    return opponent;
+  public User getUser() {
+    return user;
   }
 
   public Integer getMinBRP() {
@@ -22,10 +22,10 @@ public class Opponent {
     return maxBRP;
   }
   public boolean compareToAnotherOpponent(Opponent anotherOpponent){
-    return opponent.getBRP() <= anotherOpponent.maxBRP && opponent.getBRP() >= anotherOpponent.minBRP;
+    return user.getBRP() <= anotherOpponent.maxBRP && user.getBRP() >= anotherOpponent.minBRP;
   }
 
   @Override public String toString() {
-    return opponent.toString() + ", minBRP" + minBRP + ", maxBRP" + maxBRP;
+    return user.toString() + ", minBRP" + minBRP + ", maxBRP" + maxBRP;
   }
 }

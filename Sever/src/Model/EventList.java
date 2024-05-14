@@ -87,22 +87,10 @@ public class EventList implements PropertyChangeListener,
   public void addMatch(Event event, User playerOne, User playerTwo){
     event.addMatch(playerOne, playerTwo);
   }
-  public void addMatch(String eventTittle, User playerOne, User playerTwo){
-    for (Event event:events)
-    {
-      if (eventTittle.equals(event.getTittle())){
+  public void addMatch(String eventTittle, User playerOne, User playerTwo) {
+    for (Event event : events) {
+      if (eventTittle.equals(event.getTittle())) {
         event.addMatch(playerOne, playerTwo);
-      }
-    }
-  }
-  public void setMatchScore(Event event, Match match, String score){
-    event.setMatchScore(match, score);
-  }
-  public void setMatchScore(String eventTittle, Match match, String score){
-    for (Event event:events)
-    {
-      if (eventTittle.equals(event.getTittle())){
-        event.setMatchScore(match, score);
       }
     }
   }

@@ -22,30 +22,24 @@ public class MachVoteTimer implements Runnable, NamedPropertyChangeSubject
 
   @Override public void run()
   {
-    LocalTime time = LocalTime.ofSecondOfDay(timerSeconds);
-    DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
     while (active){
-      while (timerSeconds >= 0){
-        property.firePropertyChange("Time", timerSeconds, time.format(timeFormatter));
+      while (timerSeconds > 0){
         try
         {
           Thread.sleep(1000);
         }
-        catch (InterruptedException e)
-        {
-          //
-        }
-        time = time.minusSeconds(1);
+        catch (InterruptedException e) {}
         timerSeconds--;
+        System.out.println(timerSeconds);
       }
       this.setActive(false);
     }
-    property.firePropertyChange("OutOfTIme", null, 0);
+    property.firePropertyChange("OutOfTime", null, 0);
     PropertyChangeListener[] listeners = property.getPropertyChangeListeners();
     for (int i=0; i<listeners.length; i++)
     {
       removeListener("Time", listeners[i]);
-      removeListener("OutOfTIme", listeners[i]);
+      removeListener("OutOfTime", listeners[i]);
     }
   }
 

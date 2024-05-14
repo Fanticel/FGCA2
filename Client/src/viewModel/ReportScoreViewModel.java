@@ -57,27 +57,31 @@ public class ReportScoreViewModel {
   public StringProperty getVerifyProperty() {
     return verifyProperty;
   }
-  public void pressSubmit(){
+  public boolean pressSubmit(){
     errorProperty.set("");
     if (Integer.parseInt(playerOneScoreProperty.get()) > Integer.parseInt(playerTwoScoreProperty.get())){
       if (chosenPlayer.equals(playerOneNameProperty.get())){
         model.voteOnOutcome(ViewState.getInstance().getTittle(), playerOne.getUsername(), playerTwo.getUsername(), Integer.parseInt(playerOneScoreProperty.get()), Integer.parseInt(playerTwoScoreProperty.get()));
+        return true;
       }
       else {
         errorProperty.set("Selected winner does not match up with the score");
+        return false;
       }
-      System.out.println(chosenPlayer);
-      System.out.println(playerOneNameProperty.get());
     }
     if (Integer.parseInt(playerOneScoreProperty.get()) < Integer.parseInt(playerTwoScoreProperty.get())){
       if (chosenPlayer.equals(playerTwoNameProperty.get())){
         model.voteOnOutcome(ViewState.getInstance().getTittle(), playerOne.getUsername(), playerTwo.getUsername(), Integer.parseInt(playerOneScoreProperty.get()), Integer.parseInt(playerTwoScoreProperty.get()));
+        return true;
       }
       else {
         errorProperty.set("Selected winner does not match up with the score");
+        return false;
       }
-      System.out.println(chosenPlayer);
-      System.out.println(playerTwoNameProperty.get());
+    }
+    else {
+      model.showLocalNotification("The score cannot be equal", true);
+      return false;
     }
   }
   public void pressPlayerOne(){
