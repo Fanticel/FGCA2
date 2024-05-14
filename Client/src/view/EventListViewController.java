@@ -45,7 +45,6 @@ public class EventListViewController implements ViewController
     filterError.setVisible(false);
     searchError.setVisible(false);
     searchBar.setPromptText("Search...");
-    // Add event listener to search bar
     searchBar.setOnKeyReleased(event -> {
       String query = searchBar.getText().toLowerCase();
       searchEvents(query);

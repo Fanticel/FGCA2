@@ -125,6 +125,14 @@ public class EventListModelManager
     opponentList.removeUserFromList(user);
   }
 
+  @Override public void acceptOpponent(User user, User enemyUser) {
+    opponentList.accept(user, enemyUser);
+  }
+
+  @Override public void declineOpponent(User user, User enemyUser) {
+    opponentList.decline(user, enemyUser);
+  }
+
   @Override public String voteOnOutcome(User user, String title, String usernameOne,
       String usernameTwo, int playerOneScore, int playerTwoScore) {
     String ans = getMatchByParticipants(title, usernameOne, usernameTwo).voteOnOutcome(user, playerOneScore, playerTwoScore);

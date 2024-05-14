@@ -3,17 +3,56 @@ package Model;
 import Mediator.ServerMaster;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OpponentList {
   private ArrayList<Opponent> opponents;
+  private ArrayList<ArrayList<Object>> listOfPotentialMatches; //{[0]user1}, {[1]user2}, {[2]user1ReadyBool}, {[3]user2ReadyBool}
   private ServerMaster serverMaster;
-  public OpponentList(ServerMaster serverMaster){ //should we make the list be save to DB? or do we think that it should not be held in memory that long?
+  public OpponentList(ServerMaster serverMaster) {
     this.serverMaster = serverMaster;
     opponents = new ArrayList<>();
+    listOfPotentialMatches = new ArrayList<>();
   }
-  public OpponentList(ServerMaster serverMaster, ArrayList<Opponent> opponentArrayList){ // for use if we want to store them to DB
-    this.serverMaster = serverMaster;
-    opponents = opponentArrayList;
+  public synchronized void accept(User user, User enemyUser){
+    for (ArrayList a : listOfPotentialMatches) {
+      if (a.get(0).equals(user) && a.get(1).equals(enemyUser)){
+        a.set(2, true);
+        if ((boolean)a.get(3)){
+          serverMaster.useredAnswer((User) a.get(0), ((User)a.get(1)).getDisplayName()+" has accepted the match!", "OpponentFound");
+          serverMaster.useredAnswer((User) a.get(1), ((User)a.get(0)).getDisplayName()+" has accepted the match!", "OpponentFound");
+          listOfPotentialMatches.remove(a);
+          break;
+        }
+        else {
+          serverMaster.useredAnswer(user, "Waiting for enemy response", "Notification");
+        }
+      }
+      else if (a.get(1).equals(user) && a.get(0).equals(enemyUser)){
+        a.set(3, true);
+        if ((boolean)a.get(2)){
+          serverMaster.useredAnswer((User) a.get(0), ((User)a.get(1)).getDisplayName()+" has accepted the match!", "OpponentFound");
+          serverMaster.useredAnswer((User) a.get(1), ((User)a.get(0)).getDisplayName()+" has accepted the match!", "OpponentFound");
+          listOfPotentialMatches.remove(a);
+          break;
+        }
+        else {
+          serverMaster.useredAnswer(user, "Waiting for enemy response", "Notification");
+        }
+      }
+    }
+  }
+  public synchronized void decline(User user, User enemyUser){
+    listOfPotentialMatches.removeIf(a -> (a.get(0).equals(user) && a.get(1).equals(enemyUser)) || (a.get(1).equals(user) && a.get(0).equals(enemyUser)));
+    serverMaster.useredAnswer(user, "You have decided to cancel the match you pussy", "Notification");
+    serverMaster.useredAnswer(enemyUser, user.getDisplayName()+" decided to cancel the match", "Notification");
+//    for (ArrayList a:listOfPotentialMatches){
+//      if ((a.get(0).equals(user) && a.get(1).equals(enemyUser)) || (a.get(1).equals(user) && a.get(0).equals(enemyUser))){
+//        listOfPotentialMatches.remove(a);
+//      }
+//    }
   }
   public synchronized void addUserToList(User user, int minusOffset, int plusOffset, String game){
     Opponent opponent = new Opponent(user, user.getBRP() - minusOffset, user.getBRP() + plusOffset, game);
@@ -26,9 +65,10 @@ public class OpponentList {
         break;
       }
       if (opponent.compareToAnotherOpponent(o) && o.compareToAnotherOpponent(opponent)){
-        serverMaster.useredAnswer(o.getUser(), "A match has been found with player " + opponent.getUser().getDisplayName() + " for the game " + game, "Opponent");
-        serverMaster.useredAnswer(opponent.getUser(), "A match has been found with player " + o.getUser().getDisplayName() + " for the game " + game, "Opponent");
-        opponents.remove(o);
+        serverMaster.useredAnswer(o.getUser(), "A match has been found with player " + opponent.getUser().getDisplayName() + " for the game " + game + "|"+opponent.getUser().getUsername(), "OpponentRequest");
+        serverMaster.useredAnswer(opponent.getUser(), "A match has been found with player " + o.getUser().getDisplayName() + " for the game " + game+"|"+o.getUser().getUsername(), "OpponentRequest");
+        opponents.removeIf(o2 -> o2.getUser().equals(o.getUser()));
+        listOfPotentialMatches.add(new ArrayList<>(Arrays.asList(opponent.getUser(), o.getUser(), false, false)));
         found = true;
         break;
       }
@@ -39,13 +79,19 @@ public class OpponentList {
             "You have been added to the waiting list of the game "+game+".", "Notification");
         opponents.add(opponent);
       }
+    System.out.println(this);
   }
   public synchronized void removeUserFromList(User user){
-    for (Opponent o:opponents){
-      if (o.getUser().equals(user)){
-        opponents.remove(o);
-        break;
-      }
+    //        break;
+    opponents.removeIf(o -> o.getUser().equals(user));
+  }
+
+  @Override public String toString() {
+    String ans = "OpponentList[\n";
+    for (Opponent o : opponents) {
+      ans += "{"+o+"}\n";
     }
+    ans +="]";
+    return ans;
   }
 }

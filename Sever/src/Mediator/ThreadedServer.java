@@ -137,6 +137,22 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
       case "CONFIRMPARTICIPATION" -> {
         serverMaster.privateAnswer(this, model.checkIn(reqSplit[1], thisUser), "Notification");
       }
+      case "ACCEPT" -> {
+        try {
+          model.acceptOpponent(thisUser, UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[1]));
+        }
+        catch (Exception e){
+          System.err.println(e);
+        }
+      }
+      case "DECLINE" ->{
+        try {
+          model.declineOpponent(thisUser, UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[1]));
+        }
+        catch (Exception e){
+          System.err.println(e);
+        }
+      }
       case "ADDOPPONENT" -> {
         switch (reqSplit[1].toUpperCase()){
           case "LOWER" -> model.addOpponent(thisUser, 1000, 0, reqSplit[2]);

@@ -24,4 +24,6 @@ public interface EventListModel extends NamedPropertyChangeSubject
   public void removeOpponent(User user);
   String voteOnOutcome(User user, String title, String usernameOne, String usernameTwo, int playerOneScore, int playerTwoScore);
   Match getMatchByParticipants(String title, String usernameOne, String usernameTwo);
+  void acceptOpponent(User user, User enemyUser);
+  void declineOpponent(User user, User enemyUser);
 }

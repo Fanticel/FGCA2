@@ -31,6 +31,6 @@ public class Opponent {
   }
 
   @Override public String toString() {
-    return user.toString() + ", minBRP" + minBRP + ", maxBRP" + maxBRP;
+    return user.toString() + ", minBRP" + minBRP + ", maxBRP" + maxBRP + ", game"+game;
   }
 }
