@@ -117,8 +117,8 @@ public class EventListModelManager
   }
 
   @Override public void addOpponent(User user, int minusOffset,
-      int plusOffset) {
-    opponentList.addUserToList(user, minusOffset, plusOffset);
+      int plusOffset, String game) {
+    opponentList.addUserToList(user, minusOffset, plusOffset, game);
   }
 
   @Override public void removeOpponent(User user) {

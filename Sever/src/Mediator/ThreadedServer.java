@@ -139,10 +139,10 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
       }
       case "ADDOPPONENT" -> {
         switch (reqSplit[1].toUpperCase()){
-          case "LOWER" -> model.addOpponent(thisUser, 1000, 0);
-          case "SAME" -> model.addOpponent(thisUser, 500, 500);
-          case "HIGHER" -> model.addOpponent(thisUser, 0, 1000);
-          case "ANY" -> model.addOpponent(thisUser, 9999, 9999);
+          case "LOWER" -> model.addOpponent(thisUser, 1000, 0, reqSplit[2]);
+          case "SAME" -> model.addOpponent(thisUser, 500, 500, reqSplit[2]);
+          case "HIGHER" -> model.addOpponent(thisUser, 0, 1000, reqSplit[2]);
+          case "ANY" -> model.addOpponent(thisUser, 9999, 9999, reqSplit[2]);
         }
       }
       case "ADDEVENT" -> {

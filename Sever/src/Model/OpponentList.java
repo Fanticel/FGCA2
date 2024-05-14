@@ -15,19 +15,19 @@ public class OpponentList {
     this.serverMaster = serverMaster;
     opponents = opponentArrayList;
   }
-  public synchronized void addUserToList(User user, int minusOffset, int plusOffset){
-    Opponent opponent = new Opponent(user, user.getBRP() - minusOffset, user.getBRP() + plusOffset);
+  public synchronized void addUserToList(User user, int minusOffset, int plusOffset, String game){
+    Opponent opponent = new Opponent(user, user.getBRP() - minusOffset, user.getBRP() + plusOffset, game);
     boolean found = false;
     boolean stop = false;
     for (Opponent o : opponents) {
-      if (o.getUser().equals(user)){
+      if (o.getUser().equals(user) && o.getGame().equals(game)){
         serverMaster.useredAnswer(user, "You are already searching for an opponent!_;_true", "Notification");
         stop = true;
         break;
       }
       if (opponent.compareToAnotherOpponent(o) && o.compareToAnotherOpponent(opponent)){
-        serverMaster.useredAnswer(o.getUser(), "A match has been found with player: " + opponent.getUser().getDisplayName(), "Opponent");
-        serverMaster.useredAnswer(opponent.getUser(), "A match has been found with player: " + o.getUser().getDisplayName(), "Opponent");
+        serverMaster.useredAnswer(o.getUser(), "A match has been found with player " + opponent.getUser().getDisplayName() + " for the game " + game, "Opponent");
+        serverMaster.useredAnswer(opponent.getUser(), "A match has been found with player " + o.getUser().getDisplayName() + " for the game " + game, "Opponent");
         opponents.remove(o);
         found = true;
         break;
@@ -36,7 +36,7 @@ public class OpponentList {
     if (!stop)
       if (!found) {
         serverMaster.useredAnswer(user,
-            "You have been added to the waiting list.", "Notification");
+            "You have been added to the waiting list of the game "+game+".", "Notification");
         opponents.add(opponent);
       }
   }
