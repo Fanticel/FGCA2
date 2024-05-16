@@ -10,7 +10,7 @@ public interface FileManger {
   void saveEventToFile(Event event);
   void saveParticipantToFile(String eventTitle, String username);
   void saveMatchToFile(String eventTitle, Match match, String score);
-  void saveMatchToFile(String eventTitle, Match match);
+  void saveMatchToFile(String eventTitle, Match match, int position);
   void updateEvent(Event event);
   void updateParticipant(String eventTitle,User user);
   ArrayList<Event> getEventsFromFile();

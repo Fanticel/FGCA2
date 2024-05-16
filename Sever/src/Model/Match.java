@@ -34,11 +34,17 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
     this.score = score;
     hasVoted = false;
     hasVotedMap = new HashMap<>();
-    hasVotedMap.put(players.get(0), false);
-    hasVotedMap.put(players.get(1), false);
+    if (playerOne!=null){
+      hasVotedMap.put(playerOne, false);
+    }
+    if (playerTwo!=null){
+      hasVotedMap.put(playerTwo, false);
+    }
     property = new PropertyChangeSupport(this);
+    System.out.println(hasVotedMap);
   }
   public synchronized String voteOnOutcome(User user,int playerOneScore, int playerTwoScore){
+    System.out.println(hasVotedMap);
     if (!score.equals(" - ")){
       return "PN:The voting for this event is already over!_;_true";
     }
@@ -80,6 +86,7 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
   public void setPlayer(int index, User player)
   {
     players.set(index, player);
+    hasVotedMap.put(player, false);
   }
   public void activateMatchTimer(){
     if (!timer.isActive()){

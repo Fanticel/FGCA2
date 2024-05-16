@@ -138,7 +138,13 @@ public class EventListModelManager
     String ans = getMatchByParticipants(title, usernameOne, usernameTwo).voteOnOutcome(user, playerOneScore, playerTwoScore);
     getMatchByParticipants(title, usernameOne, usernameTwo).addListener(null, this);
     if (ans.split(":")[0].equals("BN")){
-      fileManager.saveMatchToFile(title, eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo));
+      fileManager.saveMatchToFile(title, eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo), eventList.getEvent(title).getMatches().indexOf(getMatchByParticipants(title, usernameOne, usernameTwo))+1);
+      if (eventList.getEvent(title).getMatches().get(getAllEvents().size()).equals(getMatchByParticipants(title, usernameOne, usernameTwo))){
+        String score = eventList.getEvent(title).getMatches().get(getAllEvents().size()).getScore();
+        if (Integer.parseInt(score.split("-")[0]) > Integer.parseInt(score.split("-")[1])){
+          serverMaster.useredBroadcast(eventList.getEvent(title).getMatches().get(getAllEvents().size()).getPlayers(), "The event " + title + " was won by " + eventList.getEvent(title).getMatches().get(getAllEvents().size()).getPlayers().get(0).getDisplayName(), "Notification");
+        }
+      }
     }
     return ans;
   }

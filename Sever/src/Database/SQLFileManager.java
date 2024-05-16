@@ -129,7 +129,7 @@ public class SQLFileManager implements FileManger {
       PreparedStatement psEvent = connection.prepareStatement(
           "SELECT * FROM fgcadb.Event");
       PreparedStatement psMatch = connection.prepareStatement(
-          "SELECT * FROM fgcadb.match WHERE eventTitle = ?");
+          "SELECT * FROM fgcadb.match WHERE eventTitle = ? ORDER BY arrayposition");
       PreparedStatement psParticipant = connection.prepareStatement(
           "SELECT * FROM fgcadb.participants WHERE eventTitle = ?");
       ResultSet rsEvent = psEvent.executeQuery();
@@ -143,11 +143,13 @@ public class SQLFileManager implements FileManger {
         ResultSet rsMatch = psMatch.executeQuery();
         psParticipant.setString(1, title);
         ResultSet rsParticipant = psParticipant.executeQuery();
+        System.out.println("___________________");
         while (rsMatch.next()) {
           String score = rsMatch.getString("user1score") + "-" + rsMatch.getString("user2score");
           User user1 = UserListSingleton.getInstance().getUserList().getUserByUsername(rsMatch.getString("username1"));
           User user2 = UserListSingleton.getInstance().getUserList().getUserByUsername(rsMatch.getString("username2"));
           event.addMatch(user1, user2, score);
+          System.out.println(user1 +"||"+ user2);
         }
         while (rsParticipant.next()) {
           User user = UserListSingleton.getInstance().getUserList().getUserByUsername(rsParticipant.getString("userName"));
@@ -255,14 +257,15 @@ public class SQLFileManager implements FileManger {
     return ans;
   }
 
-  @Override public void saveMatchToFile(String eventTitle, Match match) {
+  @Override public void saveMatchToFile(String eventTitle, Match match, int position) {
     try(Connection connection = getConnected()){ //UPDATE fgcadb.Participants SET checkInStatus = ? WHERE userName = ? AND eventTitle = ?
-      PreparedStatement ps = connection.prepareStatement("INSERT INTO fgcadb.Match(eventTitle, userName1, userName2, user1Score, user2Score) VALUES (?, ?, ?, ?, ?)");
+      PreparedStatement ps = connection.prepareStatement("INSERT INTO fgcadb.Match(eventTitle, userName1, userName2, user1Score, user2Score, arrayPosition) VALUES (?, ?, ?, ?, ?, ?)");
       ps.setString(1, eventTitle);
       ps.setString(2, match.getPlayers().get(0).getUsername());
       ps.setString(3, match.getPlayers().get(1).getUsername());
       ps.setInt(4, match.getPlayerOneScore());
       ps.setInt(5, match.getPlayerTwoScore());
+      ps.setInt(6, position);
       ps.executeUpdate();
     }
     catch (SQLException e){
