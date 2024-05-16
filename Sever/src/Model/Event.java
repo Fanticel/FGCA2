@@ -27,21 +27,28 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
   private ArrayList<User> confirmedParticipants;
   private PropertyChangeSupport property;
   private CheckInTimer checkInTimer;
+  private BracketGeneration bracketGeneration;
 
   public Event(String tittle, String game, int minBRP, int maxBRP,
       String status, int maxParticipants, String date, int startingHour,
       Moderator organizer)
   {
-    if (tittle.replaceAll("[0-9]","").isEmpty()){
+    if (tittle.replaceAll("[0-9]", "").isEmpty())
+    {
       throw new IllegalArgumentException("Title cannot have just numbers");
     }
-    else {
+    else
+    {
       this.tittle = tittle;
     }
     this.game = game;
-    if (minBRP >= maxBRP){
-      throw new IllegalStateException("minBRP cannot be higher or equal than maxBRP");
-    }else {
+    if (minBRP >= maxBRP)
+    {
+      throw new IllegalStateException(
+          "minBRP cannot be higher or equal than maxBRP");
+    }
+    else
+    {
       this.minBRP = minBRP;
       this.maxBRP = maxBRP;
     }
@@ -49,11 +56,11 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
     this.maxParticipants = maxParticipants;
     LocalDate currentDate = LocalDate.now();
     LocalDate givenDate = LocalDate.parse(date);
-//    if (givenDate.isBefore(currentDate) || givenDate.isEqual(currentDate)){
-//      throw new IllegalArgumentException("Date cannot be today or before");
-//    }else {
-//      this.startDate = date;
-//    }
+    //    if (givenDate.isBefore(currentDate) || givenDate.isEqual(currentDate)){
+    //      throw new IllegalArgumentException("Date cannot be today or before");
+    //    }else {
+    //      this.startDate = date;
+    //    }
     this.startDate = date;
     this.startingHour = startingHour;
     Organizer = organizer;
@@ -66,6 +73,7 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
     Thread checkInThread = new Thread(checkInTimer);
     checkInThread.setDaemon(true);
     checkInThread.start();
+    bracketGeneration = new BracketGenerator();
   }
 
   public Event(String tittle, String game, int minBRP, int maxBRP,
@@ -114,14 +122,19 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
   {
     return Organizer;
   }
-  public Match getMatchByParticipants(String usernameOne, String usernameTwo){
-    for (Match m : matches) {
-      if (m.hasBothPlayers(usernameOne, usernameTwo)){
+
+  public Match getMatchByParticipants(String usernameOne, String usernameTwo)
+  {
+    for (Match m : matches)
+    {
+      if (m.hasBothPlayers(usernameOne, usernameTwo))
+      {
         return m;
       }
     }
     return null;
   }
+
   public ArrayList<Match> getMatches()
   {
     return matches;
@@ -135,8 +148,9 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
   public ArrayList<Object> addParticipant(User user)
   {
     ArrayList<Object> response = new ArrayList<>();
-//    System.out.println(participants + "\n\n" + user);
-    if (participants.contains(user)){
+    //    System.out.println(participants + "\n\n" + user);
+    if (participants.contains(user))
+    {
       response.add("You are already registered for this event!");
       response.add(true);
       return response;
@@ -193,13 +207,16 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
 
   public String checkIn(User user)
   {
-    if (!participants.contains(user)){
+    if (!participants.contains(user))
+    {
       return "You didn't joined this event_;_true";
     }
-    else if (confirmedParticipants.contains(user)){
+    else if (confirmedParticipants.contains(user))
+    {
       return "You are already checked in_;_true";
     }
-    else {
+    else
+    {
       confirmedParticipants.add(user);
       return "Check in successful_;_false";
     }
@@ -209,7 +226,8 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
   {
     for (Match match : matches)
     {
-      if (match.equals(wantedMatch)){
+      if (match.equals(wantedMatch))
+      {
         match.activateMatchTimer();
       }
     }
@@ -221,27 +239,31 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
     {
       DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
       LocalDateTime currentDate = LocalDateTime.now();
-      if (formatter.format(currentDate).equals(startDate))
+      if (status.equals("In progress")){
+        matches = bracketGeneration.generateBracketDB(confirmedParticipants, matches, maxParticipants);
+        checkInTimer.setActive(false);
+      }
+      else if (formatter.format(currentDate).equals(startDate))
       {
-        if (currentDate.getHour() == startingHour - 1 && !status.equals(
-            "CheckIn"))
+        if (currentDate.getHour() == startingHour - 1 && !status.equals("CheckIn"))
         {
           status = "CheckIn";
           property.firePropertyChange("CheckIn", tittle, this);
         }
         if (currentDate.getHour() == startingHour)
         {
-          status = "In progress";
-          checkInTimer.setActive(false);
-          for (User participant : participants)
+          if (confirmedParticipants.size() <= 1)
           {
-            if (!confirmedParticipants.contains(participant))
-            {
-              participants.remove(participant);
-            }
+            status = "Canceled";
+            return;
           }
-          generateMatches();
-          property.firePropertyChange("EventChange", null, this);
+          else if (!status.equals("In progress")){
+            status = "In progress";
+            checkInTimer.setActive(false);
+            participants = confirmedParticipants;
+            matches = bracketGeneration.generateBracket(confirmedParticipants, matches, maxParticipants);
+            property.firePropertyChange("EventChange", null, this);
+          }
         }
       }
     }
@@ -256,14 +278,18 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
   // The matches of the first round are generated with participants while the others are empty.
   //As the matches finish you pass the info to the server and fill in the so far empty matches according to the results.
   //This way we can just have the bracket view request the matches and read the info in ordered way from them.
-  private void generateMatches()
+ /* private void generateMatches()
   {
     int participantNumber = confirmedParticipants.size();
+    System.out.println(confirmedParticipants);
     //generates the first round of matches with participants
     for (int i = 0; i < participantNumber; i += 2)
     {
-      matches.add(new Match(confirmedParticipants.get(i),
-          confirmedParticipants.get(i + 1)));
+      if (i + 1 != participantNumber)
+      {
+        matches.add(new Match(confirmedParticipants.get(i),
+            confirmedParticipants.get(i + 1)));
+      }
     }
     //generates empty matches for the following rounds and the last match of first round if participants are odd number
     while (matches.size() < maxParticipants - 1)
@@ -275,18 +301,21 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
     {
       // matches.add(new Match(confirmedParticipants.get(confirmedParticipants.size()-1), null));
       User oddPlayer = confirmedParticipants.get(participantNumber - 1);
-      matches.get(participantNumber / 2 - 1).setPlayer(0, oddPlayer);
+      matches.get((int) Math.ceil(participantNumber / 2))
+          .setPlayer(0, oddPlayer);
       //gets index for last match of next round
       int MatchIndex = matches.indexOf(matches.get(participantNumber / 2 - 1));
       matches.get(nextMatch(maxParticipants, MatchIndex))
           .setPlayer(0, oddPlayer);
     }
-  }
+  }*/
 
   //gets index of next round match according to the current match
   public int nextMatch(int maxParticipants, int currentMatch)
   {
-    return (maxParticipants / 2) + (int) Math.ceil((double) currentMatch / 2);
+    System.out.println(
+        (maxParticipants / 2) + (int) Math.floor((double) currentMatch / 2));
+    return (maxParticipants / 2) + (int) Math.floor((double) currentMatch / 2);
   }
 
   @Override public void addListener(String propertyName,

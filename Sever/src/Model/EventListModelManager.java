@@ -168,5 +168,8 @@ public class EventListModelManager
     if (evt.getPropertyName().equals("OutOfTime")){
       serverMaster.useredBroadcast(((Match) evt.getSource()).getPlayers(), "The time for voting has finished. Contact the moderator dum dum_;_true", "Notification");
     }
+    if (evt.getPropertyName().equals("EventChange")){
+      fileManager.updateEvent((Event) evt.getNewValue());
+    }
   }
 }

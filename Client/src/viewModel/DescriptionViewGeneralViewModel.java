@@ -83,7 +83,7 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener
       disabledProperty.set(true);
     }
 
-    if (!event.getStatus().equals("Ongoing") || !event.getStatus()
+    if (!event.getStatus().equals("In progress") || !event.getStatus()
         .equals("Finished"))
     {
       for (User participant : event.getParticipants())
