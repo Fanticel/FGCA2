@@ -19,6 +19,7 @@ public class ViewModelFactory {
   private CreateEventViewModel createEventViewModel;
   private ReportScoreViewModel reportScoreViewModel;
   private MainPageViewModel mainPageViewModel;
+  private OneVsOneViewModel oneVsOneViewModel;
   private ViewState viewState;
   private EventListModel model;
 
@@ -78,5 +79,11 @@ public class ViewModelFactory {
   public MainPageViewModel getMainPageViewModel(){
     mainPageViewModel = new MainPageViewModel(model);
     return mainPageViewModel;
+  }
+
+  public OneVsOneViewModel getOneVsOneViewModel()
+  {
+    oneVsOneViewModel = new OneVsOneViewModel(model);
+    return oneVsOneViewModel;
   }
 }
