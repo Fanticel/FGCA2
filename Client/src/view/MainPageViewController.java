@@ -1,11 +1,13 @@
 package view;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import viewModel.MainPageViewModel;
 import viewModel.ViewModelFactory;
 
 public class MainPageViewController implements ViewController{
+  @FXML Label welcomeLabel;
   private ViewHandler viewHandler;
   private MainPageViewModel mainPageViewModel;
   private Region root;
@@ -14,6 +16,8 @@ public class MainPageViewController implements ViewController{
     this.viewHandler = viewHandler;
     this.mainPageViewModel = viewModelFactory.getMainPageViewModel();
     this.root = root;
+    welcomeLabel.textProperty().bind(mainPageViewModel.getWelcomeProperty());
+    welcomeLabel.setVisible(true);
   }
 
   @Override public void reset() {

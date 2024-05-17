@@ -34,7 +34,7 @@
             </HBox>
         </top>
         <left>
-            <VBox alignment="BOTTOM_CENTER" prefHeight="447.0" prefWidth="205.0" spacing="10" style="-fx-background-color: #404040;">
+            <VBox alignment="BOTTOM_CENTER" prefHeight="463.0" prefWidth="197.0" spacing="10.0" style="-fx-background-color: #404040;">
             <HBox alignment="CENTER_RIGHT" prefHeight="102.0" prefWidth="253.0">
                <children>
                       <Button minHeight="40" minWidth="115.0" onAction="#btnTournamentPress" prefHeight="40.0" prefWidth="115.0" styleClass="menu-button" text="Tournaments">
@@ -87,26 +87,26 @@
         <!-- Center Content Area -->
         <center>
             <VBox prefHeight="455.0" prefWidth="595.0" spacing="20">
-            <StackPane prefHeight="214.0" prefWidth="603.0" VBox.vgrow="ALWAYS">
+            <StackPane prefHeight="463.0" prefWidth="622.0" VBox.vgrow="ALWAYS">
                <children>
-                  <ImageView fitHeight="248.0" fitWidth="590.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
+                  <ImageView fitHeight="247.0" fitWidth="632.0" pickOnBounds="true" preserveRatio="true" StackPane.alignment="TOP_LEFT">
                      <image>
                         <Image url="@../images/IMG_20220319_155031436_1100x450.jpg" />
                      </image>
                      <viewport>
                         <Rectangle2D />
                      </viewport>
+                     <StackPane.margin>
+                        <Insets left="-5.0" />
+                     </StackPane.margin>
                   </ImageView>
-                  <Label alignment="TOP_CENTER" opacity="0.4" prefHeight="37.0" prefWidth="281.0" text="Join The Community!" textFill="#f4f3f3" StackPane.alignment="CENTER">
-                     <opaqueInsets>
-                        <Insets />
-                     </opaqueInsets>
+                  <Label fx:id="welcomeLabel" text="Welcome {DN}!" textFill="#15e8e8">
+                     <StackPane.margin>
+                        <Insets top="100.0" />
+                     </StackPane.margin>
                      <font>
                         <Font size="24.0" />
                      </font>
-                     <StackPane.margin>
-                        <Insets />
-                     </StackPane.margin>
                   </Label>
                </children></StackPane>
             <BorderPane.margin>
