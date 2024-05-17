@@ -135,11 +135,13 @@ public class EventListModelManager
 
   @Override public String voteOnOutcome(User user, String title, String usernameOne,
       String usernameTwo, int playerOneScore, int playerTwoScore) {
-    String ans = getMatchByParticipants(title, usernameOne, usernameTwo).voteOnOutcome(user, playerOneScore, playerTwoScore);
-    getMatchByParticipants(title, usernameOne, usernameTwo).addListener(null, this);
+    Match match = getMatchByParticipants(title, usernameOne, usernameTwo);
+    String ans = match.voteOnOutcome(user, playerOneScore, playerTwoScore);
+    match.addListener(null, this);
     if (ans.split(":")[0].equals("BN")){
       int localMatchSize = eventList.getEvent(title).getMatches().size() - 1;
       fileManager.saveMatchToFile(title, eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo), eventList.getEvent(title).getMatches().indexOf(getMatchByParticipants(title, usernameOne, usernameTwo))+1);
+      getEvent(title).updateNextMatch(match);
       if (eventList.getEvent(title).getMatches().get(localMatchSize).equals(getMatchByParticipants(title, usernameOne, usernameTwo))){
         String score = eventList.getEvent(title).getMatches().get(localMatchSize).getScore();
         if (Integer.parseInt(score.split("-")[0]) > Integer.parseInt(score.split("-")[1])){

@@ -31,6 +31,7 @@ public class BracketGenerator implements BracketGeneration
       matches.get((int) (int) Math.ceil((double) participantNumber / 2) - 1).setPlayer(0, oddPlayer);
       //gets index for last match of next round
       matches.get(nextMatch(maxParticipants, matchIndex)).setPlayer(matchIndex % 2, oddPlayer);
+      matches.get(nextMatch(maxParticipants, matchIndex)).addPlayerToHashMap(oddPlayer);
     }
     return matches;
   }
@@ -39,7 +40,6 @@ public class BracketGenerator implements BracketGeneration
       ArrayList<User> participants, ArrayList<Match> matches,
       int maxParticipants)
   {
-
     int participantNumber = participants.size();
     if (matches.size() != 0){
       for (int i = matches.size() * 2 - 1; i < participants.size(); i+=2){
@@ -66,11 +66,12 @@ public class BracketGenerator implements BracketGeneration
         //System.out.println("Match: " + matches.get(matchIndex));
         //System.out.println("Index: " + matchIndex);
         if (Integer.valueOf(strings[0]) > Integer.valueOf(strings[1])){
-          //gets index for last match of next round
           matches.get(nextMatch(maxParticipants, matchIndex)).setPlayer(matchIndex % 2, match.getPlayers().get(0));
+          matches.get(nextMatch(maxParticipants, matchIndex)).addPlayerToHashMap(match.getPlayers().get(0));
         }
         else {
           matches.get(nextMatch(maxParticipants, matchIndex)).setPlayer(matchIndex % 2, match.getPlayers().get(1));
+          matches.get(nextMatch(maxParticipants, matchIndex)).addPlayerToHashMap(match.getPlayers().get(1));
         }
       }
     }
@@ -83,6 +84,7 @@ public class BracketGenerator implements BracketGeneration
       int matchIndex = (int) Math.ceil((double) participantNumber / 2) - 1;
       matches.get(nextMatch(maxParticipants, matchIndex))
           .setPlayer(matchIndex % 2, oddPlayer);
+      matches.get(nextMatch(maxParticipants, matchIndex)).addPlayerToHashMap(oddPlayer);
     }
     //System.out.println(matches);
     return matches;
@@ -90,7 +92,7 @@ public class BracketGenerator implements BracketGeneration
 
   public int nextMatch(int maxParticipants, int currentMatch)
   {
-    System.out.println((maxParticipants / 2) + (int) Math.ceil((double) currentMatch / 2));
+    //System.out.println((maxParticipants / 2) + (int) Math.ceil((double) currentMatch / 2));
     return (maxParticipants / 2) + (int) Math.floor((double) currentMatch / 2);
   }
 }

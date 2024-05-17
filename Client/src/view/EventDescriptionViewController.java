@@ -1,5 +1,6 @@
 package view;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
@@ -10,9 +11,13 @@ import javafx.scene.layout.Region;
 import viewModel.EventDescriptionViewModel;
 import viewModel.ViewModelFactory;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 
-public class EventDescriptionViewController implements ViewController {
+public class EventDescriptionViewController implements ViewController,
+    PropertyChangeListener
+{
   @FXML private Label lblEventTitle;
   @FXML private TabPane tabPane;
   private ViewHandler viewHandler;
@@ -27,7 +32,9 @@ public class EventDescriptionViewController implements ViewController {
       ViewModelFactory viewModelFactory, Region root) {
     this.viewHandler = viewHandler;
     this.viewModelFactory = viewModelFactory;
+    //viewModelFactory.addListener("EventChange", this);
     eventDescriptionViewModel = viewModelFactory.getEventDetailsViewModel();
+    eventDescriptionViewModel.addListener("Change", this);
     this.root = root;
     lblEventTitle.textProperty()
         .bind(eventDescriptionViewModel.getTittleProperty());
@@ -115,5 +122,17 @@ public class EventDescriptionViewController implements ViewController {
         e.printStackTrace();
       }
     return bracketViewController.getRoot();
+  }
+
+  @Override public void propertyChange(PropertyChangeEvent evt)
+  {
+    if (evt.getPropertyName().equals("Change"))
+    {
+      Platform.runLater(() -> {
+        int tabIndex = tabPane.getSelectionModel().getSelectedIndex();
+        reset();
+        tabPane.getSelectionModel().select(tabIndex);
+      });
+    }
   }
 }

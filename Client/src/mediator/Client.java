@@ -245,7 +245,9 @@ public class Client implements EventListModel
   public synchronized void receivedNotification(String message, boolean error){
     property.firePropertyChange(new PropertyChangeEvent(this, "Notification", error, message));
   }
-
+  public synchronized void eventChange(String message){
+    property.firePropertyChange(new PropertyChangeEvent(this, "EventChange", null, message));
+  }
   public void receiveOpponent(){
 
   }

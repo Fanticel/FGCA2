@@ -151,7 +151,9 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
   public int getPlayerTwoScore(){
     return Integer.parseInt(score.split("-")[1]);
   }
-
+  public void addPlayerToHashMap(User player){
+    hasVotedMap.put(player, false);
+  }
   @Override public String toString() {
     return "\n"+ players.get(0) + " vs " + players.get(1) + ", score: " + score;
   }

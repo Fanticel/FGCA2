@@ -56,16 +56,18 @@ public class NotificationPopupViewModel implements PropertyChangeListener,
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-    listener.propertyChange(new PropertyChangeEvent(this, "", "", ""));
-    notification.set(evt.getNewValue().toString());
-    Color red = new Color(1.0, 0.0, 0.0, 1.0);
-    Color green = new Color(0.051, 0.7882, 0.1098, 1.0);
-    boolean color = (boolean) evt.getOldValue();
-    if (color){
-      colorProperty.set(red);
-    }
-    else {
-      colorProperty.set(green);
+    if (evt.getPropertyName().equals("Notification")){
+      listener.propertyChange(new PropertyChangeEvent(this, "", "", ""));
+      notification.set(evt.getNewValue().toString());
+      Color red = new Color(1.0, 0.0, 0.0, 1.0);
+      Color green = new Color(0.051, 0.7882, 0.1098, 1.0);
+      boolean color = (boolean) evt.getOldValue();
+      if (color){
+        colorProperty.set(red);
+      }
+      else {
+        colorProperty.set(green);
+      }
     }
   }
   @Override public void addListener(String propertyName,

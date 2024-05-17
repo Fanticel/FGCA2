@@ -100,10 +100,12 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
       case "SIGNUPTOEVENT" -> {
         ArrayList<Object> ans = model.addParticipant(reqSplit[1], thisUser);
         serverMaster.privateAnswer(this, ans.get(0) + "_;_" + ans.get(1), "Notification");
+        serverMaster.broadcast(reqSplit[1], "EventChange");
       }
       case "REMOVEPARTICIPANT" -> {
         model.removeParticipant(reqSplit[1], thisUser);
         serverMaster.privateAnswer(this, "You have successfully quit from the event_;_false"  , "Notification");
+        serverMaster.broadcast(reqSplit[1], "EventChange");
       }
       case "LOG" -> {
         if (UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[1])!=null){
@@ -193,6 +195,7 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
             case "BN" -> {
               ArrayList<User> userList = model.getEvent(reqSplit[1]).getMatchByParticipants(reqSplit[2], reqSplit[3]).getPlayers();
               serverMaster.useredBroadcast(userList, ansSplit[1], "Notification");
+              serverMaster.broadcast(reqSplit[1], "EventChange");
             }
           }
         }
