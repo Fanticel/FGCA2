@@ -143,13 +143,11 @@ public class SQLFileManager implements FileManger {
         ResultSet rsMatch = psMatch.executeQuery();
         psParticipant.setString(1, title);
         ResultSet rsParticipant = psParticipant.executeQuery();
-        System.out.println("___________________");
         while (rsMatch.next()) {
           String score = rsMatch.getString("user1score") + "-" + rsMatch.getString("user2score");
           User user1 = UserListSingleton.getInstance().getUserList().getUserByUsername(rsMatch.getString("username1"));
           User user2 = UserListSingleton.getInstance().getUserList().getUserByUsername(rsMatch.getString("username2"));
           event.addMatch(user1, user2, score);
-          System.out.println(user1 +"||"+ user2);
         }
         while (rsParticipant.next()) {
           User user = UserListSingleton.getInstance().getUserList().getUserByUsername(rsParticipant.getString("userName"));

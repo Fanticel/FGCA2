@@ -41,7 +41,6 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
       hasVotedMap.put(playerTwo, false);
     }
     property = new PropertyChangeSupport(this);
-    System.out.println(hasVotedMap);
   }
   public synchronized String voteOnOutcome(User user,int playerOneScore, int playerTwoScore){
     System.out.println(hasVotedMap);
