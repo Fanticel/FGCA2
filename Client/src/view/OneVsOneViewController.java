@@ -68,6 +68,7 @@ public class OneVsOneViewController implements ViewController
   }
   @FXML public void btnSearchPress(){
     oneVsOneViewModel.pressSearchButton();
+    viewHandler.openPopupView("SearchingOpponent");
   }
   @FXML public void btnBackPress(){
     viewHandler.openView("");

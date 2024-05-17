@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="500.0" prefWidth="700.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.OneVsOneSearchingViewController">
+   <stylesheets>
+      <URL value="@../CSS/Common.css" />
+   </stylesheets>
+   <children>
+      <Label text="Matchmaking" textFill="WHITE">
+         <font>
+            <Font size="25.0" />
+         </font>
+         <VBox.margin>
+            <Insets left="20.0" top="20.0" />
+         </VBox.margin>
+      </Label>
+       <HBox alignment="CENTER">
+         <children>
+            <Label fx:id="searchLabel" text="Searching..." textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <HBox.margin>
+                  <Insets top="20.0" />
+               </HBox.margin>
+            </Label>
+         </children></HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="66.0">
+         <children>
+            <Label text="Name:" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="20.0" top="20.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="opponentNameLabel" layoutX="274.0" layoutY="30.0" text="{UN}" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" top="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+         <VBox.margin>
+            <Insets top="75.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="122.0">
+         <children>
+            <Label text="BRP:" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="20.0" top="20.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="BRPLabel" layoutX="286.0" layoutY="30.0" text="{BP}" textFill="WHITE">
+               <font>
+                  <Font size="25.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" top="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="278.0">
+         <children>
+            <Button fx:id="declineBtn" mnemonicParsing="false" text="Decline">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="cancelBtn" layoutX="284.0" layoutY="10.0" mnemonicParsing="false" text="Cancel">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="acceptBtn" layoutX="310.0" layoutY="10.0" mnemonicParsing="false" text="Accept">
+               <HBox.margin>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </HBox.margin>
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+         </children>
+         <VBox.margin>
+            <Insets top="30.0" />
+         </VBox.margin>
+      </HBox>
+   </children>
+</VBox>

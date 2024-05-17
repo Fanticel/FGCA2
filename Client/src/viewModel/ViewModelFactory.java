@@ -20,6 +20,7 @@ public class ViewModelFactory {
   private ReportScoreViewModel reportScoreViewModel;
   private MainPageViewModel mainPageViewModel;
   private OneVsOneViewModel oneVsOneViewModel;
+  private OneVsOneSearchingViewModel oneVsOneSearchingViewModel;
   private ViewState viewState;
   private EventListModel model;
 
@@ -80,10 +81,13 @@ public class ViewModelFactory {
     mainPageViewModel = new MainPageViewModel(model);
     return mainPageViewModel;
   }
-
   public OneVsOneViewModel getOneVsOneViewModel()
   {
     oneVsOneViewModel = new OneVsOneViewModel(model);
     return oneVsOneViewModel;
+  }
+  public OneVsOneSearchingViewModel oneVsOneSearchingViewModel(){
+    oneVsOneSearchingViewModel = new OneVsOneSearchingViewModel(model);
+    return oneVsOneSearchingViewModel;
   }
 }

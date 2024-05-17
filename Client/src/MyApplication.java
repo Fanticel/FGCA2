@@ -33,8 +33,8 @@ public class MyApplication extends Application {
       System.out.println("ViewHandler created");
       viewHandler.start(primaryStage);
       System.out.println("Stage started");
-      viewHandler.openPopupView("");
-      viewHandler.closePopupView();
+//      viewHandler.openPopupView("SearchingOpponent");
+//      viewHandler.closePopupView();
     }
     else {
       System.out.println("Something went wrong with the connection... \nClosing...");

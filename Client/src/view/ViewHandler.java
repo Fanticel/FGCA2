@@ -20,6 +20,7 @@ public class ViewHandler {
   private ReportScoreViewController reportScoreViewController;
   private MainPageViewController mainPageViewController;
   private OneVsOneViewController oneVsOneViewController;
+  private OneVsOneSearchingViewController oneVsOneSearchingViewController;
   private EventTemplateViewController eventTemplateViewController;
   private BracketViewController bracketViewController;
   private ViewModelFactory viewModelFactory;
@@ -49,6 +50,7 @@ public class ViewHandler {
             "NotificationPopupView.fxml");
       }
       case "Report" -> root = loadReportScoreView("ReportScoreView.fxml");
+      case "SearchingOpponent" -> root = loadOneVsOneSearchingPopup("1v1SearchingView.fxml");
     }
     popupScene.setRoot(root);
     String title = "";
@@ -91,6 +93,24 @@ public class ViewHandler {
 
   public void closePopupView() {
     popupStage.close();
+  }
+  public Region loadOneVsOneSearchingPopup(String fxmlFile){
+    if (oneVsOneSearchingViewController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        oneVsOneSearchingViewController = loader.getController();
+        oneVsOneSearchingViewController.init(this, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      oneVsOneSearchingViewController.reset();
+    }
+    return oneVsOneSearchingViewController.getRoot();
   }
   public Region loadOneVsOneView(String fxmlFile){
     if (oneVsOneViewController == null) {
