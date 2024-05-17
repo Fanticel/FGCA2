@@ -221,6 +221,24 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
       return "Check in successful_;_false";
     }
   }
+  public void updateNextMatch(Match currentMatch){
+    String[] strings = currentMatch.getScore().split("-");
+    int matchIndex = matches.indexOf(currentMatch);
+    if (matchIndex < maxParticipants - 2){
+      Match nextMatch = matches.get(nextMatch(maxParticipants, matchIndex));
+      if (Integer.valueOf(strings[0]) > Integer.valueOf(strings[1])){
+        nextMatch.setPlayer(matchIndex % 2, currentMatch.getPlayers().get(0));
+        nextMatch.addPlayerToHashMap(currentMatch.getPlayers().get(0));
+      }
+      else {
+        nextMatch.setPlayer(matchIndex % 2, currentMatch.getPlayers().get(1));
+        nextMatch.addPlayerToHashMap(currentMatch.getPlayers().get(1));
+      }
+    }
+    else {
+      status = "Finished";
+    }
+  }
 
   public void activateMatchTimer(Match wantedMatch)
   {
@@ -255,7 +273,6 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
           if (confirmedParticipants.size() <= 1)
           {
             status = "Canceled";
-            return;
           }
           else if (!status.equals("In progress")){
             status = "In progress";

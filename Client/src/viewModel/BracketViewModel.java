@@ -8,6 +8,8 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
 public class BracketViewModel
@@ -47,7 +49,7 @@ public class BracketViewModel
         labels.add(new SimpleStringProperty(match.getPlayers().get(1).getDisplayName()));
         labels.add(new SimpleStringProperty(scores[1]));
       }
-      if (match.getPlayers().get(0) != null && match.getPlayers().get(1) != null){
+      if (match.getPlayers().get(0) != null && match.getPlayers().get(1) != null && event.getStatus().equals("In progress")){
         visibleButtons.add(new SimpleBooleanProperty(true));
       }
       else {

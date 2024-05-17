@@ -14,7 +14,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
-public class DescriptionViewGeneralViewModel implements PropertyChangeListener
+public class DescriptionViewGeneralViewModel
 {
   private StringProperty errorProperty;
   private StringProperty tittleProperty;
@@ -34,7 +34,6 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener
       ViewState viewState)
   {
     this.model = model;
-    this.model.addListener("EventChange", this);
     //    this.viewState = viewState;
     errorProperty = new SimpleStringProperty();
     tittleProperty = new SimpleStringProperty();
@@ -185,27 +184,4 @@ public class DescriptionViewGeneralViewModel implements PropertyChangeListener
     model.checkIn(getTittleProperty().get());
   }
 
-  @Override public void propertyChange(PropertyChangeEvent evt)
-  {
-    if (evt.getPropertyName().equals(tittleProperty.get()))
-    {
-      Event event = (Event) evt.getNewValue();
-      statusProperty.set(event.getStatus());
-      participantsNumberProperty.set(
-          event.getParticipants().size() + "/" + event.getMaxParticipants());
-      if (event.getParticipants().isEmpty())
-      {
-        participantsListProperty.set("No participants yet.");
-      }
-      else
-      {
-        String string = "";
-        for (User participant : event.getParticipants())
-        {
-          string += participant.getDisplayName() + System.lineSeparator();
-        }
-        participantsListProperty.set(string);
-      }
-    }
-  }
 }

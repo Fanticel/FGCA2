@@ -5,11 +5,13 @@ import Model.EventListModel;
 import Model.User;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import utility.NamedPropertyChangeSubject;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-public class EventDescriptionViewModel implements PropertyChangeListener
+public class EventDescriptionViewModel implements PropertyChangeListener,
+    NamedPropertyChangeSubject
 {
 //  private ViewState viewState;
   private StringProperty errorProperty;
@@ -21,7 +23,7 @@ public class EventDescriptionViewModel implements PropertyChangeListener
   private StringProperty BRPRangeProperty;
   private StringProperty participantsNumberProperty;//property for how many participant there are and can join
   private StringProperty participantsListProperty;
-
+  private PropertyChangeListener listener;
   private EventListModel model;
 
   public EventDescriptionViewModel(EventListModel model,
@@ -32,13 +34,14 @@ public class EventDescriptionViewModel implements PropertyChangeListener
 //    this.viewState = viewState;
     errorProperty = new SimpleStringProperty();
     tittleProperty = new SimpleStringProperty();
-    organizerProperty = new SimpleStringProperty();
     statusProperty = new SimpleStringProperty();
-    gameProperty = new SimpleStringProperty();
-    dateProperty = new SimpleStringProperty();
-    BRPRangeProperty = new SimpleStringProperty();
+    //organizerProperty = new SimpleStringProperty();
+    //gameProperty = new SimpleStringProperty();
+    //dateProperty = new SimpleStringProperty();
+    //BRPRangeProperty = new SimpleStringProperty();
     participantsNumberProperty = new SimpleStringProperty();
-    participantsListProperty = new SimpleStringProperty();
+    //participantsListProperty = new SimpleStringProperty();*/
+    listener = null;
     reset();
   }
 
@@ -47,13 +50,13 @@ public class EventDescriptionViewModel implements PropertyChangeListener
     Event event = model.getEvent(ViewState.getInstance().getTittle());
     tittleProperty.set(event.getTittle());
     statusProperty.set(event.getStatus());
-    gameProperty.set(event.getGame());
-    dateProperty.set(event.getStartingHour() + ", " + event.getStartDate());
-    BRPRangeProperty.set(
-        event.getMinBRP() + " - " + event.getMaxBRP());
+   //gameProperty.set(event.getGame());
+    //dateProperty.set(event.getStartingHour() + ", " + event.getStartDate());
+    //BRPRangeProperty.set(
+     //   event.getMinBRP() + " - " + event.getMaxBRP());
     participantsNumberProperty.set(event.getParticipants().size() + "/"
         + event.getMaxParticipants());
-    if (event.getParticipants().isEmpty())
+    /*if (event.getParticipants().isEmpty())
     {
       participantsListProperty.set("No participants yet.");
     }else {
@@ -63,7 +66,7 @@ public class EventDescriptionViewModel implements PropertyChangeListener
         string += participant.getDisplayName() + System.lineSeparator();
       }
       participantsListProperty.set(string);
-    }
+    }*/
   }
 
   public StringProperty getErrorProperty()
@@ -126,22 +129,20 @@ public class EventDescriptionViewModel implements PropertyChangeListener
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-    if (evt.getPropertyName().equals(tittleProperty.get())){
-      Event event = (Event) evt.getNewValue();
-      statusProperty.set(event.getStatus());
-      participantsNumberProperty.set(event.getParticipants().size() + "/"
-          + event.getMaxParticipants());
-      if (event.getParticipants().isEmpty())
-      {
-        participantsListProperty.set("No participants yet.");
-      }else {
-        String string = "";
-        for (User participant : event.getParticipants())
-        {
-          string += participant.getDisplayName() + System.lineSeparator();
-        }
-        participantsListProperty.set(string);
-      }
+    if (evt.getPropertyName().equals("EventChange") && evt.getNewValue().equals(tittleProperty.get())){
+      listener.propertyChange(new PropertyChangeEvent(this, "Change", "", ""));
     }
+  }
+
+  @Override public void addListener(String propertyName,
+      PropertyChangeListener l)
+  {
+    listener = l;
+  }
+
+  @Override public void removeListener(String propertyName,
+      PropertyChangeListener listener)
+  {
+    listener = null;
   }
 }

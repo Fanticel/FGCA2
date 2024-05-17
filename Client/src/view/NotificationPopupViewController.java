@@ -47,10 +47,14 @@ public class NotificationPopupViewController implements ViewController,
     return root;
   }
 
-  @Override public void propertyChange(PropertyChangeEvent evt) {
-    Platform.runLater(()->{
-      viewHandler.openPopupView("");
-    });
+  @Override public void propertyChange(PropertyChangeEvent evt)
+  {
+    if (evt.getPropertyName().equals(""))
+    {
+      Platform.runLater(() -> {
+        viewHandler.openPopupView("");
+      });
+    }
   }
 }
 

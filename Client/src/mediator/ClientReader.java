@@ -41,6 +41,11 @@ public class ClientReader implements Runnable {
           String ans = tmp.split(": ")[1];
           client.receivedNotification(ans.split("_;_")[0], ans.split("_;_")[1].equalsIgnoreCase("TRUE"));
         }
+        else if (tmp.split(": ")[0].contains("EventChange"))
+        {
+          String ans = tmp.split(": ")[1];
+          client.eventChange(ans);
+        }
         else if (tmp.split(": ")[0].contains("Opponent"))
         {
           //to do
