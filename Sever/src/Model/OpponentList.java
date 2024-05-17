@@ -39,7 +39,7 @@ public class OpponentList {
           break;
         }
         else {
-          serverMaster.useredAnswer(user, "Waiting for enemy response", "Notification");
+          serverMaster.useredAnswer(user, "Waiting for enemy response_;_false", "Notification");
         }
       }
     }

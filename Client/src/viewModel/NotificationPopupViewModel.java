@@ -1,6 +1,7 @@
 package viewModel;
 
 import Model.EventListModel;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -56,9 +57,12 @@ public class NotificationPopupViewModel implements PropertyChangeListener,
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
+    System.out.println(evt);
     if (evt.getPropertyName().equals("Notification")){
       listener.propertyChange(new PropertyChangeEvent(this, "", "", ""));
-      notification.set(evt.getNewValue().toString());
+      Platform.runLater(()->{
+        notification.set(evt.getNewValue().toString());
+      });
       Color red = new Color(1.0, 0.0, 0.0, 1.0);
       Color green = new Color(0.051, 0.7882, 0.1098, 1.0);
       boolean color = (boolean) evt.getOldValue();
@@ -68,6 +72,7 @@ public class NotificationPopupViewModel implements PropertyChangeListener,
       else {
         colorProperty.set(green);
       }
+//      model.removeListener("notification",this);
     }
   }
   @Override public void addListener(String propertyName,
