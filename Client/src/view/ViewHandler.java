@@ -9,8 +9,10 @@ import viewModel.ViewModelFactory;
 public class ViewHandler {
   private Scene currentScene;
   private Scene popupScene;
+  private Scene notificationScene;
   private Stage primaryStage;
   private Stage popupStage;
+  private Stage notificationStage;
   private EventDescriptionViewController eventDescriptionViewController;
   private EventListViewController eventListViewController;
   private NotificationPopupViewController notificationPopupViewController;
@@ -21,6 +23,7 @@ public class ViewHandler {
   private MainPageViewController mainPageViewController;
   private OneVsOneViewController oneVsOneViewController;
   private OneVsOneSearchingViewController oneVsOneSearchingViewController;
+  private OpponentFoundViewController opponentFoundViewController;
   private EventTemplateViewController eventTemplateViewController;
   private BracketViewController bracketViewController;
   private ViewModelFactory viewModelFactory;
@@ -29,6 +32,7 @@ public class ViewHandler {
     this.viewModelFactory = viewModelFactory;
     currentScene = new Scene(new Region());
     popupScene = new Scene(new Region());
+    notificationScene = new Scene(new Region());
   }
 
   public void start(Stage primaryStage) {
@@ -40,28 +44,45 @@ public class ViewHandler {
   public void startPopup(Stage popupStage) {
     this.popupStage = popupStage;
   }
+  public void startNotification(Stage notificationStage){this.notificationStage = notificationStage;}
 
   public void openPopupView(String id) {
-    startPopup(new Stage());
     Region root = null;
+    boolean isItNotification = false;
     switch (id) {
       case "" -> {
+        startNotification(new Stage());
         root = loadNotificationPopupViewController(
             "NotificationPopupView.fxml");
+        isItNotification = true;
+        notificationScene.setRoot(root);
+        String title = "";
+        if (root.getUserData() != null) {
+          title += root.getUserData();
+        }
+        notificationStage.setTitle(title);
+        notificationStage.setScene(notificationScene);
+        notificationStage.setWidth(root.getPrefWidth());
+        notificationStage.setHeight(root.getPrefHeight());
+        notificationStage.show();
       }
       case "Report" -> root = loadReportScoreView("ReportScoreView.fxml");
       case "SearchingOpponent" -> root = loadOneVsOneSearchingPopup("1v1SearchingView.fxml");
+      case "OpponentFound" -> root = loadOpponentFoundView("OpponentFoundView.fxml");
     }
-    popupScene.setRoot(root);
-    String title = "";
-    if (root.getUserData() != null) {
-      title += root.getUserData();
+    if (!isItNotification){
+      startPopup(new Stage());
+      popupScene.setRoot(root);
+      String title = "";
+      if (root.getUserData() != null) {
+        title += root.getUserData();
+      }
+      popupStage.setTitle(title);
+      popupStage.setScene(popupScene);
+      popupStage.setWidth(root.getPrefWidth());
+      popupStage.setHeight(root.getPrefHeight());
+      popupStage.show();
     }
-    popupStage.setTitle(title);
-    popupStage.setScene(popupScene);
-    popupStage.setWidth(root.getPrefWidth());
-    popupStage.setHeight(root.getPrefHeight());
-    popupStage.show();
   }
 
   public void openView(String id) {
@@ -93,6 +114,27 @@ public class ViewHandler {
 
   public void closePopupView() {
     popupStage.close();
+  }
+  public void closeNotificationView(){
+    notificationStage.close();
+  }
+  public Region loadOpponentFoundView(String fxmlFile){
+    if (opponentFoundViewController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        opponentFoundViewController = loader.getController();
+        opponentFoundViewController.init(this, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      opponentFoundViewController.reset();
+    }
+    return opponentFoundViewController.getRoot();
   }
   public Region loadOneVsOneSearchingPopup(String fxmlFile){
     if (oneVsOneSearchingViewController == null) {

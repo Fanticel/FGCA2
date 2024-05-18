@@ -72,7 +72,6 @@ public class NotificationPopupViewModel implements PropertyChangeListener,
       else {
         colorProperty.set(green);
       }
-//      model.removeListener("notification",this);
     }
   }
   @Override public void addListener(String propertyName,

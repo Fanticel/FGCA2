@@ -21,6 +21,7 @@ public class ViewModelFactory {
   private MainPageViewModel mainPageViewModel;
   private OneVsOneViewModel oneVsOneViewModel;
   private OneVsOneSearchingViewModel oneVsOneSearchingViewModel;
+  private OpponentFoundViewModel opponentFoundViewModel;
   private ViewState viewState;
   private EventListModel model;
 
@@ -89,5 +90,9 @@ public class ViewModelFactory {
   public OneVsOneSearchingViewModel oneVsOneSearchingViewModel(){
     oneVsOneSearchingViewModel = new OneVsOneSearchingViewModel(model);
     return oneVsOneSearchingViewModel;
+  }
+  public OpponentFoundViewModel getOpponentFoundViewModel(){
+    opponentFoundViewModel = new OpponentFoundViewModel(model);
+    return opponentFoundViewModel;
   }
 }

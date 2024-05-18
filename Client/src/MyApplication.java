@@ -34,7 +34,8 @@ public class MyApplication extends Application {
       viewHandler.start(primaryStage);
       System.out.println("Stage started");
       viewHandler.openPopupView("");
-      viewHandler.closePopupView();
+      viewHandler.closeNotificationView();
+      viewHandler.openPopupView("OpponentFound");
     }
     else {
       System.out.println("Something went wrong with the connection... \nClosing...");
