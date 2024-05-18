@@ -142,8 +142,26 @@ public class EventListModelManager implements EventListModel,
     client.addOpponent(skillLevel, gameTitle);
   }
 
+  @Override public void declineOpponent(String opponentUsername)
+  {
+    client.declineOpponent(opponentUsername);
+  }
+
+  @Override public void acceptOpponent(String opponentUsername)
+  {
+    client.acceptOpponent(opponentUsername);
+  }
+
+  @Override public void removeOpponent()
+  {
+    client.removeOpponent();
+  }
+
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
+    if (evt.getPropertyName().equals("OpponentAccepted")){
+      property.firePropertyChange("opponentAccepted","", user.getDisplayName());
+    }
     property.firePropertyChange(evt);
   }
 

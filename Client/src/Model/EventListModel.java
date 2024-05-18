@@ -30,5 +30,8 @@ public interface EventListModel extends NamedPropertyChangeSubject
   void showLocalNotification(String message, boolean error);
   void voteOnOutcome(String title, String usernameOne, String usernameTwo, int playerOneScore, int playerTwoScore);
   void addOpponent(String skillLevel, String gameTitle);
+  void declineOpponent(String opponentUsername);
+  void acceptOpponent(String opponentUsername);
+  void removeOpponent();
 
 }

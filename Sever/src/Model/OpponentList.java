@@ -27,7 +27,7 @@ public class OpponentList {
           break;
         }
         else {
-          serverMaster.useredAnswer(user, "Waiting for enemy response", "Notification");
+          serverMaster.useredAnswer(user, "Waiting for enemy response_;_false", "Notification");
         }
       }
       else if (a.get(1).equals(user) && a.get(0).equals(enemyUser)){
@@ -46,8 +46,8 @@ public class OpponentList {
   }
   public synchronized void decline(User user, User enemyUser){
     listOfPotentialMatches.removeIf(a -> (a.get(0).equals(user) && a.get(1).equals(enemyUser)) || (a.get(1).equals(user) && a.get(0).equals(enemyUser)));
-    serverMaster.useredAnswer(user, "You have decided to cancel the match you pussy", "Notification");
-    serverMaster.useredAnswer(enemyUser, user.getDisplayName()+" decided to cancel the match", "Notification");
+    serverMaster.useredAnswer(user, "You have decided to cancel the match you pussy_;_true", "Notification");
+    serverMaster.useredAnswer(enemyUser, user.getDisplayName()+" decided to cancel the match_;_true", "OpponentRefused");
 //    for (ArrayList a:listOfPotentialMatches){
 //      if ((a.get(0).equals(user) && a.get(1).equals(enemyUser)) || (a.get(1).equals(user) && a.get(0).equals(enemyUser))){
 //        listOfPotentialMatches.remove(a);
@@ -65,8 +65,8 @@ public class OpponentList {
         break;
       }
       if (opponent.compareToAnotherOpponent(o) && o.compareToAnotherOpponent(opponent)){
-        serverMaster.useredAnswer(o.getUser(), "A match has been found with player " + opponent.getUser().getDisplayName() + " for the game " + game + "|"+opponent.getUser().getUsername(), "OpponentRequest");
-        serverMaster.useredAnswer(opponent.getUser(), "A match has been found with player " + o.getUser().getDisplayName() + " for the game " + game+"|"+o.getUser().getUsername(), "OpponentRequest");
+        serverMaster.useredAnswer(o.getUser(), "A match has been found with player " + opponent.getUser().getDisplayName() + " for the game " + game + "_;_"+opponent.getUser().getDisplayName() + "_;_"+opponent.getUser().getBRP()+ "_;_"+opponent.getUser().getUsername(), "OpponentRequest");
+        serverMaster.useredAnswer(opponent.getUser(), "A match has been found with player " + o.getUser().getDisplayName() + " for the game " + game+ "_;_"+o.getUser().getDisplayName() + "_;_"+o.getUser().getBRP()+ "_;_"+o.getUser().getUsername(), "OpponentRequest");
         opponents.removeIf(o2 -> o2.getUser().equals(o.getUser()));
         listOfPotentialMatches.add(new ArrayList<>(Arrays.asList(opponent.getUser(), o.getUser(), false, false)));
         found = true;
@@ -75,8 +75,6 @@ public class OpponentList {
     }
     if (!stop)
       if (!found) {
-        serverMaster.useredAnswer(user,
-            "You have been added to the waiting list of the game "+game+".", "Notification");
         opponents.add(opponent);
       }
     System.out.println(this);

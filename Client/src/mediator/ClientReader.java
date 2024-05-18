@@ -46,9 +46,23 @@ public class ClientReader implements Runnable {
           String ans = tmp.split(": ")[1];
           client.eventChange(ans);
         }
-        else if (tmp.split(": ")[0].contains("Opponent"))
+        else if (tmp.split(": ")[0].contains("OpponentRequest"))
         {
           //to do
+          String ans = tmp.split(": ")[1];
+          client.opponentFound(ans.split("_;_")[1],Integer.parseInt(ans.split("_;_")[2]), ans.split("_;_")[3]);
+        }
+        else if (tmp.split(": ")[0].contains("OpponentRefused"))
+        {
+          //to do
+          String ans = tmp.split(": ")[1];
+          client.opponentRefused(ans.split("_;_")[0], ans.split("_;_")[1].equalsIgnoreCase("TRUE"));
+        }
+        else if (tmp.split(": ")[0].contains("OpponentFound"))
+        {
+          //to do
+          String ans = tmp.split(": ")[1];
+          client.opponentAccepted(ans.split("_;_")[0]);
         }
         //        else if (tmp.split(": ")[0].equals("\t->BAdd"))
 //        {

@@ -163,6 +163,9 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
           case "ANY" -> model.addOpponent(thisUser, 9999, 9999, reqSplit[2]);
         }
       }
+      case "REMOVEOPPONENT"-> {
+        model.removeOpponent(thisUser);
+      }
       case "ADDEVENT" -> {
         try
         {

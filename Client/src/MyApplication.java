@@ -36,6 +36,7 @@ public class MyApplication extends Application {
       viewHandler.openPopupView("");
       viewHandler.closeNotificationView();
       viewHandler.openPopupView("OpponentFound");
+      viewHandler.closePopupView();
     }
     else {
       System.out.println("Something went wrong with the connection... \nClosing...");

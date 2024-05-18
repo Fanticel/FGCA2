@@ -248,6 +248,18 @@ public class Client implements EventListModel
   public synchronized void eventChange(String message){
     property.firePropertyChange(new PropertyChangeEvent(this, "EventChange", null, message));
   }
+  public synchronized void opponentFound(String opponentDisplayName, int opponentBRP, String opponentUserName){
+    Object[] opponentData = {opponentDisplayName, opponentBRP};
+    property.firePropertyChange(new PropertyChangeEvent(this, "OpponentFound", opponentData, opponentUserName));
+  }
+  public synchronized void opponentRefused(String message, boolean error){
+    property.firePropertyChange(new PropertyChangeEvent(this,"OpponentRefused",null, ""));
+    property.firePropertyChange(new PropertyChangeEvent(this, "Notification", error, message));
+  }
+  public synchronized void opponentAccepted(String message){
+    property.firePropertyChange(new PropertyChangeEvent(this,"OpponentAccepted",null, ""));
+    property.firePropertyChange(new PropertyChangeEvent(this, "Notification", false, message));
+  }
   public void receiveOpponent(){
 
   }
@@ -255,6 +267,21 @@ public class Client implements EventListModel
   @Override public void addOpponent(String skillLevel, String gameTitle){
     out.println(
         "addOpponent;" + skillLevel + ";" + gameTitle);
+  }
+
+  @Override public void declineOpponent(String opponentUsername)
+  {
+    out.println("Decline;" + opponentUsername);
+  }
+
+  @Override public void acceptOpponent(String opponentUsername)
+  {
+    out.println("Accept;" + opponentUsername);
+  }
+
+  @Override public void removeOpponent()
+  {
+    out.println("RemoveOpponent");
   }
 
   @Override public void addListener(String propertyName,

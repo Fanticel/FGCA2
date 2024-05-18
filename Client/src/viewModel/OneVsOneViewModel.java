@@ -1,10 +1,13 @@
 package viewModel;
 
 import Model.EventListModel;
+import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
+
+import static java.lang.Thread.sleep;
 
 public class OneVsOneViewModel
 {
@@ -48,6 +51,18 @@ public class OneVsOneViewModel
   public void pressSearchButton() {
     String gameSelected = gameProperty.get();
     String skillSelected = skillProperty.get();
-    System.out.println("Selected game: " + gameSelected + "skill selected:" + skillSelected);
+    Thread loadDelay = new Thread(()->{
+      try
+      {
+        sleep(500);
+      }
+      catch (InterruptedException e)
+      {
+        throw new RuntimeException(e);
+      }
+      model.addOpponent(skillSelected, gameSelected);
+    });
+    loadDelay.start();
   }
+
 }

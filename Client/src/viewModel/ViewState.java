@@ -6,9 +6,11 @@ public class ViewState {
   private static ViewState instance;
   private String tittle;
   private Match currentMatch;
+  private String[] matchPlayers;//for 1v1 matches when going from searching view to opponentFound view
   private ViewState(){
     tittle = "Sample event";
     currentMatch = null;
+    matchPlayers = new String[2];
   }
   public static ViewState getInstance(){
     if (instance == null) {
@@ -24,4 +26,14 @@ public class ViewState {
     return tittle;
   }
   public Match getMatch(){return currentMatch;}
+
+  public String[] getMatchPlayers()
+  {
+    return matchPlayers;
+  }
+
+  public void setMatchPlayers(String[] matchPlayers)
+  {
+    this.matchPlayers = matchPlayers;
+  }
 }

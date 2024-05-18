@@ -6,7 +6,9 @@ import Model.User;
 
 public class OpponentFoundViewModel {
   private EventListModel model;
+  private ViewState viewState;
   public OpponentFoundViewModel(EventListModel model){
     this.model = model;
+    this.viewState = ViewState.getInstance();
   }
 }
