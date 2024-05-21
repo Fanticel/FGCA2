@@ -45,6 +45,9 @@ public class EventListModelManager
     for (Event e : fileManager.getEventsFromFile()) {
       eventList.addEvent(e);
     }
+    for (Match match : fileManager.getPlayerMatchesFromFile()) {
+      matchList.addPlayerMatch(match);
+    }
   }
 
   @Override public ArrayList<Event> getAllEvents() {
@@ -80,7 +83,9 @@ public class EventListModelManager
   }
 
   @Override public void addPlayerMatch(User playerOne, User playerTwo, String score) {
-    matchList.addPlayerMatch(playerOne, playerTwo, score);
+    Match match = new Match(playerOne, playerTwo, score);
+    matchList.addPlayerMatch(match);
+    fileManager.savePlayerMatchToFile(match);
   }
 
   @Override public void removeParticipant(String eventTittle, User user) {

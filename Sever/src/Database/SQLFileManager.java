@@ -156,55 +156,6 @@ public class SQLFileManager implements FileManger {
             event.checkIn(user);
           }
         }
-        /*if (event.getStatus().equals("In progress")){
-          ArrayList<User> participants = event.getParticipants();
-          ArrayList<Match> matches = event.getMatches();
-          int participantNumber = participants.size();
-          if (matches.size() != 0){
-            for (int i = event.getMatches().size() * 2 - 1; i < event.getParticipants().size(); i+=2){
-
-              if (i + 1 != participantNumber){
-                event.addMatch(event.getParticipants().get(i), event.getParticipants().get(i + 1));
-              }
-            }
-          }
-          else {
-            for (int i = 0; i < participantNumber; i += 2){
-              if (i + 1 != participantNumber){
-                matches.add(new Match(participants.get(i), participants.get(i + 1)));
-              }
-            }
-          }
-          while (event.getMatches().size() < event.getMaxParticipants() - 1){
-            event.addMatch(null, null);
-          }
-          for (Match match: event.getMatches())
-          {
-            if (!match.getScore().equals(" - ")){
-              String[] strings = match.getScore().split("-");
-              int matchIndex = matches.indexOf(match);
-              if (Integer.valueOf(strings[0]) > Integer.valueOf(strings[1])){
-                //gets index for last match of next round
-                matches.get(event.nextMatch(event.getMaxParticipants(), matchIndex))
-                    .setPlayer(matchIndex % 2, match.getPlayers().get(0));
-              }
-              else {
-                matches.get(event.nextMatch(event.getMaxParticipants(), matchIndex))
-                    .setPlayer(matchIndex % 2, match.getPlayers().get(1));
-              }
-            }
-          }
-          if (event.getParticipants().size() % 2 != 0)
-          {
-            // matches.add(new Match(confirmedParticipants.get(confirmedParticipants.size()-1), null));
-            User oddPlayer = participants.get(participantNumber - 1);
-            matches.get((int) Math.ceil(participantNumber / 2)).setPlayer(0, oddPlayer);
-            //gets index for last match of next round
-            int matchIndex = matches.indexOf(matches.get((int) Math.ceil(participantNumber / 2) - 1));
-            matches.get(event.nextMatch(event.getMaxParticipants(), matchIndex))
-                .setPlayer(matchIndex % 2, oddPlayer);
-          }
-        }*/
         ans.add(event);
       }
     }
@@ -255,6 +206,25 @@ public class SQLFileManager implements FileManger {
     return ans;
   }
 
+  @Override public ArrayList<Match> getPlayerMatchesFromFile()
+  {
+    ArrayList<Match> ans = new ArrayList<>();
+    try (Connection connection = getConnected()) {
+      PreparedStatement psMatch = connection.prepareStatement(
+          "SELECT * FROM fgcadb.PlayerMatches");
+      ResultSet rsMatch = psMatch.executeQuery();
+      while (rsMatch.next()){
+        ans.add(new Match(UserListSingleton.getInstance().getUserList()
+            .getUserByUsername(rsMatch.getString("userName1")), UserListSingleton.getInstance().getUserList()
+            .getUserByUsername(rsMatch.getString("userName2")), rsMatch.getString("user1Score") + "-" + rsMatch.getString("user2Score")));
+      }
+    }
+    catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    return ans;
+  }
+
   @Override public void saveMatchToFile(String eventTitle, Match match, int position) {
     try(Connection connection = getConnected()){ //UPDATE fgcadb.Participants SET checkInStatus = ? WHERE userName = ? AND eventTitle = ?
       PreparedStatement ps = connection.prepareStatement("INSERT INTO fgcadb.Match(eventTitle, userName1, userName2, user1Score, user2Score, arrayPosition) VALUES (?, ?, ?, ?, ?, ?)");
@@ -264,6 +234,21 @@ public class SQLFileManager implements FileManger {
       ps.setInt(4, match.getPlayerOneScore());
       ps.setInt(5, match.getPlayerTwoScore());
       ps.setInt(6, position);
+      ps.executeUpdate();
+    }
+    catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override public void savePlayerMatchToFile(Match match)
+  {
+    try(Connection connection = getConnected()){ //UPDATE fgcadb.Participants SET checkInStatus = ? WHERE userName = ? AND eventTitle = ?
+      PreparedStatement ps = connection.prepareStatement("INSERT INTO fgcadb.PlayerMatches(userName1, userName2, user1Score, user2Score) VALUES (?, ?, ?, ?)");
+      ps.setString(1, match.getPlayers().get(0).getUsername());
+      ps.setString(2, match.getPlayers().get(1).getUsername());
+      ps.setInt(3, match.getPlayerOneScore());
+      ps.setInt(4, match.getPlayerTwoScore());
       ps.executeUpdate();
     }
     catch (SQLException e){

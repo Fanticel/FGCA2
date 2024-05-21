@@ -24,7 +24,7 @@ public class MatchList
     }
     return matchList;
   }
-  public void addPlayerMatch(User playerOne, User playerTwo, String score){
-    matches.add(new Match(playerOne, playerTwo, score));
+  public void addPlayerMatch(Match match){
+    matches.add(match);
   }
 }

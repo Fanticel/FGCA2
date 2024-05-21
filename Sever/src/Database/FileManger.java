@@ -11,11 +11,13 @@ public interface FileManger {
   void saveParticipantToFile(String eventTitle, String username);
   void saveMatchToFile(String eventTitle, Match match, String score);
   void saveMatchToFile(String eventTitle, Match match, int position);
+  void savePlayerMatchToFile(Match match);
   void updateEvent(Event event);
   void updateParticipant(String eventTitle,User user);
   ArrayList<Event> getEventsFromFile();
   void saveUserToFile(User user);
   ArrayList<User> getUsersFromFile();
+  ArrayList<Match> getPlayerMatchesFromFile();
   void removeParticipant (String eventTitle, User user);
 
 }
