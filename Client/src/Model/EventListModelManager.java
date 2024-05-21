@@ -85,9 +85,9 @@ public class EventListModelManager implements EventListModel,
     client.addMatch(eventTittle, playerOne, playerTwo);
   }
 
-  @Override public void addMatch(Event event, User playerOne, User playerTwo)
+  @Override public void addPlayerMatch(String playerOneUsername, String playerTwoUsername, String score)
   {
-    client.addMatch(event, playerOne, playerTwo);
+    client.addPlayerMatch(user.getUsername(), playerTwoUsername, score);
   }
 
   @Override public void removeParticipant(String eventTittle, User user)
@@ -162,7 +162,9 @@ public class EventListModelManager implements EventListModel,
     if (evt.getPropertyName().equals("OpponentAccepted")){
       property.firePropertyChange("opponentAccepted","", user.getDisplayName());
     }
-    property.firePropertyChange(evt);
+    else {
+      property.firePropertyChange(evt);
+    }
   }
 
   @Override public void addListener(String propertyName,

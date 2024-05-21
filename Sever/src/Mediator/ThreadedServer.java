@@ -166,6 +166,17 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
       case "REMOVEOPPONENT"-> {
         model.removeOpponent(thisUser);
       }
+      case "ADDPLAYERMATCH" -> {
+        try
+        {
+          User opponent = UserListSingleton.getInstance().getUserList().getUserByUsername(reqSplit[2]);
+          model.addPlayerMatch(thisUser, opponent, reqSplit[3]);
+          serverMaster.privateAnswer(this, "Match successfully saved!_;_false", "Notification");
+          serverMaster.useredAnswer(opponent, "Your opponent submitted match results!_;_false", "MatchSaved");
+        }catch (Exception e){
+
+        }
+      }
       case "ADDEVENT" -> {
         try
         {

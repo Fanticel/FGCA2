@@ -118,9 +118,9 @@ public class Client implements EventListModel
         "removeParticipant;" + eventTittle + ";" + user.getDisplayName());
   }
 
-  @Override public void addMatch(Event event, User playerOne, User playerTwo)
+  @Override public void addPlayerMatch(String playerOneUsername, String playerTwoUsername, String score)
   {
-    addMatch(event.getTittle(), playerOne, playerTwo);
+    out.println("addPlayerMatch;" + playerOneUsername + ";" + playerTwoUsername + ";" + score);
   }
 
   @Override public void addMatch(String eventTittle, User playerOne,
@@ -258,6 +258,10 @@ public class Client implements EventListModel
   }
   public synchronized void opponentAccepted(String message){
     property.firePropertyChange(new PropertyChangeEvent(this,"OpponentAccepted",null, ""));
+    property.firePropertyChange(new PropertyChangeEvent(this, "Notification", false, message));
+  }
+  public synchronized void matchSaved(String message){
+    property.firePropertyChange(new PropertyChangeEvent(this,"MatchSaved",null, ""));
     property.firePropertyChange(new PropertyChangeEvent(this, "Notification", false, message));
   }
   public void receiveOpponent(){

@@ -16,7 +16,7 @@ public interface EventListModel extends NamedPropertyChangeSubject
   public String checkIn(String eventTitle, User user);
   public void removeParticipant(Event event, User user);
   public void removeParticipant(String eventTittle, User user);
-  public void addMatch(Event event,User playerOne, User playerTwo);
+  public void addPlayerMatch(User playerOne, User playerTwo, String score);
   public void addMatch(String eventTittle, User playerOne, User playerTwo);
   public void activateMatchTimer(String eventTitle, Match match);
   public void registerUser(User user);

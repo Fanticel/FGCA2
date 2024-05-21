@@ -22,6 +22,7 @@ public class EventListModelManager
   private PropertyChangeSupport property;
   private FileManger fileManager;
   private OpponentList opponentList;
+  private MatchList matchList;
 
   public EventListModelManager(ServerMaster serverMaster) {
     this.serverMaster = serverMaster;
@@ -36,6 +37,7 @@ public class EventListModelManager
       throw new RuntimeException(e);
     }
     opponentList = new OpponentList(serverMaster);
+    matchList = new MatchList();
     initGetFromFile();
   }
 
@@ -77,8 +79,8 @@ public class EventListModelManager
     eventList.activateMatchTimer(eventTitle, match);
   }
 
-  @Override public void addMatch(Event event, User playerOne, User playerTwo) {
-    eventList.addMatch(event, playerOne, playerTwo);
+  @Override public void addPlayerMatch(User playerOne, User playerTwo, String score) {
+    matchList.addPlayerMatch(playerOne, playerTwo, score);
   }
 
   @Override public void removeParticipant(String eventTittle, User user) {

@@ -64,6 +64,12 @@ public class ClientReader implements Runnable {
           String ans = tmp.split(": ")[1];
           client.opponentAccepted(ans.split("_;_")[0]);
         }
+        else if (tmp.split(": ")[0].contains("MatchSaved"))
+        {
+          //to do
+          String ans = tmp.split(": ")[1];
+          client.matchSaved(ans.split("_;_")[0]);
+        }
         //        else if (tmp.split(": ")[0].equals("\t->BAdd"))
 //        {
 //          //receivedAdd(tmp.split(": ")[1]);
