@@ -21,6 +21,16 @@ CREATE TABLE Event(
     organiserName varchar(25),
     FOREIGN KEY (organiserName) REFERENCES usertable(userName)
 );
+drop table playermatches cascade ;
+CREATE TABLE PlayerMatches(
+    matchID serial primary key,
+    userName1 varchar(25),
+    userName2 varchar(25),
+    user1Score int,
+    user2Score int,
+    FOREIGN KEY (userName1) REFERENCES UserTable(userName),
+    FOREIGN KEY (userName2) REFERENCES UserTable(userName)
+);
 DELETE FROM Match where userName1='a' OR username2='a';
 drop table match cascade ;
 CREATE TABLE Match(
