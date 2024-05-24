@@ -61,6 +61,9 @@ public class User
   {
     this.password = password;
   }
+  public boolean isModerator(){
+    return this instanceof Moderator;
+  }
   @Override public boolean equals(Object obj){
     if (obj == null || getClass() != obj.getClass()){
       return false;

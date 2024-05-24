@@ -5,6 +5,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
 import viewModel.MainPageViewModel;
 import viewModel.ViewModelFactory;
+import viewModel.ViewState;
 
 public class MainPageViewController implements ViewController{
   @FXML Label welcomeLabel;
@@ -32,5 +33,12 @@ public class MainPageViewController implements ViewController{
   }
   @FXML void btnMatchPress(){
     viewHandler.openView("1v1");
+  }
+  @FXML void btnChatPress(){
+    ViewState.getInstance().setDesiredChat("local");
+    viewHandler.openView("Chat");
+  }
+  @FXML void btnGameInfoPress(){
+    viewHandler.openView("GameInfo");
   }
 }

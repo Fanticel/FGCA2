@@ -83,8 +83,8 @@ public class OneVsOneSearchingViewModel implements PropertyChangeListener,
     else if (evt.getPropertyName().equals("OpponentRefused")){
       listener.propertyChange(new PropertyChangeEvent(this, "Refused", "", ""));
     }
-    else if (evt.getPropertyName().equals("opponentAccepted")){
-      String[] playerInfo = {(String) evt.getNewValue(), opponentNameProperty.get(), opponentUsername};
+    else if (evt.getPropertyName().equals("OpponentAccepted")){
+      String[] playerInfo = {evt.getNewValue().toString(), evt.getOldValue().toString(), opponentUsername};
       viewState.setMatchPlayers(playerInfo);
       listener.propertyChange(new PropertyChangeEvent(this, "Accepted", "", ""));
     }

@@ -18,6 +18,7 @@ public class EventListModelManager
     implements EventListModel, NamedPropertyChangeSubject,
     PropertyChangeListener {
   private EventList eventList;
+  private ChatList chatList;
   private ServerMaster serverMaster;
   private PropertyChangeSupport property;
   private FileManger fileManager;
@@ -27,6 +28,7 @@ public class EventListModelManager
   public EventListModelManager(ServerMaster serverMaster) {
     this.serverMaster = serverMaster;
     eventList = new EventList();
+    chatList = new ChatList();
     this.property = new PropertyChangeSupport(this);
     eventList.addListener("EventChange", this);
     eventList.addListener("CheckIn", this);
@@ -165,6 +167,81 @@ public class EventListModelManager
   @Override public Match getMatchByParticipants(String title, String usernameOne,
       String usernameTwo) {
     return eventList.getEvent(title).getMatchByParticipants(usernameOne, usernameTwo);
+  }
+
+  @Override public void removeFromChat(String name, User user)
+      throws Exception {
+    chatList.removeFromChat(name, user);
+  }
+
+  @Override public void addToChat(String name, User user) throws Exception {
+    chatList.addToChat(name, user);
+  }
+
+  @Override public void newChat(String chatName, ServerMaster serverMaster)
+      throws Exception {
+    chatList.newChat(chatName, serverMaster);
+  }
+
+  @Override public void writeToChat(String name, String message, User user)
+      throws Exception {
+    chatList.writeToChat(name, message, user);
+  }
+
+  @Override public Chat getChatByName(String name) {
+    return chatList.getChatByName(name);
+  }
+
+  @Override public String getChatLogByName(String name) {
+    if (chatList.getChatLogByName(name) == null){
+      try {
+        newChat(name, serverMaster);
+      }
+      catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    }
+    return chatList.getChatLogByName(name);
+  }
+
+  @Override public String makeUserIntoModerator(String username) {
+    try {
+      User tempUser = UserListSingleton.getInstance().getUserList().getUserByUsername(username);
+      if (tempUser == null){
+        return username + " doesn't exist";
+      }
+      if (tempUser.isModerator()){
+        return username + " is already a moderator";
+      }
+      UserListSingleton.getInstance().getUserList().removeUser(tempUser.getUsername());
+      UserListSingleton.getInstance().getUserList().addUser(new Moderator(tempUser.getUsername(), tempUser.getDisplayName(), tempUser.getPassword(),
+          tempUser.getBRP()));
+      fileManager.updateUserToModerator(tempUser);
+    }
+    catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    return username + " successfully promoted into a moderator!";
+  }
+
+  @Override public String makeModeratorIntoUser(String username) {
+    try {
+      User tempUser = UserListSingleton.getInstance().getUserList().getUserByUsername(username);
+      if (tempUser == null){
+        return username + " doesn't exist";
+      }
+      if (!tempUser.isModerator()){
+        return username + " is already not a moderator";
+      }
+      UserListSingleton.getInstance().getUserList().removeUser(tempUser.getUsername());
+      UserListSingleton.getInstance().getUserList().addUser(new User(tempUser.getUsername(), tempUser.getDisplayName(), tempUser.getPassword(),
+          tempUser.getBRP()));
+      fileManager.updateModeratorToUser(tempUser);
+    }
+    catch (SQLException e) {
+      throw new RuntimeException(e);
+    }
+    return username + " successfully demoted into a user!";
   }
 
   @Override public void addListener(String propertyName,

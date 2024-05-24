@@ -23,24 +23,22 @@ public class OpponentFoundViewModel implements PropertyChangeListener,
   private User playerOne;
   private User playerTwo;
   private EventListModel model;
-  private ViewState viewState;
   private PropertyChangeListener listener;
   public OpponentFoundViewModel(EventListModel model){
     this.model = model;
     model.addListener("MatchSaved", this);
-    this.viewState = ViewState.getInstance();
     verifyProperty = new SimpleStringProperty("Verify the winner");
     errorProperty = new SimpleStringProperty("");
-    playerOneNameProperty = new SimpleStringProperty(viewState.getMatchPlayers()[0]);
-    playerTwoNameProperty = new SimpleStringProperty(viewState.getMatchPlayers()[1]);
+    playerOneNameProperty = new SimpleStringProperty(ViewState.getInstance().getMatchPlayers()[0]);
+    playerTwoNameProperty = new SimpleStringProperty(ViewState.getInstance().getMatchPlayers()[1]);
     playerOneScoreProperty = new SimpleStringProperty("");
     playerTwoScoreProperty = new SimpleStringProperty("");
     listener = null;
   }
 
   public void reset(){
-    playerOneNameProperty.set(viewState.getMatchPlayers()[0]);
-    playerTwoNameProperty.set(viewState.getMatchPlayers()[1]);
+    playerOneNameProperty.set(ViewState.getInstance().getMatchPlayers()[0]);
+    playerTwoNameProperty.set(ViewState.getInstance().getMatchPlayers()[1]);
     playerOneScoreProperty.set("");
     playerTwoScoreProperty.set("");
   }
@@ -67,7 +65,7 @@ public class OpponentFoundViewModel implements PropertyChangeListener,
     if (Integer.parseInt(playerOneScoreProperty.get()) > Integer.parseInt(playerTwoScoreProperty.get())){
       if (chosenPlayer.equals(playerOneNameProperty.get())){
         //model.voteOnOutcome(ViewState.getInstance().getTittle(), playerOne.getUsername(), playerTwo.getUsername(), Integer.parseInt(playerOneScoreProperty.get()), Integer.parseInt(playerTwoScoreProperty.get()));
-          model.addPlayerMatch(null, viewState.getMatchPlayers()[2], playerOneScoreProperty.get() + "-" + playerTwoScoreProperty.get());
+          model.addPlayerMatch(null, ViewState.getInstance().getMatchPlayers()[2], playerOneScoreProperty.get() + "-" + playerTwoScoreProperty.get());
         return true;
       }
       else {
@@ -78,7 +76,7 @@ public class OpponentFoundViewModel implements PropertyChangeListener,
     if (Integer.parseInt(playerOneScoreProperty.get()) < Integer.parseInt(playerTwoScoreProperty.get())){
       if (chosenPlayer.equals(playerTwoNameProperty.get())){
         //model.voteOnOutcome(ViewState.getInstance().getTittle(), playerOne.getUsername(), playerTwo.getUsername(), Integer.parseInt(playerOneScoreProperty.get()), Integer.parseInt(playerTwoScoreProperty.get()));
-        model.addPlayerMatch(null, viewState.getMatchPlayers()[2], playerOneScoreProperty.get() + "-" + playerTwoScoreProperty.get());
+        model.addPlayerMatch(null, ViewState.getInstance().getMatchPlayers()[2], playerOneScoreProperty.get() + "-" + playerTwoScoreProperty.get());
         return true;
       }
       else {

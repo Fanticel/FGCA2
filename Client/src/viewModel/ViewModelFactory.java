@@ -22,6 +22,8 @@ public class ViewModelFactory {
   private OneVsOneViewModel oneVsOneViewModel;
   private OneVsOneSearchingViewModel oneVsOneSearchingViewModel;
   private OpponentFoundViewModel opponentFoundViewModel;
+  private GameInfoViewModel gameInfoViewModel;
+  private ChatViewModel chatViewModel;
   private ViewState viewState;
   private EventListModel model;
 
@@ -94,5 +96,13 @@ public class ViewModelFactory {
   public OpponentFoundViewModel getOpponentFoundViewModel(){
     opponentFoundViewModel = new OpponentFoundViewModel(model);
     return opponentFoundViewModel;
+  }
+  public ChatViewModel getChatViewModel(){
+    chatViewModel = new ChatViewModel(model);
+    return chatViewModel;
+  }
+  public GameInfoViewModel getGameInfoViewModel(){
+    gameInfoViewModel = new GameInfoViewModel(model);
+    return gameInfoViewModel;
   }
 }

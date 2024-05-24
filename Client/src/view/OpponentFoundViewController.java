@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
+import viewModel.ChatViewModel;
 import viewModel.OpponentFoundViewModel;
 import viewModel.ViewModelFactory;
 import viewModel.ViewState;
@@ -50,7 +51,7 @@ public class OpponentFoundViewController implements ViewController,
   private OpponentFoundViewModel opponentFoundViewModel;
   private Region root;
   private ViewModelFactory viewModelFactory;
-  private ReportScoreViewController reportScoreViewController;
+  private ChatViewController chatViewController;
   @Override public void init(ViewHandler viewHandler,
       ViewModelFactory viewModelFactory, Region root) {
     this.viewHandler = viewHandler;
@@ -66,11 +67,14 @@ public class OpponentFoundViewController implements ViewController,
     btnPlayerTwo.textProperty().bind(opponentFoundViewModel.getPlayerTwoNameProperty());
     errorLabel.textProperty().bind(opponentFoundViewModel.getErrorProperty());
     verifyLabel.textProperty().bind(opponentFoundViewModel.getVerifyProperty());
-    //rightSubScene | remember to implement the chat view as well
+    ViewState.getInstance().setDesiredChat(playerOneName.getText()+"vs"+playerTwoName.getText()+"Chat");
+    rightSubScene.setRoot(loadChatView("ChatView.fxml"));
   }
 
   @Override public void reset() {
+    ViewState.getInstance().setDesiredChat(playerOneName.getText()+"vs"+playerTwoName.getText()+"Chat");
     opponentFoundViewModel.reset();
+    chatViewController.reset();
   }
 
   @Override public Region getRoot() {
@@ -95,5 +99,24 @@ public class OpponentFoundViewController implements ViewController,
         viewHandler.closePopupView();
       });
     }
+  }
+
+  private Region loadChatView(String fxmlFile){
+    if (chatViewController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        chatViewController = loader.getController();
+        chatViewController.init(viewHandler, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      chatViewController.reset();
+    }
+    return chatViewController.getRoot();
   }
 }

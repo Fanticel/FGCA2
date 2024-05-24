@@ -256,6 +256,28 @@ public class SQLFileManager implements FileManger {
     }
   }
 
+  @Override public void updateUserToModerator(User user) {
+    try (Connection connection = getConnected()){
+      PreparedStatement ps = connection.prepareStatement("UPDATE fgcadb.usertable SET role='moderator' WHERE username = ?");
+      ps.setString(1, user.getUsername());
+      ps.executeUpdate();
+    }
+    catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+  }
+
+  @Override public void updateModeratorToUser(User user) {
+    try (Connection connection = getConnected()){
+      PreparedStatement ps = connection.prepareStatement("UPDATE fgcadb.usertable SET role='user' WHERE username = ?");
+      ps.setString(1, user.getUsername());
+      ps.executeUpdate();
+    }
+    catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+  }
+
   private Connection getConnected() throws SQLException {
     return DriverManager.getConnection(
         "jdbc:postgresql://localhost:5432/postgres", "postgres", "1234");

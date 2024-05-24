@@ -46,7 +46,7 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                      <Button minHeight="40" minWidth="123.0" prefHeight="40.0" prefWidth="115.0" styleClass="menu-button" text="Chat ">
+                      <Button minHeight="40" minWidth="123.0" onAction="#btnChatPress" prefHeight="40.0" prefWidth="115.0" styleClass="menu-button" text="Chat ">
                      <HBox.margin>
                         <Insets right="40.0" />
                      </HBox.margin>
@@ -64,7 +64,7 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
                <children>
-                      <Button minHeight="40" minWidth="123.0" prefHeight="40.0" prefWidth="115.0" styleClass="menu-button" text="Game Info">
+                      <Button minHeight="40" minWidth="123.0" onAction="#btnGameInfoPress" prefHeight="40.0" prefWidth="115.0" styleClass="menu-button" text="Game Info">
                      <HBox.margin>
                         <Insets right="40.0" />
                      </HBox.margin></Button>
@@ -102,7 +102,7 @@
                   </ImageView>
                   <Label fx:id="welcomeLabel" text="Welcome {DN}!" textFill="#15e8e8">
                      <StackPane.margin>
-                        <Insets top="100.0" />
+                        <Insets top="225.0" />
                      </StackPane.margin>
                      <font>
                         <Font size="24.0" />

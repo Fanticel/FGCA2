@@ -2,6 +2,7 @@ package Database;
 
 import Model.Event;
 import Model.Match;
+import Model.Moderator;
 import Model.User;
 
 import java.util.ArrayList;
@@ -19,5 +20,7 @@ public interface FileManger {
   ArrayList<User> getUsersFromFile();
   ArrayList<Match> getPlayerMatchesFromFile();
   void removeParticipant (String eventTitle, User user);
+  void updateUserToModerator(User user);
+  void updateModeratorToUser(User user);
 
 }

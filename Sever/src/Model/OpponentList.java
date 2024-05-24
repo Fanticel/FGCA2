@@ -21,8 +21,10 @@ public class OpponentList {
       if (a.get(0).equals(user) && a.get(1).equals(enemyUser)){
         a.set(2, true);
         if ((boolean)a.get(3)){
-          serverMaster.useredAnswer((User) a.get(0), ((User)a.get(1)).getDisplayName()+" has accepted the match!", "OpponentFound");
-          serverMaster.useredAnswer((User) a.get(1), ((User)a.get(0)).getDisplayName()+" has accepted the match!", "OpponentFound");
+          serverMaster.useredAnswer((User) a.get(0), ((User)a.get(1)).getDisplayName()+" has accepted the match!_;_false", "Notification");
+          serverMaster.useredAnswer((User) a.get(1), ((User)a.get(0)).getDisplayName()+" has accepted the match!_;_false", "Notification");
+          serverMaster.useredAnswer((User) a.get(0), ((User)a.get(0)).getDisplayName()+"_"+((User)a.get(1)).getDisplayName(), "OpponentFound");
+          serverMaster.useredAnswer((User) a.get(1), ((User)a.get(0)).getDisplayName()+"_"+((User)a.get(1)).getDisplayName(), "OpponentFound");
           listOfPotentialMatches.remove(a);
           break;
         }
@@ -33,8 +35,10 @@ public class OpponentList {
       else if (a.get(1).equals(user) && a.get(0).equals(enemyUser)){
         a.set(3, true);
         if ((boolean)a.get(2)){
-          serverMaster.useredAnswer((User) a.get(0), ((User)a.get(1)).getDisplayName()+" has accepted the match!", "OpponentFound");
-          serverMaster.useredAnswer((User) a.get(1), ((User)a.get(0)).getDisplayName()+" has accepted the match!", "OpponentFound");
+          serverMaster.useredAnswer((User) a.get(0), ((User)a.get(1)).getDisplayName()+" has accepted the match!_;_false", "Notification");
+          serverMaster.useredAnswer((User) a.get(1), ((User)a.get(0)).getDisplayName()+" has accepted the match!_;_false", "Notification");
+          serverMaster.useredAnswer((User) a.get(0), ((User)a.get(0)).getDisplayName()+"_"+((User)a.get(1)).getDisplayName(), "OpponentFound");
+          serverMaster.useredAnswer((User) a.get(1), ((User)a.get(0)).getDisplayName()+"_"+((User)a.get(1)).getDisplayName(), "OpponentFound");
           listOfPotentialMatches.remove(a);
           break;
         }

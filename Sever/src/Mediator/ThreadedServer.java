@@ -195,7 +195,48 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
         currentSocket.close();
       }
       case "PUSHNOTIFICATION" -> {serverMaster.broadcast(reqSplit[1] + "_;_" + reqSplit[2], "Notification");}
-
+      case "ADDTOCHAT" -> {
+        try {
+          model.addToChat(reqSplit[1], thisUser);
+        }catch (Exception e){
+          System.err.println(e.getMessage());
+//          serverMaster.privateAnswer(this, e.getMessage()+"_;_true", "Notification");
+        }
+      }
+      case "REMOVEFROMCHAT" -> {
+        try {
+          model.removeFromChat(reqSplit[1], thisUser);
+        }catch (Exception e){
+          System.err.println(e.getMessage());
+//          serverMaster.privateAnswer(this, e.getMessage()+"_;_true", "Notification");
+        }
+      }
+      case "CREATECHAT" -> {
+        try {
+          model.newChat(reqSplit[1], serverMaster);
+        }catch (Exception e){
+          System.err.println(e.getMessage());
+//          serverMaster.privateAnswer(this, e.getMessage()+"_;_true", "Notification");
+        }
+      }
+      case "CREATEJOINCHAT" -> {
+        try {
+          model.newChat(reqSplit[1], serverMaster);
+          model.addToChat(reqSplit[1], thisUser);
+        }catch (Exception e){
+          System.err.println(e.getMessage());
+//          serverMaster.privateAnswer(this, e.getMessage()+"_;_true", "Notification");
+        }
+      }
+      case "WRITETOCHAT" -> {
+        try {
+          model.writeToChat(reqSplit[1], reqSplit[2], thisUser);
+        }catch (Exception e){
+          System.err.println(e.getMessage());
+//          serverMaster.privateAnswer(this, e.getMessage()+"_;_true", "Notification");
+        }
+      }
+      case "GETCHATLOG" -> {serverMaster.privateAnswer(this, model.getChatLogByName(reqSplit[1]).replaceAll("\n", "_pbs_"), "Chat_"+reqSplit[1]+"_Log");}
       case "VOTE" -> { //VOTE;{[1]EventName};{[2]usernameOne};{[3]usernameTwo};{[4]scoreOne};{[5]scoreTwo}
         try{
           String ans = model.voteOnOutcome(thisUser, reqSplit[1], reqSplit[2],reqSplit[3],Integer.parseInt(reqSplit[4]),Integer.parseInt(reqSplit[5]));

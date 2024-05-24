@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox prefHeight="414.0" prefWidth="630.0" styleClass="background" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.ChatViewController">
+   <stylesheets>
+      <URL value="@../CSS/style.css" />
+      <URL value="@../CSS/Common.css" />
+   </stylesheets>
+   <children>
+      <Label fx:id="chatNameLabel" text="The best tournament ever chat" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+      </Label>
+      <ScrollPane prefHeight="339.0" prefWidth="600.0" stylesheets="@../CSS/EventList.css">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="597.0" stylesheets="@../CSS/EventList.css">
+               <children>
+                  <Label fx:id="previousLogLabel" text="SampleText" textFill="WHITE">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                     <padding>
+                        <Insets left="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+               </children></AnchorPane>
+        </content>
+      </ScrollPane>
+      <TextField fx:id="inputTextField" onAction="#onEnterPressed" prefHeight="35.0" prefWidth="600.0" promptText="Type here..." style="-fx-background-color: #423255; -fx-text-fill: WHITE;" text="Udioajdoaw">
+         <VBox.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </VBox.margin>
+         <font>
+            <Font size="15.0" />
+         </font>
+      </TextField>
+   </children>
+</VBox>

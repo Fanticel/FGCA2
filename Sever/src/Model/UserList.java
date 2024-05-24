@@ -25,4 +25,7 @@ public class UserList {
   public void addUser(ArrayList<User> userArrayList){
     userList.addAll(userArrayList);
   }
+  public void removeUser(String username){
+    userList.remove(getUserByUsername(username));
+  }
 }

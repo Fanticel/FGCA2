@@ -242,6 +242,9 @@ public class Client implements EventListModel
     out.println("VOTE;"+title+";"+usernameOne+";"+usernameTwo+";"+playerOneScore+";"+playerTwoScore);
   }
 
+  public synchronized void receivedChat(String message, String chatName){
+    property.firePropertyChange(new PropertyChangeEvent(this, chatName,null , message));
+  }
   public synchronized void receivedNotification(String message, boolean error){
     property.firePropertyChange(new PropertyChangeEvent(this, "Notification", error, message));
   }
@@ -252,17 +255,14 @@ public class Client implements EventListModel
     Object[] opponentData = {opponentDisplayName, opponentBRP};
     property.firePropertyChange(new PropertyChangeEvent(this, "OpponentFound", opponentData, opponentUserName));
   }
-  public synchronized void opponentRefused(String message, boolean error){
+  public synchronized void opponentRefused(){
     property.firePropertyChange(new PropertyChangeEvent(this,"OpponentRefused",null, ""));
-    property.firePropertyChange(new PropertyChangeEvent(this, "Notification", error, message));
   }
-  public synchronized void opponentAccepted(String message){
-    property.firePropertyChange(new PropertyChangeEvent(this,"OpponentAccepted",null, ""));
-    property.firePropertyChange(new PropertyChangeEvent(this, "Notification", false, message));
+  public synchronized void opponentAccepted(String nameOne, String nameTwo){
+    property.firePropertyChange(new PropertyChangeEvent(this,"OpponentAccepted",nameOne, nameTwo));
   }
-  public synchronized void matchSaved(String message){
+  public synchronized void matchSaved(){
     property.firePropertyChange(new PropertyChangeEvent(this,"MatchSaved",null, ""));
-    property.firePropertyChange(new PropertyChangeEvent(this, "Notification", false, message));
   }
   public void receiveOpponent(){
 
@@ -286,6 +286,35 @@ public class Client implements EventListModel
   @Override public void removeOpponent()
   {
     out.println("RemoveOpponent");
+  }
+
+  @Override public void removeFromChat(String name) throws Exception {
+    out.println("REMOVEFROMCHAT;"+name);
+  }
+
+  @Override public void addToChat(String name) throws Exception {
+    out.println("ADDTOCHAT;"+name);
+  }
+
+  @Override public void newChat(String chatName) throws Exception {
+    out.println("CREATEJOINCHAT"+chatName);
+  }
+
+  @Override public void writeToChat(String name, String message) throws Exception {
+    out.println("WRITETOCHAT;"+name+";"+message);
+  }
+
+  @Override public synchronized String getChatLogByName(String name) {
+    out.println("GETCHATLOG;"+name);
+    try
+    {
+      wait();
+    }
+    catch (InterruptedException e)
+    {
+      throw new RuntimeException(e);
+    }
+    return answer;
   }
 
   @Override public void addListener(String propertyName,

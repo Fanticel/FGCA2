@@ -33,5 +33,10 @@ public interface EventListModel extends NamedPropertyChangeSubject
   void declineOpponent(String opponentUsername);
   void acceptOpponent(String opponentUsername);
   void removeOpponent();
+  void removeFromChat(String name) throws Exception;
+  void addToChat(String name) throws Exception;
+  void newChat(String chatName) throws Exception;
+  void writeToChat(String name, String message) throws Exception;
+  String getChatLogByName(String name);
 
 }

@@ -1,5 +1,6 @@
 package Model;
 
+import Mediator.ServerMaster;
 import utility.NamedPropertyChangeSubject;
 
 import java.time.LocalDate;
@@ -26,4 +27,12 @@ public interface EventListModel extends NamedPropertyChangeSubject
   Match getMatchByParticipants(String title, String usernameOne, String usernameTwo);
   void acceptOpponent(User user, User enemyUser);
   void declineOpponent(User user, User enemyUser);
+  void removeFromChat(String name, User user) throws Exception;
+  void addToChat(String name, User user) throws Exception;
+  void newChat(String chatName, ServerMaster serverMaster) throws Exception;
+  void writeToChat(String name, String message, User User) throws Exception;
+  String getChatLogByName(String name);
+  Chat getChatByName(String name);
+  String makeUserIntoModerator(String username);
+  String makeModeratorIntoUser(String username);
 }

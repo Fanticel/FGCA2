@@ -10,6 +10,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
 import viewModel.EventDescriptionViewModel;
 import viewModel.ViewModelFactory;
+import viewModel.ViewState;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -24,6 +25,7 @@ public class EventDescriptionViewController implements ViewController,
   private EventDescriptionViewModel eventDescriptionViewModel;
   private DescriptionViewGeneralController descriptionViewGeneralController;
   private BracketViewController bracketViewController;
+  private ChatViewController chatViewController;
   private ViewModelFactory viewModelFactory;
   private Region root;
   private Tab tab1;
@@ -54,6 +56,8 @@ public class EventDescriptionViewController implements ViewController,
     else {
       tab2.disableProperty().set(true);
     }
+    ViewState.getInstance().setDesiredChat(lblEventTitle.getText() + "Chat");
+    tab3.setContent(loadChatView("ChatView.fxml"));
     tabPane.getTabs().add(tab2);
     tabPane.getTabs().add(tab3);
   }
@@ -78,6 +82,8 @@ public class EventDescriptionViewController implements ViewController,
     else {
       bracket.disableProperty().set(true);
     }
+    ViewState.getInstance().setDesiredChat(lblEventTitle.getText() + "Chat");
+    chatViewController.reset();
   }
 
   @Override public Region getRoot() {
@@ -86,6 +92,24 @@ public class EventDescriptionViewController implements ViewController,
 
   @FXML void pressBackButton() {
     viewHandler.openView("EventList");
+  }
+  private Region loadChatView(String fxmlFile){
+    if (chatViewController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        chatViewController = loader.getController();
+        chatViewController.init(viewHandler, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      chatViewController.reset();
+    }
+    return chatViewController.getRoot();
   }
 
   private Region loadEventDescriptionViewController(String fxmlFile) {
