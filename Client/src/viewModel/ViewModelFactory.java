@@ -23,6 +23,8 @@ public class ViewModelFactory {
   private OneVsOneSearchingViewModel oneVsOneSearchingViewModel;
   private OpponentFoundViewModel opponentFoundViewModel;
   private GameInfoViewModel gameInfoViewModel;
+  private CharacterInfoViewModel characterInfoViewModel;
+  private MoveInfoViewModel moveInfoViewModel;
   private ChatViewModel chatViewModel;
   private ViewState viewState;
   private EventListModel model;
@@ -104,5 +106,13 @@ public class ViewModelFactory {
   public GameInfoViewModel getGameInfoViewModel(){
     gameInfoViewModel = new GameInfoViewModel(model);
     return gameInfoViewModel;
+  }
+  public CharacterInfoViewModel getCharacterInfoViewModel(){
+    characterInfoViewModel = new CharacterInfoViewModel(model);
+    return characterInfoViewModel;
+  }
+  public MoveInfoViewModel getMoveInfoViewModel(){
+    moveInfoViewModel = new MoveInfoViewModel(model);
+    return moveInfoViewModel;
   }
 }

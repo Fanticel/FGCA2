@@ -1,6 +1,7 @@
 package mediator;
 
 import Model.*;
+import Model.GameInformation.Game;
 import com.google.gson.Gson;
 
 import java.beans.PropertyChangeEvent;
@@ -11,7 +12,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public class Client implements EventListModel
@@ -315,6 +315,38 @@ public class Client implements EventListModel
       throw new RuntimeException(e);
     }
     return answer;
+  }
+
+  @Override public ArrayList<Game> getAllGames() {
+
+    return null;
+  }
+
+  @Override public synchronized CharacterInfoPackage getAllCharMovesFromGame(
+      String gameName) {
+    out.println("GETMOVESBYGAME;"+gameName);
+    try
+    {
+      wait();
+    }
+    catch (InterruptedException e)
+    {
+      throw new RuntimeException(e);
+    }
+    return gson.fromJson(answer, CharacterInfoPackage.class);
+  }
+
+  @Override public synchronized ArrayList<String> getAllGameNames() {
+    out.println("GETGAMES");
+    try{
+      wait();
+    }
+    catch (InterruptedException e){
+      throw new RuntimeException(e);
+    }
+    ArrayList<String> ans = new ArrayList<>();
+    ans = gson.fromJson(answer, ans.getClass());
+    return ans;
   }
 
   @Override public void addListener(String propertyName,

@@ -27,6 +27,8 @@ public class ViewHandler {
   private OpponentFoundViewController opponentFoundViewController;
   private ChatViewController chatViewController;
   private GameInfoViewController gameInfoViewController;
+  private CharacterInfoController characterInfoController;
+  private MoveInfoController moveInfoController;
   private EventTemplateViewController eventTemplateViewController;
   private BracketViewController bracketViewController;
   private ViewModelFactory viewModelFactory;
@@ -41,7 +43,8 @@ public class ViewHandler {
   public void start(Stage primaryStage) {
     this.primaryStage = primaryStage;
     openView("Login");
-//    openView("Chat");
+//    ViewState.getInstance().setGameName("Tvoja mama");
+//    openView("CharacterInfo");
   }
 
   public void startPopup(Stage popupStage) {
@@ -100,6 +103,8 @@ public class ViewHandler {
       case "1v1" -> root = loadOneVsOneView("1v1view.fxml");
       case "Chat" -> root = loadChatView("ChatView.fxml");
       case "GameInfo" -> root = loadGameInfoView("GameInfoView.fxml");
+      case "CharacterInfo" -> root = loadCharacterInfoView("CharacterInfo.fxml");
+      case "MoveInfo" -> root = loadMoveInfoController("MoveInfo.fxml");
       default -> root = loadMainPageView("MainPageView.fxml");
     } currentScene.setRoot(root);
     String title = "";
@@ -122,6 +127,42 @@ public class ViewHandler {
   }
   public void closeNotificationView(){
     notificationStage.close();
+  }
+  public Region loadMoveInfoController(String fxmlFile){
+    if (moveInfoController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        moveInfoController = loader.getController();
+        moveInfoController.init(this, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      moveInfoController.reset();
+    }
+    return moveInfoController.getRoot();
+  }
+  public Region loadCharacterInfoView(String fxmlFile){
+    if (characterInfoController == null) {
+      try {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource(fxmlFile));
+        Region root = loader.load();
+        characterInfoController = loader.getController();
+        characterInfoController.init(this, viewModelFactory, root);
+      }
+      catch (Exception e) {
+        e.printStackTrace();
+      }
+    }
+    else {
+      characterInfoController.reset();
+    }
+    return characterInfoController.getRoot();
   }
   public Region loadGameInfoView(String fxmlFile){
     if (chatViewController == null) {

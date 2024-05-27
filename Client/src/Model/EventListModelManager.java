@@ -1,6 +1,8 @@
 package Model;
 
+import Model.GameInformation.Game;
 import com.google.gson.Gson;
+import mediator.CharacterInfoPackage;
 import mediator.Client;
 
 import java.beans.PropertyChangeEvent;
@@ -160,6 +162,19 @@ public class EventListModelManager
 
   @Override public String getChatLogByName(String name) {
     return client.getChatLogByName(name);
+  }
+
+  @Override public ArrayList<Game> getAllGames() {
+    return client.getAllGames();
+  }
+
+  @Override public CharacterInfoPackage getAllCharMovesFromGame(
+      String gameName) {
+    return client.getAllCharMovesFromGame(gameName);
+  }
+
+  @Override public ArrayList<String> getAllGameNames() {
+    return client.getAllGameNames();
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt) {

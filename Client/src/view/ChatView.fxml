@@ -12,14 +12,19 @@
       <URL value="@../CSS/Common.css" />
    </stylesheets>
    <children>
-      <Label fx:id="chatNameLabel" text="The best tournament ever chat" textFill="WHITE">
-         <font>
-            <Font size="30.0" />
-         </font>
+      <HBox fx:id="topHBox">
+         <Label fx:id="chatNameLabel" text="The best tournament ever chat" textFill="WHITE">
+            <font>
+               <Font size="30.0" />
+            </font>
+            <VBox.margin>
+               <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </VBox.margin>
+         </Label>
          <VBox.margin>
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </VBox.margin>
-      </Label>
+      </HBox>
       <ScrollPane prefHeight="339.0" prefWidth="600.0" stylesheets="@../CSS/EventList.css">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="597.0" stylesheets="@../CSS/EventList.css">

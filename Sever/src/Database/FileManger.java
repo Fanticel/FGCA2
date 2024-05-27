@@ -1,6 +1,7 @@
 package Database;
 
 import Model.Event;
+import Model.GameInformation.Game;
 import Model.Match;
 import Model.Moderator;
 import Model.User;
@@ -22,5 +23,5 @@ public interface FileManger {
   void removeParticipant (String eventTitle, User user);
   void updateUserToModerator(User user);
   void updateModeratorToUser(User user);
-
+  ArrayList<Game> loadAllMovesCharacterGames();
 }

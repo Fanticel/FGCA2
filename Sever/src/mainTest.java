@@ -12,6 +12,6 @@ public class mainTest
 {
   public static void main(String[] args) throws SQLException {
     SQLFileManager sqlFileManager = new SQLFileManager();
-    System.out.println(sqlFileManager.getEventsFromFile());
+    System.out.println(sqlFileManager.loadAllMovesCharacterGames());
   }
 }

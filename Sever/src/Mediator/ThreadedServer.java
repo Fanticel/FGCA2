@@ -258,6 +258,12 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
           serverMaster.privateAnswer(this, "Something went wrong :(_;_true", "Notification");
         }
       }
+      case "GETGAMES" -> {
+        serverMaster.privateAnswer(this, gson.toJson(model.getAllGameNames()), "GameNameList");
+      }
+      case "GETMOVESBYGAME" -> {
+        serverMaster.privateAnswer(this, gson.toJson(new CharacterInfoPackage(model.getAllCharMovesFromGame(reqSplit[1]), model.getGameByName(reqSplit[1]).getDescription())), "CharacterMoveList");
+      }
       default -> {
         serverMaster.privateAnswer(this, "Error01: unknown server request",
             "->System");
@@ -266,6 +272,6 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
   }
 
   @Override public void propertyChange(PropertyChangeEvent evt) {
-    out.println(evt.getOldValue() + ": " + evt.getNewValue());
+    out.println(evt.getOldValue() + ":▬" + evt.getNewValue());
   }
 }

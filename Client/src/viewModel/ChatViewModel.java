@@ -57,6 +57,7 @@ public class ChatViewModel implements PropertyChangeListener {
     try {
       model.removeFromChat(previousChatName);
       model.removeListener(previousChatName,this);
+      model.addListener(ViewState.getInstance().getDesiredChat(), this);
     }
     catch (Exception e) {
       throw new RuntimeException(e);

@@ -1,6 +1,8 @@
 package Model;
 
 import Mediator.ServerMaster;
+import Model.GameInformation.Character;
+import Model.GameInformation.Game;
 import utility.NamedPropertyChangeSubject;
 
 import java.time.LocalDate;
@@ -35,4 +37,8 @@ public interface EventListModel extends NamedPropertyChangeSubject
   Chat getChatByName(String name);
   String makeUserIntoModerator(String username);
   String makeModeratorIntoUser(String username);
+  ArrayList<Game> getAllGames();
+  ArrayList<Character> getAllCharMovesFromGame(String gameName);
+  ArrayList<String> getAllGameNames();
+  Game getGameByName(String gameName);
 }

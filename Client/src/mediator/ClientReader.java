@@ -19,67 +19,73 @@ public class ClientReader implements Runnable {
     while (running) {
       try {
         String tmp = in.readLine();
-        if (tmp.split(": ")[0].contains("AllEvents")) {
-          client.receiveMessage(tmp.split(": ")[1]);
+        if (tmp.split(":▬")[0].contains("AllEvents")) {
+          client.receiveMessage(tmp.split(":▬")[1]);
         }
-        else if (tmp.split(": ")[0].contains("GetEvent")){
-          client.receiveMessage(tmp.split(": ")[1]);
+        else if (tmp.split(":▬")[0].contains("GetEvent")){
+          client.receiveMessage(tmp.split(":▬")[1]);
         }
-        else if (tmp.split(": ")[0].contains("AddEvent")){
-          client.receiveMessage(tmp.split(": ")[1]);
+        else if (tmp.split(":▬")[0].contains("AddEvent")){
+          client.receiveMessage(tmp.split(":▬")[1]);
         }
-        else if(tmp.split(": ")[0].contains("Login"))
+        else if(tmp.split(":▬")[0].contains("Login"))
         {
-          client.receiveMessage(tmp.split(": ")[1]);
+          client.receiveMessage(tmp.split(":▬")[1]);
         }
-        else if(tmp.split(": ")[0].contains("Register"))
+        else if(tmp.split(":▬")[0].contains("Register"))
         {
-          client.receiveMessage(tmp.split(": ")[1]);
+          client.receiveMessage(tmp.split(":▬")[1]);
         }
-        else if (tmp.split(": ")[0].contains("Notification"))
+        else if (tmp.split(":▬")[0].contains("Notification"))
         {
-          String ans = tmp.split(": ")[1];
+          String ans = tmp.split(":▬")[1];
           client.receivedNotification(ans.split("_;_")[0], ans.split("_;_")[1].equalsIgnoreCase("TRUE"));
         }
-        else if (tmp.split(": ")[0].contains("EventChange"))
+        else if (tmp.split(":▬")[0].contains("EventChange"))
         {
-          String ans = tmp.split(": ")[1];
+          String ans = tmp.split(":▬")[1];
           client.eventChange(ans);
         }
-        else if (tmp.split(": ")[0].contains("OpponentRequest"))
+        else if (tmp.split(":▬")[0].contains("OpponentRequest"))
         {
           //to do
-          String ans = tmp.split(": ")[1];
+          String ans = tmp.split(":▬")[1];
           client.opponentFound(ans.split("_;_")[1],Integer.parseInt(ans.split("_;_")[2]), ans.split("_;_")[3]);
         }
-        else if (tmp.split(": ")[0].contains("OpponentRefused"))
+        else if (tmp.split(":▬")[0].contains("OpponentRefused"))
         {
-          String ans = tmp.split(": ")[1];
+          String ans = tmp.split(":▬")[1];
           client.opponentRefused();
           client.receivedNotification(ans.split("_;_")[0], ans.split("_;_")[1].equalsIgnoreCase("TRUE"));
         }
-        else if (tmp.split(": ")[0].contains("OpponentFound"))
+        else if (tmp.split(":▬")[0].contains("OpponentFound"))
         {
-          client.opponentAccepted(tmp.split(": ")[1].split("_")[0], tmp.split(": ")[1].split("_")[1]);
+          client.opponentAccepted(tmp.split(":▬")[1].split("_")[0], tmp.split(":▬")[1].split("_")[1]);
         }
-        else if (tmp.split(": ")[0].contains("MatchSaved"))
+        else if (tmp.split(":▬")[0].contains("MatchSaved"))
         {
-          String ans = tmp.split(": ")[1];
+          String ans = tmp.split(":▬")[1];
           client.matchSaved();
           client.receivedNotification(ans.split("_;_")[0],false);
           //property.firePropertyChange(new PropertyChangeEvent(this, "Notification", false, message));
         }
-        //        else if (tmp.split(": ")[0].equals("\t->BAdd"))
+        //        else if (tmp.split(":▬")[0].equals("\t->BAdd"))
 //        {
-//          //receivedAdd(tmp.split(": ")[1]);
+//          //receivedAdd(tmp.split(":▬")[1]);
 //        }
-        else if (tmp.split(": ")[0].split("_")[0].contains("Chat")){
-          if (tmp.split(": ")[0].split("_").length > 2){
-            client.receiveMessage(tmp.split(": ")[1].replaceAll("_pbs_", "\n").replaceAll("¶"," "));
+        else if (tmp.split(":▬")[0].split("_")[0].contains("Chat")){
+          if (tmp.split(":▬")[0].split("_").length > 2){
+            client.receiveMessage(tmp.split(":▬")[1].replaceAll("_pbs_", "\n").replaceAll("¶"," "));
           }
           else {
-            client.receivedChat(tmp.split(": ")[1].replaceAll("_pbs_", "\n").replaceAll("¶"," "), tmp.split(": ")[0].split("_")[1]);
+            client.receivedChat(tmp.split(":▬")[1].replaceAll("_pbs_", "\n").replaceAll("¶"," "), tmp.split(":▬")[0].split("_")[1]);
           }
+        }
+        else if (tmp.split(":▬")[0].contains("CharacterMoveList")) {
+          client.receiveMessage(tmp.split(":▬")[1]);
+        }
+        else if (tmp.split(":▬")[0].contains("GameNameList")) {
+          client.receiveMessage(tmp.split(":▬")[1]);
         }
       }
       catch (IOException e) {

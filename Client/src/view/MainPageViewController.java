@@ -35,7 +35,7 @@ public class MainPageViewController implements ViewController{
     viewHandler.openView("1v1");
   }
   @FXML void btnChatPress(){
-    ViewState.getInstance().setDesiredChat("local");
+    ViewState.getInstance().setDesiredChat("Global");
     viewHandler.openView("Chat");
   }
   @FXML void btnGameInfoPress(){

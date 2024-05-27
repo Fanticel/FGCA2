@@ -4,6 +4,9 @@ import Database.FileManger;
 import Database.SQLFileManager;
 import Mediator.EventInformationPackage;
 import Mediator.ServerMaster;
+import Model.GameInformation.Character;
+import Model.GameInformation.Game;
+import Model.GameInformation.GameList;
 import utility.NamedPropertyChangeSubject;
 
 import java.beans.PropertyChangeEvent;
@@ -19,6 +22,7 @@ public class EventListModelManager
     PropertyChangeListener {
   private EventList eventList;
   private ChatList chatList;
+  private GameList gameList;
   private ServerMaster serverMaster;
   private PropertyChangeSupport property;
   private FileManger fileManager;
@@ -40,6 +44,7 @@ public class EventListModelManager
     }
     opponentList = new OpponentList(serverMaster);
     matchList = new MatchList();
+    gameList = new GameList(fileManager.loadAllMovesCharacterGames());
     initGetFromFile();
   }
 
@@ -242,6 +247,23 @@ public class EventListModelManager
       throw new RuntimeException(e);
     }
     return username + " successfully demoted into a user!";
+  }
+
+  @Override public ArrayList<Game> getAllGames() {
+    return gameList.getAllGames();
+  }
+
+  @Override public ArrayList<Character> getAllCharMovesFromGame(
+      String gameName) {
+    return gameList.getAllCharMovesFromGame(gameName);
+  }
+
+  @Override public ArrayList<String> getAllGameNames() {
+    return gameList.getAllGameNames();
+  }
+
+  @Override public Game getGameByName(String gameName) {
+    return gameList.getGameByName(gameName);
   }
 
   @Override public void addListener(String propertyName,

@@ -1,8 +1,9 @@
 package Model;
 
+import Model.GameInformation.Game;
+import mediator.CharacterInfoPackage;
 import utility.NamedPropertyChangeSubject;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 public interface EventListModel extends NamedPropertyChangeSubject
@@ -38,5 +39,7 @@ public interface EventListModel extends NamedPropertyChangeSubject
   void newChat(String chatName) throws Exception;
   void writeToChat(String name, String message) throws Exception;
   String getChatLogByName(String name);
-
+  ArrayList<Game> getAllGames();
+  CharacterInfoPackage getAllCharMovesFromGame(String gameName);
+  ArrayList<String> getAllGameNames();
 }

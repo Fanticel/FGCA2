@@ -1,6 +1,9 @@
 package Database;
 
 import Model.*;
+import Model.GameInformation.Character;
+import Model.GameInformation.Game;
+import Model.GameInformation.Move;
 
 import java.sql.*;
 import java.time.LocalDate;
@@ -276,6 +279,40 @@ public class SQLFileManager implements FileManger {
     catch (SQLException e){
       throw new RuntimeException(e);
     }
+  }
+
+  @Override public ArrayList<Game> loadAllMovesCharacterGames() {
+    ArrayList<Game> ans = new ArrayList<>();
+    try(Connection connection = getConnected()) {
+      PreparedStatement gamePS = connection.prepareStatement("SELECT * FROM fgcadb.games");
+      PreparedStatement characterPS = connection.prepareStatement("SELECT * FROM fgcadb.characters WHERE origingamename = ?");
+      PreparedStatement movesPS = connection.prepareStatement("SELECT * FROM fgcadb.charactermoves WHERE characterid=?");
+      ResultSet gameRS = gamePS.executeQuery();
+      while (gameRS.next()){
+        Game thisGame = new Game(gameRS.getString(1), gameRS.getString(2), new ArrayList<>());
+        characterPS.setString(1, gameRS.getString(1));
+        ResultSet characterRS = characterPS.executeQuery();
+        while (characterRS.next()){
+          Character thisCharacter = new Character(characterRS.getString(2),characterRS.getString(3),
+              characterRS.getString(4), characterRS.getString(5), new ArrayList<>());
+          movesPS.setInt(1, characterRS.getInt(1));
+          ResultSet movesRS = movesPS.executeQuery();
+          while (movesRS.next()){
+            Move thisMove = new Move(movesRS.getString(2), movesRS.getString(3),
+                movesRS.getString(4), movesRS.getString(5), movesRS.getString(6),
+                movesRS.getString(7) ,movesRS.getString(8), movesRS.getString(9),
+                movesRS.getString(10));
+            thisCharacter.addToMoveList(thisMove);
+          }
+          thisGame.addCharacter(thisCharacter);
+        }
+        ans.add(thisGame);
+      }
+    }
+    catch (SQLException e){
+      throw new RuntimeException(e);
+    }
+    return ans;
   }
 
   private Connection getConnected() throws SQLException {
