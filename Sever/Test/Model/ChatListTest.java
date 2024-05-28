@@ -257,7 +257,7 @@ class ChatListTest
 
   @Test void getChatLogByNameWhenChatNull()
   {
-    assertNull(chatList.getChatByName("TeoVsVas"));
+    assertNull(chatList.getChatLogByName("TeoVsVas"));
   }
   @Test void getChatLogByNameWhenListHasOneChat()
   {
