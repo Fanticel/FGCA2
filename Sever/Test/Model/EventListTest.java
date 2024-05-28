@@ -1,3 +1,5 @@
+package Model;
+
 import Mediator.ServerMaster;
 import Model.Event;
 import Model.EventList;
