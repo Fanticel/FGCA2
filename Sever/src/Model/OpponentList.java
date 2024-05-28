@@ -50,7 +50,7 @@ public class OpponentList {
   }
   public synchronized void decline(User user, User enemyUser){
     listOfPotentialMatches.removeIf(a -> (a.get(0).equals(user) && a.get(1).equals(enemyUser)) || (a.get(1).equals(user) && a.get(0).equals(enemyUser)));
-    serverMaster.useredAnswer(user, "You have decided to cancel the match you pussy_;_true", "Notification");
+    serverMaster.useredAnswer(user, "You have decided to cancel the match_;_true", "Notification");
     serverMaster.useredAnswer(enemyUser, user.getDisplayName()+" decided to cancel the match_;_true", "OpponentRefused");
 //    for (ArrayList a:listOfPotentialMatches){
 //      if ((a.get(0).equals(user) && a.get(1).equals(enemyUser)) || (a.get(1).equals(user) && a.get(0).equals(enemyUser))){
