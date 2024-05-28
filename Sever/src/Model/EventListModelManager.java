@@ -36,6 +36,7 @@ public class EventListModelManager
     this.property = new PropertyChangeSupport(this);
     eventList.addListener("EventChange", this);
     eventList.addListener("CheckIn", this);
+    eventList.addListener("outOfTime", this);
     try {
       fileManager = new SQLFileManager();
     }
@@ -79,15 +80,6 @@ public class EventListModelManager
     fileManager.saveEventToFile(event);
   }
 
-  @Override public void addMatch(String eventTittle, User playerOne,
-      User playerTwo) {
-    eventList.addMatch(eventTittle, playerOne, playerTwo);
-  }
-
-  @Override public void activateMatchTimer(String eventTitle, Match match)
-  {
-    eventList.activateMatchTimer(eventTitle, match);
-  }
 
   @Override public void addPlayerMatch(User playerOne, User playerTwo, String score) {
     Match match = new Match(playerOne, playerTwo, score);
@@ -98,11 +90,6 @@ public class EventListModelManager
   @Override public void removeParticipant(String eventTittle, User user) {
     eventList.removeParticipant(eventTittle, user);
     fileManager.removeParticipant(eventTittle, user);
-  }
-
-  @Override public void removeParticipant(Event event, User user) {
-    eventList.removeParticipant(event, user);
-    fileManager.removeParticipant(event.getTittle(), user);
   }
 
   @Override public ArrayList<Object> addParticipant(String eventTittle,
@@ -283,8 +270,17 @@ public class EventListModelManager
           "Check in is now available for an event '" + evt.getOldValue()
               + "'_;_false", "Notification");
     }
-    if (evt.getPropertyName().equals("OutOfTime")){
-      serverMaster.useredBroadcast(((Match) evt.getSource()).getPlayers(), "The time for voting has finished. Contact the moderator dum dum_;_true", "Notification");
+    if (evt.getPropertyName().equals("outOfTime")){
+      System.out.println("received");
+      serverMaster.useredBroadcast(((Match) evt.getOldValue()).getPlayers(), "The time for voting has finished. Contact the moderator dum dum_;_true", "Notification");
+      try
+      {
+        serverMaster.useredAnswer(UserListSingleton.getInstance().getUserList().getUserByUsername(((Event) evt.getNewValue()).getOrganizer().getUsername()), "Time ran out for submitting a score in the event " + ((Event) evt.getNewValue()).getTittle() + " in the match between " + ((Match) evt.getOldValue()).getPlayers().get(0).getDisplayName() + " and " + ((Match) evt.getOldValue()).getPlayers().get(1).getDisplayName() + "_;_true", "Notification");
+      }
+      catch (SQLException e)
+      {
+        throw new RuntimeException(e);
+      }
     }
     if (evt.getPropertyName().equals("EventChange")){
       fileManager.updateEvent((Event) evt.getNewValue());

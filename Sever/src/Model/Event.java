@@ -149,7 +149,10 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
   {
     ArrayList<Object> response = new ArrayList<>();
     //    System.out.println(participants + "\n\n" + user);
-    if (participants.contains(user))
+    if (user == null){
+      throw new IllegalArgumentException("User cannot be null");
+    }
+    else if (participants.contains(user))
     {
       response.add("You are already registered for this event!");
       response.add(true);
@@ -169,30 +172,26 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
     }
     else
     {
-      try
-      {
-        participants.add(user);
-        response.add("Successfully joined");
-        response.add(false);
-        return response;
-      }
-      catch (Exception e)
-      {
-        response.add("Something went wrong, try joining again later.");
-        response.add(true);
-        return response;
-      }
+      participants.add(user);
+      response.add("Successfully joined");
+      response.add(false);
+      return response;
     }
   }
 
-  public void removeParticipant(User user)
+  public boolean removeParticipant(User user)
   {
-    participants.remove(user);
+    return participants.remove(user);
   }
 
   public void addMatch(User playerOne, User playerTwo)
   {
-    matches.add(new Match(playerOne, playerTwo));
+    if (matches.size() < maxParticipants - 1){
+      matches.add(new Match(playerOne, playerTwo));
+    }
+    else {
+      throw new IllegalStateException("Maximum number of matches reached");
+    }
   }
 
   public void addMatch(User playerOne, User playerTwo, String score)
@@ -205,9 +204,17 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
     return startingHour;
   }
 
+  public ArrayList<User> getConfirmedParticipants()
+  {
+    return confirmedParticipants;
+  }
+
   public String checkIn(User user)
   {
-    if (!participants.contains(user))
+    if (user == null){
+      throw new IllegalArgumentException("User cannot be null");
+    }
+    else if (!participants.contains(user))
     {
       return "You didn't joined this event_;_true";
     }
@@ -240,17 +247,6 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
     }
   }
 
-  public void activateMatchTimer(Match wantedMatch)
-  {
-    for (Match match : matches)
-    {
-      if (match.equals(wantedMatch))
-      {
-        match.activateMatchTimer();
-      }
-    }
-  }
-
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
     if (evt.getPropertyName().equals("CheckIn"))
@@ -259,6 +255,9 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
       LocalDateTime currentDate = LocalDateTime.now();
       if (status.equals("In progress")){
         matches = bracketGeneration.generateBracketDB(confirmedParticipants, matches, maxParticipants);
+        for(Match match:matches){
+          match.addListener("OutOfTime", this);
+        }
         checkInTimer.setActive(false);
       }
       else if (formatter.format(currentDate).equals(startDate))
@@ -279,10 +278,16 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
             checkInTimer.setActive(false);
             participants = confirmedParticipants;
             matches = bracketGeneration.generateBracket(confirmedParticipants, matches, maxParticipants);
+            for(Match match:matches){
+              match.addListener("OutOfTime", this);
+            }
             property.firePropertyChange("EventChange", null, this);
           }
         }
       }
+    }
+    else if (evt.getPropertyName().equals("OutOfTime")){
+      property.firePropertyChange(new PropertyChangeEvent(this, "outOfTime",  evt.getOldValue(), this));
     }
     else
     {
@@ -290,48 +295,9 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
     }
   }
 
-  //Generates matches for the whole tournament. Idea is that when the tournament starts we already
-  //generate all necessary matches for the event.
-  // The matches of the first round are generated with participants while the others are empty.
-  //As the matches finish you pass the info to the server and fill in the so far empty matches according to the results.
-  //This way we can just have the bracket view request the matches and read the info in ordered way from them.
- /* private void generateMatches()
-  {
-    int participantNumber = confirmedParticipants.size();
-    System.out.println(confirmedParticipants);
-    //generates the first round of matches with participants
-    for (int i = 0; i < participantNumber; i += 2)
-    {
-      if (i + 1 != participantNumber)
-      {
-        matches.add(new Match(confirmedParticipants.get(i),
-            confirmedParticipants.get(i + 1)));
-      }
-    }
-    //generates empty matches for the following rounds and the last match of first round if participants are odd number
-    while (matches.size() < maxParticipants - 1)
-    {
-      matches.add(new Match(null, null));
-    }
-    //If the number of players is odd the last match in the first round only has one player who is automatically assigned to the next round
-    if (confirmedParticipants.size() % 2 != 0)
-    {
-      // matches.add(new Match(confirmedParticipants.get(confirmedParticipants.size()-1), null));
-      User oddPlayer = confirmedParticipants.get(participantNumber - 1);
-      matches.get((int) Math.ceil(participantNumber / 2))
-          .setPlayer(0, oddPlayer);
-      //gets index for last match of next round
-      int MatchIndex = matches.indexOf(matches.get(participantNumber / 2 - 1));
-      matches.get(nextMatch(maxParticipants, MatchIndex))
-          .setPlayer(0, oddPlayer);
-    }
-  }*/
-
   //gets index of next round match according to the current match
   public int nextMatch(int maxParticipants, int currentMatch)
   {
-    System.out.println(
-        (maxParticipants / 2) + (int) Math.floor((double) currentMatch / 2));
     return (maxParticipants / 2) + (int) Math.floor((double) currentMatch / 2);
   }
 

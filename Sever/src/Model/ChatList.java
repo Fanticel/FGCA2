@@ -56,4 +56,9 @@ public class ChatList {
     }
     return getChatByName(name).getLog();
   }
+
+  public ArrayList<Chat> getChatList()
+  {
+    return chatList;
+  }
 }

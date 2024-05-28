@@ -40,4 +40,11 @@ public class Chat {
   public String getLog(){
     return log;
   }
+
+  @Override public String toString()
+  {
+    return "\nChat{" + "participatingUsers='" + participatingUsers +
+        '\'' + ", chatName='" + chatName + '\''
+        + ", log=" + log + ", serverMaster=" + serverMaster + '}';
+  }
 }

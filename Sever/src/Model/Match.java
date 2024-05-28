@@ -29,7 +29,7 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
     this.players = new ArrayList<>(2);
     players.add(playerOne);
     players.add(playerTwo);
-    timer = new MachVoteTimer(150);
+    timer = new MachVoteTimer(5);
     timer.addListener("OutOfTime", this);
     this.score = score;
     hasVoted = false;
@@ -43,7 +43,7 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
     property = new PropertyChangeSupport(this);
   }
   public synchronized String voteOnOutcome(User user,int playerOneScore, int playerTwoScore){
-    System.out.println(hasVotedMap);
+    //System.out.println(hasVotedMap);
     if (!score.equals(" - ")){
       return "PN:The voting for this event is already over!_;_true";
     }
@@ -87,6 +87,12 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
     players.set(index, player);
     hasVotedMap.put(player, false);
   }
+
+  public MachVoteTimer getTimer()
+  {
+    return timer;
+  }
+
   public void activateMatchTimer(){
     if (!timer.isActive()){
       timer.setActive(true);
@@ -105,8 +111,8 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-    score = "0-0";
-    property.firePropertyChange(new PropertyChangeEvent(this, "OutOfTime", null, null));
+    score = " - ";
+    property.firePropertyChange(new PropertyChangeEvent(this, "OutOfTime", this, null));
   }
 
   @Override public void addListener(String propertyName,

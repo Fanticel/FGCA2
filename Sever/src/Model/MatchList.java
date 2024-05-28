@@ -27,4 +27,9 @@ public class MatchList
   public void addPlayerMatch(Match match){
     matches.add(match);
   }
+
+  public ArrayList<Match> getMatches()
+  {
+    return matches;
+  }
 }

@@ -19,8 +19,8 @@ public class MachVoteTimer implements Runnable, NamedPropertyChangeSubject {
   }
 
   @Override public void run() {
-    while (timerSeconds > 0) {
-      while (active) {
+    while (active) {
+      while (timerSeconds > 0) {
         try {
           Thread.sleep(1000);
         }

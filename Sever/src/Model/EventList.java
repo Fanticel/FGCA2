@@ -8,8 +8,8 @@ import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EventList implements PropertyChangeListener,
-    NamedPropertyChangeSubject
+public class EventList
+    implements PropertyChangeListener, NamedPropertyChangeSubject
 {
   private ArrayList<Event> events;
   private PropertyChangeSupport property;
@@ -20,33 +20,44 @@ public class EventList implements PropertyChangeListener,
     property = new PropertyChangeSupport(this);
   }
 
-  public ArrayList<Event> getAllEvents(){
+  public ArrayList<Event> getAllEvents()
+  {
     return events;
   }
-  public Event getEvent(String tittle){
-    for (Event event:events)
+
+  public Event getEvent(String tittle)
+  {
+    for (Event event : events)
     {
-      if (tittle.equals(event.getTittle())){
+      if (tittle.equals(event.getTittle()))
+      {
         return event;
       }
     }
     return null;
   }
-  public void addEvent(Event newEvent){
-    for (Event event: events){
-      if (event.getTittle().equals(newEvent.getTittle())){
+
+  public void addEvent(Event newEvent)
+  {
+    for (Event event : events)
+    {
+      if (event.getTittle().equals(newEvent.getTittle()))
+      {
         throw new IllegalArgumentException("Event title has to be unique");
       }
     }
     events.add(newEvent);
     newEvent.addListener("EventChange", this);
     newEvent.addListener("CheckIn", this);
+    newEvent.addListener("outOfTime", this);
   }
 
-  public ArrayList<Object> addParticipant(String eventTittle, User user){
-    for (Event event:events)
+  public ArrayList<Object> addParticipant(String eventTittle, User user)
+  {
+    for (Event event : events)
     {
-      if (eventTittle.equals(event.getTittle())){
+      if (eventTittle.equals(event.getTittle()))
+      {
         return event.addParticipant(user);
       }
     }
@@ -55,52 +66,42 @@ public class EventList implements PropertyChangeListener,
     response.add(true);
     return response;
   }
+
   public String checkIn(String eventTitle, User user)
   {
-    for (Event event:events)
+    for (Event event : events)
     {
-      if (eventTitle.equals(event.getTittle())){
+      if (eventTitle.equals(event.getTittle()))
+      {
         return event.checkIn(user);
       }
     }
     return "Event not found_;_true";
   }
-  public void activateMatchTimer(String eventTitle, Match match)
+
+  public boolean removeParticipant(String eventTittle, User user)
   {
-    for (Event event: events){
-      if (eventTitle.equals(event.getTittle())){
-        event.activateMatchTimer(match);
-      }
-    }
-  }
-  public void removeParticipant(Event event, User user){
-    event.removeParticipant(user);
-  }
-  public void removeParticipant(String eventTittle, User user){
-    for (Event event:events)
+    for (Event event : events)
     {
-      if (eventTittle.equals(event.getTittle())){
+      if (eventTittle.equals(event.getTittle()))
+      {
         event.removeParticipant(user);
+        return true;
       }
     }
+    return false;
   }
-  public void addMatch(Event event, User playerOne, User playerTwo){
-    event.addMatch(playerOne, playerTwo);
-  }
-  public void addMatch(String eventTittle, User playerOne, User playerTwo) {
-    for (Event event : events) {
-      if (eventTittle.equals(event.getTittle())) {
-        event.addMatch(playerOne, playerTwo);
-      }
-    }
-  }
+
 
   @Override public void propertyChange(PropertyChangeEvent evt)
   {
-    if (evt.getPropertyName().equals("CheckIn")){
-      property.firePropertyChange("CheckIn",evt.getOldValue(), evt.getNewValue());
+    if (evt.getPropertyName().equals("CheckIn"))
+    {
+      property.firePropertyChange("CheckIn", evt.getOldValue(),
+          evt.getNewValue());
     }
-    else {
+    else
+    {
       property.firePropertyChange(evt);
     }
   }
@@ -115,5 +116,15 @@ public class EventList implements PropertyChangeListener,
       PropertyChangeListener listener)
   {
     property.removePropertyChangeListener(propertyName, listener);
+  }
+
+  @Override public String toString()
+  {
+    String evString = "";
+    for (Event ev : events)
+    {
+      evString += ev;
+    }
+    return evString;
   }
 }
