@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class ChatListTest
 {
   private ChatList chatList;
-  @BeforeEach void setUp()
+  @BeforeEach void setSUp()
   {
     chatList = new ChatList();
   }
@@ -91,7 +91,6 @@ class ChatListTest
   @Test void addToChatOnce()
   {
     User user = new User("Leo", "ThaMan", "666");
-    ChatList resultChatList = new ChatList();
     try
     {
       chatList.newChat("LeoVsVas", new ServerMaster());

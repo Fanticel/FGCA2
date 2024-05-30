@@ -85,6 +85,7 @@ public class CreateEventViewModel
   }
   public boolean confirm(){
     String answer = "";
+    LocalDate currentDate = LocalDate.now();
     if (titleProperty.isEmpty().get()){
       answer = "Title cannot be empty";
     }else if (gameProperty.isNull().get()){
@@ -92,6 +93,10 @@ public class CreateEventViewModel
     }
     else if (dateProperty.isNull().get()){
       answer = "Date cannot be empty";
+    }
+    else if (dateProperty.get().isBefore(currentDate) || dateProperty.get().isEqual(currentDate))
+    {
+      answer = "Date cannot be today or before";
     }
     else if (maxPlayersProperty.isNull().get()){
       answer = "Maximum players cannot be empty";

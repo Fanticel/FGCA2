@@ -35,8 +35,7 @@ public class AdminConsole implements Runnable{
     switch (reqSplit[0].toLowerCase()){
       case "help" -> {
         System.out.println(" makemoderator;{name of player} \t: changes a user into a moderator"
-            + "\n makeuser;{name of moderator} \t\t: changes a moderator into a user"
-            + "\n modifygamedata;{idk?} \t\t\t\t\t\t: in the future will likely change the game data lol"); // list of available commands
+            + "\n makeuser;{name of moderator} \t\t: changes a moderator into a user"); // list of available commands
       }
       case "makemoderator" -> {
         if (reqSplit.length == 1){
@@ -52,11 +51,6 @@ public class AdminConsole implements Runnable{
         }
         else {
           System.out.println(model.makeModeratorIntoUser(reqSplit[1]));
-        }
-      }
-      case "modifygamedata" -> {
-        if (reqSplit.length == 1){
-          System.err.println("modify takes one argument");
         }
       }
       default -> {

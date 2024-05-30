@@ -53,7 +53,6 @@ class WhiteBoxChatListTest
   @Test void addToChatIfUserAlreadyInChat()
   {
     User user = new User("Leo", "ThaMan", "666");
-    ChatList resultChatList = new ChatList();
     try
     {
       chatList.newChat("LeoVsVas", new ServerMaster());

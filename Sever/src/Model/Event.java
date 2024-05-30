@@ -54,13 +54,6 @@ public class Event implements PropertyChangeListener, NamedPropertyChangeSubject
     }
     this.status = status;
     this.maxParticipants = maxParticipants;
-    LocalDate currentDate = LocalDate.now();
-    LocalDate givenDate = LocalDate.parse(date);
-    //    if (givenDate.isBefore(currentDate) || givenDate.isEqual(currentDate)){
-    //      throw new IllegalArgumentException("Date cannot be today or before");
-    //    }else {
-    //      this.startDate = date;
-    //    }
     this.startDate = date;
     this.startingHour = startingHour;
     Organizer = organizer;

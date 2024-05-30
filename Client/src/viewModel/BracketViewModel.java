@@ -50,7 +50,12 @@ public class BracketViewModel
         labels.add(new SimpleStringProperty(scores[1]));
       }
       if (match.getPlayers().get(0) != null && match.getPlayers().get(1) != null && event.getStatus().equals("In progress")){
-        visibleButtons.add(new SimpleBooleanProperty(true));
+        if(scores[0].equals(" ") && scores[1].equals(" ")){
+          visibleButtons.add(new SimpleBooleanProperty(true));
+        }
+        else {
+          visibleButtons.add(new SimpleBooleanProperty(false));
+        }
       }
       else {
         visibleButtons.add(new SimpleBooleanProperty(false));

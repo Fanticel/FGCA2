@@ -21,7 +21,7 @@ public class ChatViewModel implements PropertyChangeListener {
     model.addListener(ViewState.getInstance().getDesiredChat(), this);
     chatName = new SimpleStringProperty();
     previousLog = new SimpleStringProperty();
-    input = new SimpleStringProperty();
+    input = new SimpleStringProperty("");
     reset();
   }
   public StringProperty getChatName(){
