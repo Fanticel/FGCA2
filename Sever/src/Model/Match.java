@@ -16,7 +16,7 @@ public class Match implements PropertyChangeListener, NamedPropertyChangeSubject
   private MachVoteTimer timer;
   private PropertyChangeSupport property;
   private boolean hasVoted;
-  Map<User, Boolean> hasVotedMap;
+  private Map<User, Boolean> hasVotedMap;
   private int playerOneScoreVote;
   private int playerTwoScoreVote;
 

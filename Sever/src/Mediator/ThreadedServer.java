@@ -173,9 +173,7 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
           model.addPlayerMatch(thisUser, opponent, reqSplit[3]);
           serverMaster.privateAnswer(this, "Match successfully saved!_;_false", "Notification");
           serverMaster.useredAnswer(opponent, "Your opponent submitted match results!_;_false", "MatchSaved");
-        }catch (Exception e){
-
-        }
+        }catch (Exception ignored){}
       }
       case "ADDEVENT" -> {
         try
@@ -187,14 +185,6 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
           serverMaster.privateAnswer(this, e.getMessage(), "AddEvent");
         }
       }
-      case "^Q" -> {
-        if (thisUser!=null){
-          model.removeOpponent(thisUser);
-        }
-        working = false;
-        currentSocket.close();
-      }
-      case "PUSHNOTIFICATION" -> {serverMaster.broadcast(reqSplit[1] + "_;_" + reqSplit[2], "Notification");}
       case "ADDTOCHAT" -> {
         try {
           model.addToChat(reqSplit[1], thisUser);
@@ -263,6 +253,14 @@ public class ThreadedServer implements Runnable, PropertyChangeListener {
       }
       case "GETMOVESBYGAME" -> {
         serverMaster.privateAnswer(this, gson.toJson(new CharacterInfoPackage(model.getAllCharMovesFromGame(reqSplit[1]), model.getGameByName(reqSplit[1]).getDescription())), "CharacterMoveList");
+      }
+      case "PUSHNOTIFICATION" -> {serverMaster.broadcast(reqSplit[1] + "_;_" + reqSplit[2], "Notification");}
+      case "^Q" -> {
+        if (thisUser!=null){
+          model.removeOpponent(thisUser);
+        }
+        working = false;
+        currentSocket.close();
       }
       default -> {
         serverMaster.privateAnswer(this, "Error01: unknown server request",

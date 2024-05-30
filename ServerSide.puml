@@ -1,0 +1,616 @@
+@startuml
+class Model.EventList {
+- ArrayList<Event> events
+- PropertyChangeSupport property
++ <<Create>> EventList()
++ ArrayList<Event> getAllEvents()
++ Event getEvent(String)
++ void addEvent(Event)
++ ArrayList<Object> addParticipant(String,User)
++ String checkIn(String,User)
++ boolean removeParticipant(String,User)
++ void propertyChange(PropertyChangeEvent)
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
++ String toString()
+}
+Model.EventList --> Model.Event
+
+class Model.UserList {
+- ArrayList<User> userList
++ <<Create>> UserList()
++ <<Create>> UserList(ArrayList<User>)
++ User getUserByUsername(String)
++ void addUser(User)
++ void addUser(ArrayList<User>)
++ void removeUser(String)
+}
+Model.UserList --> Model.User
+
+class Model.User {
+- String username
+- String displayName
+- int BRP
+- String password
++ <<Create>> User(String,String,String)
++ <<Create>> User(String,String,String,int)
++ String getUsername()
++ void setUsername(String)
++ String getDisplayName()
++ void setDisplayName(String)
++ int getBRP()
++ void setBRP(int)
++ String getPassword()
++ void setPassword(String)
++ boolean isModerator()
++ boolean equals(Object)
++ String toString()
+}
+
+
+class Model.GameInformation.Game {
+- String name
+- String description
+- ArrayList<Character> characterList
++ <<Create>> Game(String,String,ArrayList<Character>)
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ ArrayList<Character> getCharacterList()
++ void addCharacter(Character)
++ void removeCharacter(Character)
++ String toString()
+}
+Model.GameInformation.Game --> Model.GameInformation.Character
+
+
+class Model.Chat {
+- ArrayList<User> participatingUsers
+- String chatName
+- String log
+- ServerMaster serverMaster
++ <<Create>> Chat(String,ServerMaster)
++ boolean nameEquals(String)
++ void addParticipant(User)
++ void removeParticipant(User)
++ void writeToChat(String,User)
++ boolean containsUser(User)
++ String getLog()
++ String toString()
+}
+Model.Chat --> Model.User
+Model.Chat --> Mediator.ServerMaster
+
+class Model.Match {
+- String score
+- ArrayList<User> players
+- MachVoteTimer timer
+- PropertyChangeSupport property
+- boolean hasVoted
+- Map<User,Boolean> hasVotedMap
+- int playerOneScoreVote
+- int playerTwoScoreVote
++ <<Create>> Match(User,User)
++ <<Create>> Match(User,User,String)
++ String voteOnOutcome(User,int,int)
++ String getScore()
++ boolean hasBothPlayers(String,String)
++ ArrayList<User> getPlayers()
++ void setPlayer(int,User)
++ MachVoteTimer getTimer()
++ void activateMatchTimer()
++ boolean equals(Object)
++ void propertyChange(PropertyChangeEvent)
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
++ int getPlayerOneScore()
++ int getPlayerTwoScore()
++ void addPlayerToHashMap(User)
++ String toString()
+}
+Model.Match --> Model.User
+Model.Match --> Model.MachVoteTimer
+
+class Model.GameInformation.Move {
+- String name
+- String damage
+- String guard
+- String smash
+- String startup
+- String active
+- String recovery
+- String onBlock
+- String invulnerability
++ <<Create>> Move(String,String,String,String,String,String,String,String,String)
++ String getName()
++ void setName(String)
++ String getDamage()
++ void setDamage(String)
++ String getGuard()
++ void setGuard(String)
++ String getSmash()
++ void setSmash(String)
++ String getStartup()
++ void setStartup(String)
++ String getActive()
++ void setActive(String)
++ String getRecovery()
++ void setRecovery(String)
++ String getOnBlock()
++ void setOnBlock(String)
++ String getInvulnerability()
++ void setInvulnerability(String)
++ String toString()
+}
+
+
+class Mediator.CharacterInfoPackage {
+- ArrayList<Character> characterList
+- String desc
++ <<Create>> CharacterInfoPackage(ArrayList<Character>,String)
++ ArrayList<Character> getCharacterList()
++ String getDesc()
+}
+Mediator.CharacterInfoPackage --> Model.GameInformation.Character
+
+class Model.MachVoteTimer {
+- int timerSeconds
+- boolean active
+- PropertyChangeSupport property
++ <<Create>> MachVoteTimer(int)
++ void run()
++ boolean isActive()
++ void setActive(boolean)
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
+}
+
+
+class Mediator.EventPackage {
+- String type
+- String number
+- String error
+- Event event
++ <<Create>> EventPackage(String,Event,String)
++ <<Create>> EventPackage(String,String)
++ String getType()
++ String getNumber()
++ String getError()
++ Event getEvent()
++ boolean equals(Object)
+}
+Mediator.EventPackage -> Model.Event
+
+class Model.BracketGenerator {
++ ArrayList<Match> generateBracket(ArrayList<User>,ArrayList<Match>,int)
++ ArrayList<Match> generateBracketDB(ArrayList<User>,ArrayList<Match>,int)
++ int nextMatch(int,int)
+}
+Model.BracketGenerator --> Model.Match
+
+class Model.EventListModelManager {
+- EventList eventList
+- ChatList chatList
+- GameList gameList
+- ServerMaster serverMaster
+- PropertyChangeSupport property
+- FileManger fileManager
+- OpponentList opponentList
+- MatchList matchList
++ <<Create>> EventListModelManager(ServerMaster)
+- void initGetFromFile()
++ ArrayList<Event> getAllEvents()
++ Event getEvent(String)
++ void addEvent(Event)
++ void addPlayerMatch(User,User,String)
++ void removeParticipant(String,User)
++ ArrayList<Object> addParticipant(String,User)
++ String checkIn(String,User)
++ void registerUser(User)
++ void addOpponent(User,int,int,String)
++ void removeOpponent(User)
++ void acceptOpponent(User,User)
++ void declineOpponent(User,User)
++ String voteOnOutcome(User,String,String,String,int,int)
++ Match getMatchByParticipants(String,String,String)
++ void removeFromChat(String,User)
++ void addToChat(String,User)
++ void newChat(String,ServerMaster)
++ void writeToChat(String,String,User)
++ String getChatLogByName(String)
++ String makeUserIntoModerator(String)
++ String makeModeratorIntoUser(String)
++ ArrayList<Character> getAllCharMovesFromGame(String)
++ ArrayList<String> getAllGameNames()
++ Game getGameByName(String)
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
++ void propertyChange(PropertyChangeEvent)
+}
+Model.EventListModelManager --> Model.EventList
+Model.EventListModelManager --> Model.ChatList
+Model.EventListModelManager --> Model.GameInformation.GameList
+Model.EventListModelManager --> Mediator.ServerMaster
+Model.EventListModelManager --> Database.FileManger
+Model.EventListModelManager --> Model.OpponentList
+Model.EventListModelManager --> Model.MatchList
+
+interface utility.UseredPropertyChangeSubject {
+~ void addListener(User,PropertyChangeListener)
+~ void removeListener(User,PropertyChangeListener)
+}
+
+class Model.Event {
+- String tittle
+- String game
+- int minBRP
+- int maxBRP
+- String status
+- int maxParticipants
+- String startDate
+- int startingHour
+- Moderator Organizer
+- ArrayList<Match> matches
+- ArrayList<User> participants
+- ArrayList<User> confirmedParticipants
+- PropertyChangeSupport property
+- CheckInTimer checkInTimer
+- BracketGeneration bracketGeneration
++ <<Create>> Event(String,String,int,int,String,int,String,int,Moderator)
++ <<Create>> Event(String,String,int,int,int,String,int,Moderator)
++ String getTittle()
++ String getGame()
++ int getMinBRP()
++ int getMaxBRP()
++ String getStatus()
++ int getMaxParticipants()
++ String getStartDate()
++ Moderator getOrganizer()
++ Match getMatchByParticipants(String,String)
++ ArrayList<Match> getMatches()
++ ArrayList<User> getParticipants()
++ ArrayList<Object> addParticipant(User)
++ boolean removeParticipant(User)
++ void addMatch(User,User)
++ void addMatch(User,User,String)
++ int getStartingHour()
++ ArrayList<User> getConfirmedParticipants()
++ String checkIn(User)
++ void updateNextMatch(Match)
++ void propertyChange(PropertyChangeEvent)
++ int nextMatch(int,int)
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
++ String toString()
+}
+Model.Event --> Model.Moderator
+Model.Event --> Model.Match
+Model.Event --> Model.User
+Model.Event --> Model.CheckInTimer
+Model.Event --> Model.BracketGeneration
+
+interface Model.BracketGeneration {
++ ArrayList<Match> generateBracket(ArrayList<User>,ArrayList<Match>,int)
++ ArrayList<Match> generateBracketDB(ArrayList<User>,ArrayList<Match>,int)
+}
+
+interface Misc.NamedPropertyChangeSubject {
+~ void addListener(String,PropertyChangeListener)
+~ void removeListener(String,PropertyChangeListener)
+}
+
+interface Database.FileManger {
+~ void saveEventToFile(Event)
+~ void saveParticipantToFile(String,String)
+~ void saveMatchToFile(String,Match,String)
+~ void saveMatchToFile(String,Match,int)
+~ void savePlayerMatchToFile(Match)
+~ void updateEvent(Event)
+~ void updateParticipant(String,User)
+~ ArrayList<Event> getEventsFromFile()
+~ void saveUserToFile(User)
+~ ArrayList<User> getUsersFromFile()
+~ ArrayList<Match> getPlayerMatchesFromFile()
+~ void removeParticipant(String,User)
+~ void updateUserToModerator(User)
+~ void updateModeratorToUser(User)
+~ ArrayList<Game> loadAllMovesCharacterGames()
+}
+
+class Model.CheckInTimer {
+- int timerSeconds
+- boolean active
+- PropertyChangeSupport property
++ <<Create>> CheckInTimer()
++ void run()
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
++ void setActive(boolean)
+}
+
+
+class Model.OpponentList {
+- ArrayList<Opponent> opponents
+- ArrayList<ArrayList<Object>> listOfPotentialMatches
+- ServerMaster serverMaster
++ <<Create>> OpponentList(ServerMaster)
++ void accept(User,User)
++ void decline(User,User)
++ void addUserToList(User,int,int,String)
++ void removeUserFromList(User)
++ String toString()
+}
+Model.OpponentList --> Model.Opponent
+Model.OpponentList --> Mediator.ServerMaster
+
+interface Model.EventListModel {
+~ ArrayList<Event> getAllEvents()
+~ Event getEvent(String)
+~ void addEvent(Event)
+~ ArrayList<Object> addParticipant(String,User)
+~ String checkIn(String,User)
+~ void removeParticipant(String,User)
+~ void addPlayerMatch(User,User,String)
+~ void registerUser(User)
+~ void addOpponent(User,int,int,String)
+~ void removeOpponent(User)
+~ String voteOnOutcome(User,String,String,String,int,int)
+~ Match getMatchByParticipants(String,String,String)
+~ void acceptOpponent(User,User)
+~ void declineOpponent(User,User)
+~ void removeFromChat(String,User)
+~ void addToChat(String,User)
+~ void newChat(String,ServerMaster)
+~ void writeToChat(String,String,User)
+~ String getChatLogByName(String)
+~ String makeUserIntoModerator(String)
+~ String makeModeratorIntoUser(String)
+~ ArrayList<Character> getAllCharMovesFromGame(String)
+~ ArrayList<String> getAllGameNames()
+~ Game getGameByName(String)
+}
+
+
+class Mediator.MatchInformationPackage {
+- String score
+- ArrayList<User> players
++ <<Create>> MatchInformationPackage(String,User,User)
++ <<Create>> MatchInformationPackage(Match)
++ String getScore()
++ ArrayList<User> getPlayers()
++ Match convertToMatch()
+}
+Mediator.MatchInformationPackage --> Model.User
+
+interface utility.NamedPropertyChangeSubject {
+~ void addListener(String,PropertyChangeListener)
+~ void removeListener(String,PropertyChangeListener)
+}
+
+class Mediator.EventInformationPackage {
+- String tittle
+- String game
+- int minBRP
+- int maxBRP
+- String status
+- int maxParticipants
+- String startDate
+- int startingHour
+- Moderator organizer
+- ArrayList<MatchInformationPackage> matchPackages
+- ArrayList<User> participants
++ <<Create>> EventInformationPackage(String,String,int,int,String,int,String,int,Moderator,ArrayList<User>)
++ <<Create>> EventInformationPackage(Event)
++ String getTittle()
++ String getGame()
++ int getMinBRP()
++ int getMaxBRP()
++ String getStatus()
++ int getMaxParticipants()
++ String getStartDate()
++ Moderator getOrganizer()
++ ArrayList<MatchInformationPackage> getMatches()
++ void addMatches(MatchInformationPackage)
++ ArrayList<User> getParticipants()
++ Event convertToEvent()
++ Event convertToEvent(Moderator)
+}
+Mediator.EventInformationPackage --> Model.Moderator
+Mediator.EventInformationPackage --> Mediator.MatchInformationPackage
+Mediator.EventInformationPackage --> Model.User
+
+class ServerStart {
++ {static} void main(String[])
+- {static} void safeWait(double)
+}
+ServerStart --> Mediator.ServerMaster
+ServerStart --> Model.EventListModel
+ServerStart --> Mediator.ThreadedServer
+ServerStart --> utility.AdminConsole
+
+class Database.SQLFileManager {
++ <<Create>> SQLFileManager()
++ void saveEventToFile(Event)
++ void saveParticipantToFile(String,String)
++ void saveMatchToFile(String,Match,String)
++ void updateEvent(Event)
++ void updateParticipant(String,User)
++ void removeParticipant(String,User)
++ ArrayList<Event> getEventsFromFile()
++ void saveUserToFile(User)
++ ArrayList<User> getUsersFromFile()
++ ArrayList<Match> getPlayerMatchesFromFile()
++ void saveMatchToFile(String,Match,int)
++ void savePlayerMatchToFile(Match)
++ void updateUserToModerator(User)
++ void updateModeratorToUser(User)
++ ArrayList<Game> loadAllMovesCharacterGames()
+- Connection getConnected()
+}
+
+class Model.ChatList {
+- ArrayList<Chat> chatList
++ <<Create>> ChatList()
++ void removeFromChat(String,User)
++ void addToChat(String,User)
++ void newChat(String,ServerMaster)
++ Chat getChatByName(String)
++ void writeToChat(String,String,User)
++ String getChatLogByName(String)
++ ArrayList<Chat> getChatList()
+}
+Model.ChatList --> Model.Chat
+
+
+class Mediator.ThreadedServer {
+- Thread s1
+- ServerSocket welcomeSocket
+- Socket currentSocket
+- PrintWriter out
+- BufferedReader in
+- ServerMaster serverMaster
+- boolean working
+- Gson gson
+- User thisUser
+- EventListModel model
++ <<Create>> ThreadedServer(ServerSocket,ServerMaster,EventListModel)
++ void run()
++ void handleRequest(String[])
++ void propertyChange(PropertyChangeEvent)
+}
+Mediator.ThreadedServer --> Mediator.ServerMaster
+Mediator.ThreadedServer --> Model.User
+Mediator.ThreadedServer --> Model.EventListModel
+
+class Model.MatchList {
+- ArrayList<Match> matches
++ <<Create>> MatchList()
++ ArrayList<Match> getMatchesByPlayer(String)
++ void addPlayerMatch(Match)
++ ArrayList<Match> getMatches()
+}
+Model.MatchList --> Model.Match
+
+class Model.GameInformation.Character {
+- String name
+- String pros
+- String cons
+- String overview
+- ArrayList<Move> moveList
++ <<Create>> Character(String,String,String,String,ArrayList<Move>)
++ String getName()
++ void setName(String)
++ String getPros()
++ void setPros(String)
++ String getCons()
++ void setCons(String)
++ String getOverview()
++ void setOverview(String)
++ ArrayList<Move> getMoveList()
++ void addToMoveList(Move)
++ void removeFromMoveList(Move)
++ String toString()
+}
+Model.GameInformation.Character --> Model.GameInformation.Move
+
+class Model.Opponent {
+- User user
+- Integer minBRP
+- Integer maxBRP
+- String game
++ <<Create>> Opponent(User,Integer,Integer,String)
++ User getUser()
++ Integer getMinBRP()
++ Integer getMaxBRP()
++ String getGame()
++ boolean compareToAnotherOpponent(Opponent)
++ String toString()
+}
+Model.Opponent --> Model.User
+
+class Mediator.ServerMaster {
+- Map<User,PropertyChangeListener> listenerMap
++ <<Create>> ServerMaster()
++ void useredBroadcast(ArrayList<User>,String,String)
++ void broadcast(String,String)
++ void privateAnswer(PropertyChangeListener,String,String)
++ void useredAnswer(User,String,String)
++ void addListener(User,PropertyChangeListener)
++ void removeListener(User,PropertyChangeListener)
+}
+Mediator.ServerMaster --> Model.User
+
+class Model.UserListSingleton << (S, #FF7700) singleton>> {
+- {static} UserListSingleton instance
+- UserList userList
+- <<Create>> UserListSingleton()
++ {static} UserListSingleton getInstance()
++ UserList getUserList()
+}
+Model.UserListSingleton --> Model.UserListSingleton
+Model.UserListSingleton <..Database.FileManger : use
+Model.UserListSingleton <.. Mediator.ThreadedServer : use
+Model.UserListSingleton <.. Model.EventListModelManager : use
+
+class utility.AdminConsole {
+- Scanner in
+- boolean running
+- EventListModel model
++ <<Create>> AdminConsole(EventListModel)
++ void run()
+- void processRequest(String[])
+}
+utility.AdminConsole --> Model.EventListModel
+
+class Model.GameInformation.GameList {
+- ArrayList<Game> gameList
++ <<Create>> GameList(ArrayList<Game>)
++ <<Create>> GameList()
++ ArrayList<Game> getAllGames()
++ ArrayList<Character> getAllCharMovesFromGame(String)
++ ArrayList<String> getAllGameNames()
++ Game getGameByName(String)
+}
+Model.GameInformation.GameList --> Model.GameInformation.Game
+
+class Mediator.EventListPackage {
+- ArrayList<EventInformationPackage> events
++ <<Create>> EventListPackage(ArrayList<EventInformationPackage>)
++ <<Create>> EventListPackage()
++ void addEnMasse(ArrayList<Event>)
++ ArrayList<EventInformationPackage> getEvents()
+}
+Mediator.EventListPackage --> Mediator.EventInformationPackage
+
+class Model.Moderator {
++ <<Create>> Moderator(String,String,String)
++ <<Create>> Moderator(String,String,String,int)
++ <<Create>> Moderator(User)
+}
+
+Mediator --[hidden]> Model
+Model --[hidden]> Database
+
+java.beans.PropertyChangeListener <|.. Model.EventList
+utility.NamedPropertyChangeSubject <|.. Model.EventList
+java.beans.PropertyChangeListener <|.. Model.Match
+utility.NamedPropertyChangeSubject <|.. Model.Match
+Model.Runnable <|.. Model.MachVoteTimer
+utility.NamedPropertyChangeSubject <|.. Model.MachVoteTimer
+Model.BracketGeneration <|.. Model.BracketGenerator
+Model.EventListModel <|.. Model.EventListModelManager
+utility.NamedPropertyChangeSubject <|.. Model.EventListModelManager
+java.beans.PropertyChangeListener <|.. Model.EventListModelManager
+java.beans.PropertyChangeListener <|.. Model.Event
+utility.NamedPropertyChangeSubject <|.. Model.Event
+Model.Runnable <|.. Model.CheckInTimer
+utility.NamedPropertyChangeSubject <|.. Model.CheckInTimer
+utility.NamedPropertyChangeSubject <|-- Model.EventListModel
+Database.FileManger <|.. Database.SQLFileManager
+Mediator.Runnable <|.. Mediator.ThreadedServer
+java.beans.PropertyChangeListener <|.. Mediator.ThreadedServer
+utility.UseredPropertyChangeSubject <|.. Mediator.ServerMaster
+utility.Runnable <|.. utility.AdminConsole
+Model.User <|-- Model.Moderator
+@enduml

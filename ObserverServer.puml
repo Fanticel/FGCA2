@@ -1,0 +1,42 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Mediator.ServerMaster {
+- Map<User,PropertyChangeListener> listenerMap
++ <<Create>> ServerMaster()
++ void useredBroadcast(ArrayList<User>,String,String)
++ void broadcast(String,String)
++ void privateAnswer(PropertyChangeListener,String,String)
++ void useredAnswer(User,String,String)
++ void addListener(User,PropertyChangeListener)
++ void removeListener(User,PropertyChangeListener)
+}
+class Mediator.ThreadedServer {
+- Thread s1
+- ServerSocket welcomeSocket
+- Socket currentSocket
+- PrintWriter out
+- BufferedReader in
+- ServerMaster serverMaster
+- boolean working
+- Gson gson
+- User thisUser
+- EventListModel model
++ <<Create>> ThreadedServer(ServerSocket,ServerMaster,EventListModel)
++ void run()
++ void handleRequest(String[])
++ void propertyChange(PropertyChangeEvent)
+}
+interface utility.UseredPropertyChangeSubject {
+~ void addListener(User,PropertyChangeListener)
+~ void removeListener(User,PropertyChangeListener)
+}
+interface java.beans.PropertyChangeListener{
+~void propertyChange(PropertyChangeEvent evt)
+}
+Mediator.ThreadedServer .up.|> java.beans.PropertyChangeListener
+Mediator.ServerMaster .up.|> utility.UseredPropertyChangeSubject
+utility.UseredPropertyChangeSubject -right-> java.beans.PropertyChangeListener
+Mediator.ThreadedServer -left-> Mediator.ServerMaster
+
+@enduml

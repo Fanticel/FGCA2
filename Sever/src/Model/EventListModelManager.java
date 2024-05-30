@@ -66,15 +66,6 @@ public class EventListModelManager
     return eventList.getEvent(tittle);
   }
 
-  @Override public void addEvent(String tittle, String game, int minBRP,
-      int maxBRP, int maxParticipants, String date, int startingHour,
-      Moderator organizer) {
-    Event event = new Event(tittle, game, minBRP, maxBRP, maxParticipants, date,
-        startingHour, organizer);
-    fileManager.saveEventToFile(event);
-    eventList.addEvent(event);
-  }
-
   @Override public void addEvent(Event event) {
     eventList.addEvent(event);
     fileManager.saveEventToFile(event);
@@ -180,10 +171,6 @@ public class EventListModelManager
     chatList.writeToChat(name, message, user);
   }
 
-  @Override public Chat getChatByName(String name) {
-    return chatList.getChatByName(name);
-  }
-
   @Override public String getChatLogByName(String name) {
     if (chatList.getChatLogByName(name) == null){
       try {
@@ -235,11 +222,6 @@ public class EventListModelManager
     }
     return username + " successfully demoted into a user!";
   }
-
-  @Override public ArrayList<Game> getAllGames() {
-    return gameList.getAllGames();
-  }
-
   @Override public ArrayList<Character> getAllCharMovesFromGame(
       String gameName) {
     return gameList.getAllCharMovesFromGame(gameName);

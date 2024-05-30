@@ -1,0 +1,1344 @@
+@startuml
+class view.EventDescriptionViewController {
+- Label lblEventTitle
+- TabPane tabPane
+- ViewHandler viewHandler
+- EventDescriptionViewModel eventDescriptionViewModel
+- DescriptionViewGeneralController descriptionViewGeneralController
+- BracketViewController bracketViewController
+- ChatViewController chatViewController
+- ViewModelFactory viewModelFactory
+- Region root
+- Tab tab1
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
++ Region getRoot()
+~ void pressBackButton()
+- Region loadChatView(String)
+- Region loadEventDescriptionViewController(String)
+- Region loadBracketViewController(String)
++ void propertyChange(PropertyChangeEvent)
+}
+
+
+class Model.GameInformation.GameList {
+- ArrayList<Game> gameList
++ ArrayList<Game> getAllGames()
++ ArrayList<Character> getAllCharMovesFromGame(String)
++ ArrayList<String> getAllGameNames()
+}
+
+
+interface view.ViewController {
+~ void init(ViewHandler,ViewModelFactory,Region)
+~ void reset()
+~ Region getRoot()
+}
+
+class viewModel.EventListViewModel {
+- EventListModel model
+- ObservableList<SimpleEventViewModel> list
+- ObjectProperty<SimpleEventViewModel> selectedEventProperty
+- StringProperty errorProperty
+- ViewState viewState
++ void clear()
++ ObservableList<SimpleEventViewModel> getAll()
++ ArrayList<Event> getAllEvents()
++ void setSelected(SimpleEventViewModel)
++ StringProperty getErrorProperty()
+- void removeSimpleEvent(String)
++ ArrayList<Event> getEventsByGame(String)
++ ArrayList<Event> getEventsBySkillLevel(String)
++ ArrayList<Event> getEventsByStatus(String)
+- void addSimpleEvent(Event)
++ boolean isModerator()
++ void propertyChange(PropertyChangeEvent)
+}
+
+
+class viewModel.LogInViewModel {
+- EventListModel model
+- StringProperty errorProperty
+- StringProperty usernameProperty
+- StringProperty passwordProperty
++ StringProperty getErrorProperty()
++ StringProperty getUsernameProperty()
++ StringProperty getPasswordProperty()
++ boolean PressLoginButton()
+}
+
+
+class Model.Event {
+- String tittle
+- String game
+- int minBRP
+- int maxBRP
+- String status
+- int maxParticipants
+- String startDate
+- int startingHour
+- Moderator Organizer
+- ArrayList<Match> matches
+- ArrayList<User> participants
++ String getTittle()
++ String getGame()
++ int getMinBRP()
++ int getMaxBRP()
++ String getStatus()
++ int getMaxParticipants()
++ String getStartDate()
++ int getStartingHour()
++ Moderator getOrganizer()
++ ArrayList<Match> getMatches()
++ ArrayList<User> getParticipants()
++ String toString()
+}
+
+
+class viewModel.CreateEventViewModel {
+- EventListModel model
+- StringProperty titleProperty
+- ObjectProperty<String> gameProperty
+- ObjectProperty<LocalDate> dateProperty
+- ObjectProperty<String> startingHourProperty
+- ObjectProperty<String> maxPlayersProperty
+- IntegerProperty minBRPProperty
+- IntegerProperty maxBRPProperty
+- StringProperty errorProperty
++ ObjectProperty<String> getGameProperty()
++ StringProperty getTitleProperty()
++ ObjectProperty<LocalDate> getDateProperty()
++ ObjectProperty<String> getStartingHourProperty()
++ ObjectProperty<String> getMaxPlayersProperty()
++ IntegerProperty getMinBRPProperty()
++ IntegerProperty getMaxBRPProperty()
++ StringProperty getErrorProperty()
++ void reset()
++ boolean confirm()
+}
+
+
+class Model.EventListModelManager {
+- PropertyChangeSupport property
+- Client client
+- User user
+- Gson gson
++ User getUser()
++ ArrayList<Event> getAllEvents()
++ Event getEvent(String)
++ String addEvent(String,String,int,int,int,String,int)
++ void setMatchScore(String,Match,String)
++ ArrayList<Event> getEventsByGame(String)
++ ArrayList<Event> getEventsBySkillLevel(String)
++ ArrayList<Event> getEventsByStatus(String)
++ void addPlayerMatch(String,String,String)
++ void removeParticipant(String,User)
++ void addParticipant(String)
++ void checkIn(String)
++ String login(String,String)
++ void showLocalNotification(String,boolean)
++ String register(String,String,String)
++ void voteOnOutcome(String,String,String,int,int)
++ void addOpponent(String,String)
++ void declineOpponent(String)
++ void acceptOpponent(String)
++ void removeOpponent()
++ void removeFromChat(String)
++ void addToChat(String)
++ void writeToChat(String,String)
++ String getChatLogByName(String)
++ CharacterInfoPackage getAllCharMovesFromGame(String)
++ ArrayList<String> getAllGameNames()
++ void propertyChange(PropertyChangeEvent)
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
++ boolean isModerator()
+}
+
+
+class view.OneVsOneViewController {
+- ViewHandler viewHandler
+- Region root
+- OneVsOneViewModel oneVsOneViewModel
+- ChoiceBox<String> gameButton
+- ChoiceBox<String> skillButton
+- Button searchButton
++ void init(ViewHandler,ViewModelFactory,Region)
+- void updateSearchButtonDisable()
++ void reset()
++ Region getRoot()
++ void btnSearchPress()
++ void btnBackPress()
+}
+
+
+class viewModel.RegisterViewModel {
+- EventListModel model
+- StringProperty username
+- StringProperty displayname
+- StringProperty password
+- StringProperty error
++ boolean PressRegisterButton()
++ StringProperty getUsername()
++ StringProperty getDisplayname()
++ StringProperty getPassword()
++ StringProperty getError()
+}
+
+
+class MyApplication {
+- int PORT
+- String HOST
+- PrintWriter out
+- BufferedReader in
+- Socket localSocket
+- EventListModel model
++ void start(Stage)
++ void stop()
+}
+
+
+class view.ReportScoreViewController {
+- TextField playerOneScore
+- TextField playerTwoScore
+- Label playerOneName
+- Label playerTwoName
+- Label errorLabel
+- Label verifyLabel
+- Button btnPlayerOne
+- Button btnPlayerTwo
+- ViewHandler viewHandler
+- ReportScoreViewModel reportScoreViewModel
+- Region root
++ void init(ViewHandler,ViewModelFactory,Region)
+~ void pressSubmit()
+~ void pressPlayerOne()
+~ void pressPlayerTwo()
++ void reset()
++ Region getRoot()
+}
+
+
+class Model.Moderator {
+}
+class view.MoveInfoController {
+- TableColumn<SimpleMovesProperties,String> moveColumn
+- TableColumn<SimpleMovesProperties,String> damageColumn
+- TableColumn<SimpleMovesProperties,String> guardColumn
+- TableColumn<SimpleMovesProperties,String> smashColumn
+- TableColumn<SimpleMovesProperties,String> startupColumn
+- TableColumn<SimpleMovesProperties,String> activeColumn
+- TableColumn<SimpleMovesProperties,String> recoveryColumn
+- TableColumn<SimpleMovesProperties,String> onBlockColumn
+- TableColumn<SimpleMovesProperties,String> invuColumn
+- Label mainLabel
+- Label overviewLabel
+- Label prosLabel
+- Label consLabel
+- TableView moveTable
+- ViewHandler viewHandler
+- MoveInfoViewModel moveInfoViewModel
+- Region root
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
++ Region getRoot()
++ void onBackBtnPress()
+}
+
+
+class viewModel.BracketViewModel {
+- ObservableList<SimpleStringProperty> labels
+- ObservableList<SimpleBooleanProperty> visibleButtons
+- EventListModel model
+- ViewState viewState
+- ArrayList<Match> matches
++ ObservableList<SimpleStringProperty> getLabels()
++ ObservableList<SimpleBooleanProperty> getVisibleButtons()
++ void reset()
++ boolean startVote(int)
+}
+
+
+class Model.GameInformation.Character {
+- String name
+- String pros
+- String cons
+- String overview
+- ArrayList<Move> moveList
++ String getName()
++ void setName(String)
++ String getPros()
++ void setPros(String)
++ String getCons()
++ void setCons(String)
++ String getOverview()
++ void setOverview(String)
++ ArrayList<Move> getMoveList()
++ void addToMoveList(Move)
++ void removeFromMoveList(Move)
++ String toString()
+}
+
+
+class viewModel.EventDescriptionViewModel {
+- StringProperty errorProperty
+- StringProperty tittleProperty
+- StringProperty organizerProperty
+- StringProperty statusProperty
+- StringProperty gameProperty
+- StringProperty dateProperty
+- StringProperty BRPRangeProperty
+- StringProperty participantsNumberProperty
+- StringProperty participantsListProperty
+- PropertyChangeListener listener
+- EventListModel model
++ void reset()
++ StringProperty getErrorProperty()
++ StringProperty getTittleProperty()
++ StringProperty getOrganizerProperty()
++ StringProperty getStatusProperty()
++ StringProperty getGameProperty()
++ StringProperty getDateProperty()
++ StringProperty getBRPRangeProperty()
++ String getParticipantsNumber()
++ String getMaxParticipants()
+- void join()
++ void propertyChange(PropertyChangeEvent)
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
+}
+
+
+class viewModel.OneVsOneSearchingViewModel {
+- IntegerProperty BRPProperty
+- StringProperty opponentNameProperty
+- BooleanProperty opponentFoundProperty
+- BooleanProperty visibleSearchProperty
+- EventListModel model
+- String opponentUsername
+- PropertyChangeListener listener
+- ViewState viewState
++ void reset()
++ IntegerProperty getBRPProperty()
++ StringProperty getOpponentNameProperty()
++ BooleanProperty isOpponentFoundProperty()
++ BooleanProperty isVisibleSearchProperty()
++ void cancel()
++ void decline()
++ void accept()
++ void propertyChange(PropertyChangeEvent)
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
+}
+
+
+class mediator.Client {
+- Socket socket
+- Gson gson
+- BufferedReader in
+- PrintWriter out
+- boolean waiting
+- String answer
+- EventListModel model
+- PropertyChangeSupport property
+- Thread reader
++ void receiveMessage(String)
++ User getUser()
++ ArrayList<Event> getAllEvents()
++ Event getEvent(String)
++ String addEvent(String,String,int,int,int,String,int)
++ void addParticipant(String)
++ void checkIn(String)
++ void removeParticipant(String,User)
++ void addPlayerMatch(String,String,String)
++ void setMatchScore(String,Match,String)
++ ArrayList<Event> getEventsByGame(String)
++ ArrayList<Event> getEventsBySkillLevel(String)
++ ArrayList<Event> getEventsByStatus(String)
++ String login(String,String)
++ void showLocalNotification(String,boolean)
++ String register(String,String,String)
++ boolean isModerator()
++ void voteOnOutcome(String,String,String,int,int)
++ void receivedChat(String,String)
++ void receivedNotification(String,boolean)
++ void eventChange(String)
++ void opponentFound(String,int,String)
++ void opponentRefused()
++ void opponentAccepted(String,String)
++ void matchSaved()
++ void receiveOpponent()
++ void addOpponent(String,String)
++ void declineOpponent(String)
++ void acceptOpponent(String)
++ void removeOpponent()
++ void removeFromChat(String)
++ void addToChat(String)
++ void writeToChat(String,String)
++ String getChatLogByName(String)
++ CharacterInfoPackage getAllCharMovesFromGame(String)
++ ArrayList<String> getAllGameNames()
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
+}
+
+
+class view.LogInViewController {
+- TextField userNameField
+- TextField passwordField
+- Label errorLabel
+- Hyperlink linkLabel
+- ViewHandler viewHandler
+- LogInViewModel logInViewModel
+- Region root
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
++ Region getRoot()
+~ void OnEnter()
+~ void OnEnterPass()
+~ void PressLoginButton()
+~ void CreateAccount()
+}
+
+
+class viewModel.OpponentFoundViewModel {
+- StringProperty playerOneNameProperty
+- StringProperty playerOneScoreProperty
+- StringProperty playerTwoNameProperty
+- StringProperty playerTwoScoreProperty
+- String chosenPlayer
+- StringProperty errorProperty
+- StringProperty verifyProperty
+- User playerOne
+- User playerTwo
+- EventListModel model
+- PropertyChangeListener listener
++ void reset()
++ StringProperty getPlayerOneNameProperty()
++ StringProperty getPlayerOneScoreProperty()
++ StringProperty getPlayerTwoNameProperty()
++ StringProperty getPlayerTwoScoreProperty()
++ StringProperty getErrorProperty()
++ StringProperty getVerifyProperty()
++ boolean pressSubmit()
++ void pressPlayerOne()
++ void pressPlayerTwo()
++ void propertyChange(PropertyChangeEvent)
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
+}
+
+
+class viewModel.DescriptionViewGeneralViewModel {
+- StringProperty errorProperty
+- StringProperty tittleProperty
+- StringProperty organizerProperty
+- StringProperty statusProperty
+- StringProperty gameProperty
+- StringProperty dateProperty
+- StringProperty BRPRangeProperty
+- StringProperty participantsNumberProperty
+- StringProperty participantsListProperty
+- BooleanProperty disabledProperty
+- BooleanProperty quitProperty
+- ObservableList<SimplePlayerViewModel> list
+- EventListModel model
++ void reset()
++ StringProperty getErrorProperty()
++ StringProperty getTittleProperty()
++ StringProperty getOrganizerProperty()
++ StringProperty getStatusProperty()
++ StringProperty getGameProperty()
++ StringProperty getDateProperty()
++ StringProperty getBRPRangeProperty()
++ StringProperty getParticipantsProperty()
++ ObservableList<SimplePlayerViewModel> getList()
++ BooleanProperty isDisabledProperty()
++ BooleanProperty getQuitProperty()
+- void join()
++ void quitEvent()
++ boolean isUserRegistered()
++ void checkIn()
+}
+
+
+class mediator.ClientReader {
+- BufferedReader in
+- boolean running
+- Client client
++ void run()
++ void Close()
+}
+
+
+class viewModel.SimpleEventViewModel {
+- StringProperty tittleProperty
+- StringProperty gameProperty
+- StringProperty BRPProperty
+- StringProperty dateProperty
+- EventListModel model
++ StringProperty getTittleProperty()
++ StringProperty getGameProperty()
++ StringProperty getBRPProperty()
++ StringProperty getDateProperty()
++ void RegisterButtonPress()
++ void setViewModel(String)
+}
+
+
+class view.CreateEventController {
+- ChoiceBox<String> gameChoiceBox
+- TextField maxBRPField
+- ChoiceBox<String> maxPlrChoiceBox
+- TextField minBRPField
+- DatePicker startDatePicker
+- ChoiceBox<String> startHourChoiceBox
+- TextField titleField
+- Label errorLabel
+- ViewHandler viewHandler
+- CreateEventViewModel createEventViewModel
+- Region root
+~ UnaryOperator<TextFormatter.Change> filter
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
++ Region getRoot()
+~ void confirm()
+~ void back()
+~ void clear()
+}
+
+
+class viewModel.MoveInfoViewModel {
+- EventListModel model
+- StringProperty mainProperty
+- StringProperty overviewProperty
+- StringProperty prosProperty
+- StringProperty consProperty
+- CharacterInfoPackage localCharacterInfoPackage
+- ObservableList<SimpleMovesProperties> moveList
++ void reset()
++ StringProperty getMainProperty()
++ StringProperty getOverviewProperty()
++ StringProperty getProsProperty()
++ StringProperty getConsProperty()
++ ObservableList getMoveList()
+}
+
+
+class utility.SimpleMovesProperties {
+- StringProperty move
+- StringProperty damage
+- StringProperty guard
+- StringProperty smash
+- StringProperty startup
+- StringProperty active
+- StringProperty recovery
+- StringProperty onBlock
+- StringProperty invu
++ StringProperty getMove()
++ StringProperty getDamage()
++ StringProperty getGuard()
++ StringProperty getSmash()
++ StringProperty getStartup()
++ StringProperty getActive()
++ StringProperty getRecovery()
++ StringProperty getOnBlock()
++ StringProperty getInvu()
+}
+
+
+class viewModel.NotificationPopupViewModel {
+- StringProperty notification
+- ObjectProperty<Paint> colorProperty
+- ViewState viewState
+- EventListModel model
+- PropertyChangeListener listener
++ void reset()
++ StringProperty getNotificationProperty()
++ ObjectProperty<Paint> getColorProperty()
++ void propertyChange(PropertyChangeEvent)
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
+}
+
+
+class view.DescriptionViewGeneralController {
+- Button btnCheckIn
+- Button btnQuit
+- TableColumn<SimplePlayerViewModel,String> colName
+- TableColumn<SimplePlayerViewModel,String> colSkillLevel
+- Label lblCheckInStatus
+- Label lblTimeLeft
+- TableView<SimplePlayerViewModel> tblPlayers
+- TextField txtGame
+- TextField txtNumberOfPlayers
+- TextField txtSkillLevel
+- TextField txtTimeUntilStart
+- VBox vboxDetails
+- ViewHandler viewHandler
+- DescriptionViewGeneralViewModel descriptionViewGeneralViewModel
+- Region root
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
+~ void pressCheckInButton()
++ void onQuit()
++ Region getRoot()
+}
+
+
+class viewModel.ChatViewModel {
+- EventListModel model
+- StringProperty chatName
+- StringProperty previousLog
+- StringProperty input
+- String previousChatName
++ StringProperty getChatName()
++ StringProperty getPreviousLog()
++ StringProperty getInput()
++ void reset()
++ void disconnect(String)
++ void enterPress()
++ void propertyChange(PropertyChangeEvent)
+}
+
+
+class view.EventListViewController {
+- ViewHandler viewHandler
+- EventListViewModel eventListViewModel
+- Region root
+- ViewModelFactory viewModelFactory
+- ScrollPane scrollPane
+- TextField searchBar
+- Text filterError
+- Text searchError
+- Text noEventsError
+- Button createButton
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
+- void loadEventView(SimpleEventViewModel,VBox)
+- void searchEvents(String)
+- void filterEvents(ArrayList<Event>)
+- void filterByGame(ActionEvent)
+- void filterBySkillLevel(ActionEvent)
+- void filterByStatus(ActionEvent)
+- void filterAny()
++ Region getRoot()
+~ void backButtonPressed()
+~ void createButtonPressed()
+}
+
+
+class view.ViewHandler {
+- Scene currentScene
+- Scene popupScene
+- Scene notificationScene
+- Stage primaryStage
+- Stage popupStage
+- Stage notificationStage
+- EventDescriptionViewController eventDescriptionViewController
+- EventListViewController eventListViewController
+- NotificationPopupViewController notificationPopupViewController
+- LogInViewController logInViewController
+- RegisterViewController registerViewController
+- CreateEventController createEventController
+- ReportScoreViewController reportScoreViewController
+- MainPageViewController mainPageViewController
+- OneVsOneViewController oneVsOneViewController
+- OneVsOneSearchingViewController oneVsOneSearchingViewController
+- OpponentFoundViewController opponentFoundViewController
+- ChatViewController chatViewController
+- GameInfoViewController gameInfoViewController
+- CharacterInfoController characterInfoController
+- MoveInfoController moveInfoController
+- EventTemplateViewController eventTemplateViewController
+- BracketViewController bracketViewController
+- ViewModelFactory viewModelFactory
++ void start(Stage)
++ void startPopup(Stage)
++ void startNotification(Stage)
++ void openPopupView(String)
++ void openView(String)
++ void closeView()
++ void closePopupView()
++ void closeNotificationView()
++ Region loadMoveInfoController(String)
++ Region loadCharacterInfoView(String)
++ Region loadGameInfoView(String)
++ Region loadChatView(String)
++ Region loadOpponentFoundView(String)
++ Region loadOneVsOneSearchingPopup(String)
++ Region loadOneVsOneView(String)
++ Region loadMainPageView(String)
++ Region loadReportScoreView(String)
++ Region loadCreateEventView(String)
++ Region loadRegisterViewController(String)
++ Region loadLogInViewController(String)
+- Region loadEventListViewController(String)
+- Region loadEventDescriptionViewController(String)
+- Region loadNotificationPopupViewController(String)
+}
+
+
+class utility.IntStringConverter {
++ String toString(Number)
++ Number fromString(String)
+}
+
+class viewModel.SimplePlayerViewModel {
+- StringProperty playerDisplayName
+- StringProperty skillLevel
+- EventListModel model
++ StringProperty getPlayerDisplayName()
++ StringProperty getSkillLevel()
+}
+
+
+class Model.User {
+- String username
+- String displayName
+- int BRP
+- String password
++ String getUsername()
++ void setUsername(String)
++ String getDisplayName()
++ void setDisplayName(String)
++ int getBRP()
++ void setBRP(int)
++ String getPassword()
++ void setPassword(String)
++ String toString()
+}
+
+
+class view.RegisterViewController {
+- TextField userNameField
+- TextField displayNameField
+- TextField passwordField
+- Label errorLabel
+- Hyperlink linkLabel
+- ViewHandler viewHandler
+- RegisterViewModel registerViewModel
+- Region root
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
++ Region getRoot()
+~ void LoginAccount()
+~ void PressRegisterButton()
+~ void OnEnterUser()
+~ void OnEnterDisplay()
+~ void OnEnterPass()
+}
+
+
+class view.EventTemplateViewController {
+- Text eventTitle
+- Text eventTime
+- Text skillLevel
+- Text eventGame
+- ImageView gameImage
+- ViewHandler viewHandler
+- SimpleEventViewModel eventTemplateViewModel
+- Region root
++ void init(ViewHandler,SimpleEventViewModel,Region)
++ void reset()
++ Region getRoot()
+~ void pressDetailsButton()
+~ void pressRegisterButton()
+}
+
+
+interface Model.EventListModel {
+~ String login(String,String)
+~ String register(String,String,String)
+~ User getUser()
+~ ArrayList<Event> getAllEvents()
+~ Event getEvent(String)
+~ String addEvent(String,String,int,int,int,String,int)
+~ void addParticipant(String)
+~ void checkIn(String)
+~ void removeParticipant(String,User)
+~ void addPlayerMatch(String,String,String)
+~ void setMatchScore(String,Match,String)
+~ ArrayList<Event> getEventsByGame(String)
+~ ArrayList<Event> getEventsBySkillLevel(String)
+~ ArrayList<Event> getEventsByStatus(String)
+~ boolean isModerator()
+~ void showLocalNotification(String,boolean)
+~ void voteOnOutcome(String,String,String,int,int)
+~ void addOpponent(String,String)
+~ void declineOpponent(String)
+~ void acceptOpponent(String)
+~ void removeOpponent()
+~ void removeFromChat(String)
+~ void addToChat(String)
+~ void writeToChat(String,String)
+~ String getChatLogByName(String)
+~ CharacterInfoPackage getAllCharMovesFromGame(String)
+~ ArrayList<String> getAllGameNames()
+}
+
+class viewModel.CharacterInfoViewModel {
+- EventListModel model
+- StringProperty mainProperty
+- StringProperty descProperty
+- CharacterInfoPackage characterInfoPackage
+- PropertyChangeListener listener
++ void reset()
++ StringProperty getMainProperty()
++ StringProperty getDescProperty()
++ ArrayList<HBox> generateCharacterButtons()
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
+}
+
+
+class mediator.EventInformationPackage {
+- String tittle
+- String game
+- int minBRP
+- int maxBRP
+- String status
+- int maxParticipants
+- String startDate
+- int startingHour
+- Moderator organizer
+- ArrayList<MatchInformationPackage> matchPackages
+- ArrayList<User> participants
++ String getTittle()
++ String getGame()
++ int getMinBRP()
++ int getMaxBRP()
++ String getStatus()
++ int getMaxParticipants()
++ String getStartDate()
++ Moderator getOrganizer()
++ ArrayList<MatchInformationPackage> getMatches()
++ void addMatches(MatchInformationPackage)
++ ArrayList<User> getParticipants()
++ Event convertToEvent()
++ String toString()
+}
+
+
+class Model.GameInformation.Move {
+- String name
+- String damage
+- String guard
+- String smash
+- String startup
+- String active
+- String recovery
+- String onBlock
+- String invulnerability
++ String getName()
++ void setName(String)
++ String getDamage()
++ void setDamage(String)
++ String getGuard()
++ void setGuard(String)
++ String getSmash()
++ void setSmash(String)
++ String getStartup()
++ void setStartup(String)
++ String getActive()
++ void setActive(String)
++ String getRecovery()
++ void setRecovery(String)
++ String getOnBlock()
++ void setOnBlock(String)
++ String getInvulnerability()
++ void setInvulnerability(String)
++ String toString()
+}
+
+
+class view.GameInfoViewController {
+- VBox mainStage
+- ViewHandler viewHandler
+- GameInfoViewModel gameInfoViewModel
+- Region root
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
++ Region getRoot()
++ void propertyChange(PropertyChangeEvent)
+- void onBackBtnPress()
+}
+
+
+class viewModel.ViewModelFactory {
+- EventListViewModel eventListViewModel
+- EventDescriptionViewModel eventDescriptionViewModel
+- NotificationPopupViewModel notificationPopupViewModel
+- BracketViewModel bracketViewModel
+- SimpleEventViewModel simpleEventViewModel
+- DescriptionViewGeneralViewModel descriptionViewGeneralViewModel
+- LogInViewModel logInViewModel
+- RegisterViewModel registerViewModel
+- CreateEventViewModel createEventViewModel
+- ReportScoreViewModel reportScoreViewModel
+- MainPageViewModel mainPageViewModel
+- OneVsOneViewModel oneVsOneViewModel
+- OneVsOneSearchingViewModel oneVsOneSearchingViewModel
+- OpponentFoundViewModel opponentFoundViewModel
+- GameInfoViewModel gameInfoViewModel
+- CharacterInfoViewModel characterInfoViewModel
+- MoveInfoViewModel moveInfoViewModel
+- ChatViewModel chatViewModel
+- ViewState viewState
+- EventListModel model
++ LogInViewModel getLogInViewModel()
++ EventListViewModel getEventListViewModel()
++ EventDescriptionViewModel getEventDetailsViewModel()
++ DescriptionViewGeneralViewModel getDescriptionViewGeneralViewModel()
++ NotificationPopupViewModel getNotificationPopupViewModel()
++ SimpleEventViewModel getSimpleEventViewModel(Event)
++ BracketViewModel getBracketViewModel8()
++ RegisterViewModel getRegisterViewModel()
++ CreateEventViewModel getCreateEventViewModel()
++ ReportScoreViewModel getReportScoreViewModel()
++ MainPageViewModel getMainPageViewModel()
++ OneVsOneViewModel getOneVsOneViewModel()
++ OneVsOneSearchingViewModel oneVsOneSearchingViewModel()
++ OpponentFoundViewModel getOpponentFoundViewModel()
++ ChatViewModel getChatViewModel()
++ GameInfoViewModel getGameInfoViewModel()
++ CharacterInfoViewModel getCharacterInfoViewModel()
++ MoveInfoViewModel getMoveInfoViewModel()
+}
+
+
+class Model.GameInformation.Game {
+- String name
+- String description
+- ArrayList<Character> characterList
++ String getName()
++ void setName(String)
++ String getDescription()
++ void setDescription(String)
++ ArrayList<Character> getCharacterList()
++ void addCharacter(Character)
++ void removeCharacter(Character)
++ String toString()
+}
+
+
+class viewModel.ViewState << (S,#FF7700) Singleton>>{
+- {static} ViewState instance
+- String tittle
+- Match currentMatch
+- String desiredChat
+- String[] matchPlayers
+- String gameName
+- String characterName
+- CharacterInfoPackage localCharacterInfoPackage
++ {static} ViewState getInstance()
++ void setTittle(String)
++ void setMatch(Match)
++ void setDesiredChat(String)
++ String getTittle()
++ Match getMatch()
++ String getDesiredChat()
++ String[] getMatchPlayers()
++ void setMatchPlayers(String[])
++ String getGameName()
++ void setGameName(String)
++ String getCharacterName()
++ void setCharacterName(String)
++ CharacterInfoPackage getLocalCharacterInfoPackage()
++ void setLocalCharacterInfoPackage(CharacterInfoPackage)
+}
+
+
+class Model.Match {
+- String score
+- ArrayList<User> players
++ String getScore()
++ ArrayList<User> getPlayers()
++ String toString()
+}
+
+
+class view.ChatViewController {
+- Label chatNameLabel
+- Label previousLogLabel
+- TextField inputTextField
+- HBox topHBox
+- ViewHandler viewHandler
+- ChatViewModel chatViewModel
+- Region root
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
++ Region getRoot()
+- void onEnterPressed()
+}
+
+
+class viewModel.GameInfoViewModel {
+- EventListModel model
+- PropertyChangeListener listener
++ void reset()
++ ArrayList<HBox> generateGameButtons()
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
+}
+
+
+class view.MainPageViewController {
+~ Label welcomeLabel
+- ViewHandler viewHandler
+- MainPageViewModel mainPageViewModel
+- Region root
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
++ Region getRoot()
+~ void btnTournamentPress()
+~ void btnMatchPress()
+~ void btnChatPress()
+~ void btnGameInfoPress()
+}
+
+
+class mediator.EventListPackage {
+- String type
+- ArrayList<Event> events
++ String getType()
++ ArrayList<Event> getEvents()
+}
+
+
+class viewModel.ReportScoreViewModel {
+- StringProperty playerOneNameProperty
+- StringProperty playerOneScoreProperty
+- StringProperty playerTwoNameProperty
+- StringProperty playerTwoScoreProperty
+- String chosenPlayer
+- StringProperty errorProperty
+- StringProperty verifyProperty
+- User playerOne
+- User playerTwo
+- EventListModel model
++ void reset()
++ StringProperty getPlayerOneNameProperty()
++ StringProperty getPlayerOneScoreProperty()
++ StringProperty getPlayerTwoNameProperty()
++ StringProperty getPlayerTwoScoreProperty()
++ StringProperty getErrorProperty()
++ StringProperty getVerifyProperty()
++ boolean pressSubmit()
++ void pressPlayerOne()
++ void pressPlayerTwo()
+}
+
+
+interface utility.NamedPropertyChangeSubject {
+~ void addListener(String,PropertyChangeListener)
+~ void removeListener(String,PropertyChangeListener)
+}
+
+class view.BracketViewController {
+- HBox startHbox
+- ViewHandler viewHandler
+- BracketViewModel bracketViewModel
+- Region root
+- ArrayList<HBox> hboxes
+- ArrayList<VBox> vboxes
+- ArrayList<Label> labels
+- ArrayList<Button> buttons
++ void init(ViewHandler,ViewModelFactory,Region)
+- void addMouseClickedEventHandler(Button)
++ void reset()
++ Region getRoot()
+}
+
+
+class ClientStart {
++ {static} void main(String[])
+}
+
+class view.CharacterInfoController {
+~ Label mainLabel
+~ Label descLabel
+~ HBox characterBox
+- ViewHandler viewHandler
+- CharacterInfoViewModel characterInfoViewModel
+- Region root
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
++ Region getRoot()
+- void onBackBtnPress()
++ void propertyChange(PropertyChangeEvent)
+}
+
+
+class mediator.CharacterInfoPackage {
+- ArrayList<Character> characterList
+- String desc
++ ArrayList<Character> getCharacterList()
++ String getDesc()
+}
+
+
+class view.NotificationPopupViewController {
+- Label NotificationLabel
+- Region root
+- NotificationPopupViewModel notificationPopupViewModel
+- ViewHandler viewHandler
++ void init(ViewHandler,ViewModelFactory,Region)
++ void init(ViewHandler,NotificationPopupViewModel,Region)
++ void reset()
++ Region getRoot()
++ void propertyChange(PropertyChangeEvent)
+}
+
+
+class Model.MachVoteTimer {
+- int timerSeconds
+- boolean active
+- PropertyChangeSupport property
++ void run()
++ void addListener(String,PropertyChangeListener)
++ void removeListener(String,PropertyChangeListener)
+}
+
+
+class viewModel.MainPageViewModel {
+- EventListModel model
+- StringProperty welcomeProperty
++ StringProperty getWelcomeProperty()
+}
+
+
+class viewModel.OneVsOneViewModel {
+- EventListModel model
+- BooleanProperty disableSearch
+- ObjectProperty<String> gameProperty
+- ObjectProperty<String> skillProperty
++ ObjectProperty<String> getGameProperty()
++ ObjectProperty<String> getSkillProperty()
++ BooleanProperty disableSearchProperty()
++ boolean isDisableSearch()
++ void updateDisableSearch(boolean)
++ void updateDisableSearch(boolean,boolean)
++ void pressSearchButton()
+}
+
+
+class view.OneVsOneSearchingViewController {
+- Button declineBtn
+- Button acceptBtn
+- Button cancelBtn
+- Label opponentNameLabel
+- Label BRPLabel
+- Label searchLabel
+- HBox BRPHBox
+- HBox nameHBox
+- ViewHandler viewHandler
+- OneVsOneSearchingViewModel oneVsOneSearchingViewModel
+- Region root
+- boolean searching
+- Thread updateSearch
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
++ Region getRoot()
+- void safeSleep(int)
++ void btnCancelPress()
++ void btnDeclinePress()
++ void btnAcceptPress()
++ void propertyChange(PropertyChangeEvent)
+}
+
+
+class mediator.MatchInformationPackage {
+- String score
+- ArrayList<User> players
++ String getScore()
++ ArrayList<User> getPlayers()
++ Match convertToMatch()
+}
+
+
+class view.OpponentFoundViewController {
+- SubScene rightSubScene
+- Button btnPlayerOne
+- Button btnPlayerTwo
+- Label errorLabel
+- Label playerOneName
+- TextField playerOneScore
+- Label playerTwoName
+- TextField playerTwoScore
+- Label verifyLabel
+- ViewHandler viewHandler
+- OpponentFoundViewModel opponentFoundViewModel
+- Region root
+- ViewModelFactory viewModelFactory
+- ChatViewController chatViewController
++ void init(ViewHandler,ViewModelFactory,Region)
++ void reset()
++ Region getRoot()
+~ void pressSubmit()
+~ void pressPlayerOne()
+~ void pressPlayerTwo()
++ void propertyChange(PropertyChangeEvent)
+- Region loadChatView(String)
+}
+
+
+Model.GameInformation.GameList --> Model.GameInformation.Game
+Model.GameInformation.Game --> Model.GameInformation.Character
+Model.GameInformation.Character --> Model.GameInformation.Move
+
+
+view.ViewController <|.. view.EventDescriptionViewController
+java.beans.PropertyChangeListener <|.. view.EventDescriptionViewController
+java.beans.PropertyChangeListener <|.. viewModel.EventListViewModel
+Model.EventListModel <|.. Model.EventListModelManager
+java.beans.PropertyChangeListener <|.. Model.EventListModelManager
+view.ViewController <|.. view.OneVsOneViewController
+javafx.application.Application <|-- MyApplication
+view.ViewController <|.. view.ReportScoreViewController
+Model.User <|-- Model.Moderator
+view.ViewController <|.. view.MoveInfoController
+java.beans.PropertyChangeListener <|.. viewModel.EventDescriptionViewModel
+utility.NamedPropertyChangeSubject <|.. viewModel.EventDescriptionViewModel
+java.beans.PropertyChangeListener <|.. viewModel.OneVsOneSearchingViewModel
+utility.NamedPropertyChangeSubject <|.. viewModel.OneVsOneSearchingViewModel
+mediator.EventListModel <|.. mediator.Client
+view.ViewController <|.. view.LogInViewController
+java.beans.PropertyChangeListener <|.. viewModel.OpponentFoundViewModel
+utility.NamedPropertyChangeSubject <|.. viewModel.OpponentFoundViewModel
+mediator.Runnable <|.. mediator.ClientReader
+view.ViewController <|.. view.CreateEventController
+java.beans.PropertyChangeListener <|.. viewModel.NotificationPopupViewModel
+utility.NamedPropertyChangeSubject <|.. viewModel.NotificationPopupViewModel
+view.ViewController <|.. view.DescriptionViewGeneralController
+java.beans.PropertyChangeListener <|.. viewModel.ChatViewModel
+view.ViewController <|.. view.EventListViewController
+javafx.util.StringConverter <|-- utility.IntStringConverter
+view.ViewController <|.. view.RegisterViewController
+utility.NamedPropertyChangeSubject <|-- Model.EventListModel
+utility.NamedPropertyChangeSubject <|.. viewModel.CharacterInfoViewModel
+view.ViewController <|.. view.GameInfoViewController
+java.beans.PropertyChangeListener <|.. view.GameInfoViewController
+view.ViewController <|.. view.ChatViewController
+utility.NamedPropertyChangeSubject <|.. viewModel.GameInfoViewModel
+view.ViewController <|.. view.MainPageViewController
+view.ViewController <|.. view.BracketViewController
+view.ViewController <|.. view.CharacterInfoController
+view.ViewController <|.. view.EventTemplateViewController
+java.beans.PropertyChangeListener <|.. view.CharacterInfoController
+view.ViewController <|.. view.NotificationPopupViewController
+java.beans.PropertyChangeListener <|.. view.NotificationPopupViewController
+Model.Runnable <|.. Model.MachVoteTimer
+utility.NamedPropertyChangeSubject <|.. Model.MachVoteTimer
+view.ViewController <|.. view.OneVsOneSearchingViewController
+java.beans.PropertyChangeListener <|.. view.OneVsOneSearchingViewController
+view.ViewController <|.. view.OpponentFoundViewController
+java.beans.PropertyChangeListener <|.. view.OpponentFoundViewController
+view.ViewHandler <-> view.BracketViewController
+view.ViewHandler <-> view.CharacterInfoController
+view.ViewHandler <-> view.ChatViewController
+view.ViewHandler <-> view.CreateEventController
+view.ViewHandler <-> view.DescriptionViewGeneralController
+view.ViewHandler <-> view.EventDescriptionViewController
+view.ViewHandler <-> view.EventListViewController
+view.ViewHandler <-> view.EventTemplateViewController
+view.ViewHandler <-> view.GameInfoViewController
+view.ViewHandler <-> view.LogInViewController
+view.ViewHandler <-> view.MainPageViewController
+view.ViewHandler <-> view.MoveInfoController
+view.ViewHandler <-> view.NotificationPopupViewController
+view.ViewHandler <-> view.OneVsOneSearchingViewController
+view.ViewHandler <-> view.OneVsOneViewController
+view.ViewHandler <-> view.OpponentFoundViewController
+view.ViewHandler <-> view.RegisterViewController
+view.ViewHandler <-> view.ReportScoreViewController
+view.BracketViewController --> viewModel.BracketViewModel
+view.CharacterInfoController --> viewModel.CharacterInfoViewModel
+view.ChatViewController --> viewModel.ChatViewModel
+view.CreateEventController --> viewModel.CreateEventViewModel
+view.DescriptionViewGeneralController --> viewModel.DescriptionViewGeneralViewModel
+view.EventDescriptionViewController --> viewModel.EventDescriptionViewModel
+view.EventListViewController --> viewModel.EventListViewModel
+view.EventTemplateViewController --> viewModel.SimpleEventViewModel
+view.GameInfoViewController --> viewModel.GameInfoViewModel
+view.LogInViewController --> viewModel.LogInViewModel
+view.MainPageViewController --> viewModel.MainPageViewModel
+view.MoveInfoController --> viewModel.MoveInfoViewModel
+view.NotificationPopupViewController --> viewModel.NotificationPopupViewModel
+view.OneVsOneViewController --> viewModel.OneVsOneViewModel
+view.OneVsOneSearchingViewController --> viewModel.OneVsOneSearchingViewModel
+view.OpponentFoundViewController --> viewModel.OpponentFoundViewModel
+view.RegisterViewController --> viewModel.RegisterViewModel
+view.ReportScoreViewController --> viewModel.ReportScoreViewModel
+Model.EventListModel <-- viewModel.BracketViewModel
+Model.EventListModel <-- viewModel.CharacterInfoViewModel
+Model.EventListModel <-- viewModel.ChatViewModel
+Model.EventListModel <-- viewModel.CreateEventViewModel
+Model.EventListModel <-- viewModel.DescriptionViewGeneralViewModel
+Model.EventListModel <-- viewModel.EventDescriptionViewModel
+Model.EventListModel <-- viewModel.EventListViewModel
+Model.EventListModel <-- viewModel.SimpleEventViewModel
+Model.EventListModel <-- viewModel.GameInfoViewModel
+Model.EventListModel <-- viewModel.LogInViewModel
+Model.EventListModel <-- viewModel.MainPageViewModel
+Model.EventListModel <-- viewModel.MoveInfoViewModel
+Model.EventListModel <-- viewModel.NotificationPopupViewModel
+Model.EventListModel <-- viewModel.OneVsOneViewModel
+Model.EventListModel <-- viewModel.OneVsOneSearchingViewModel
+Model.EventListModel <-- viewModel.OpponentFoundViewModel
+Model.EventListModel <-- viewModel.RegisterViewModel
+Model.EventListModel <-- viewModel.ReportScoreViewModel
+Model.EventListModel --> Model.User
+Model.EventListModel --> mediator.Client
+mediator.Client <-> mediator.ClientReader
+view.DescriptionViewGeneralController ..> viewModel.ViewModelFactory : use
+view.BracketViewController ..> viewModel.ViewModelFactory : use
+view.CharacterInfoController ..> viewModel.ViewModelFactory : use
+view.ChatViewController ..> viewModel.ViewModelFactory : use
+view.CreateEventController ..> viewModel.ViewModelFactory : use
+view.EventDescriptionViewController ..> viewModel.ViewModelFactory : use
+view.EventListViewController ..> viewModel.ViewModelFactory : use
+view.EventTemplateViewController ..> viewModel.ViewModelFactory : use
+view.GameInfoViewController ..> viewModel.ViewModelFactory : use
+view.LogInViewController ..> viewModel.ViewModelFactory : use
+view.MainPageViewController ..> viewModel.ViewModelFactory : use
+view.MoveInfoController ..> viewModel.ViewModelFactory : use
+view.NotificationPopupViewController ..> viewModel.ViewModelFactory : use
+view.OneVsOneSearchingViewController ..> viewModel.ViewModelFactory : use
+view.OneVsOneViewController ..> viewModel.ViewModelFactory : use
+view.OpponentFoundViewController ..> viewModel.ViewModelFactory : use
+view.RegisterViewController ..> viewModel.ViewModelFactory : use
+view.ReportScoreViewController ..> viewModel.ViewModelFactory : use
+viewModel.DescriptionViewGeneralViewModel ..> viewModel.ViewState : use
+view.EventDescriptionViewController ..> viewModel.ViewState : use
+view.MainPageViewController ..> viewModel.ViewState : use
+view.OpponentFoundViewController ..> viewModel.ViewState : use
+viewModel.CharacterInfoViewModel ..> viewModel.ViewState : use
+viewModel.ChatViewModel ..> viewModel.ViewState : use
+viewModel.EventDescriptionViewModel ..> viewModel.ViewState : use
+viewModel.GameInfoViewModel ..> viewModel.ViewState : use
+viewModel.MoveInfoViewModel ..> viewModel.ViewState : use
+viewModel.OneVsOneSearchingViewModel ..> viewModel.ViewState : use
+viewModel.OpponentFoundViewModel ..> viewModel.ViewState : use
+viewModel.ReportScoreViewModel ..> viewModel.ViewState : use
+viewModel.SimpleEventViewModel ..> viewModel.ViewState : use
+viewModel.ViewModelFactory ..> viewModel.ViewState : use
+viewModel.ViewState --> mediator.CharacterInfoPackage
+viewModel.ViewState --> Model.Match
+mediator.CharacterInfoPackage <-- viewModel.CharacterInfoViewModel
+mediator.CharacterInfoPackage <-- viewModel.MoveInfoViewModel
+mediator.EventInformationPackage --> mediator.MatchInformationPackage
+mediator.EventListPackage --> Model.Event
+Model.Event --> Model.User
+viewModel.OpponentFoundViewModel --> Model.User
+mediator.EventInformationPackage --> Model.User
+Model.Match --> Model.User
+viewModel.ReportScoreViewModel --> Model.User
+mediator.MatchInformationPackage --> Model.User
+Model.Event --> Model.Moderator
+mediator.EventInformationPackage --> Model.Moderator
+viewModel.ViewState --> viewModel.ViewState : instance
+view --[hidden]> viewModel
+viewModel --[hidden]> Model
+Model --[hidden]> mediator
+@enduml

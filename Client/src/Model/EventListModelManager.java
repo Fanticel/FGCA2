@@ -23,8 +23,7 @@ public class EventListModelManager
     gson = new Gson();
     client = new Client(socket, this);
     property = new PropertyChangeSupport(this);
-    //placeholder before user login
-    user = new User("User1", "Number one", "12345");
+    user = null;
     client.addListener("", this);
   }
 
@@ -51,10 +50,6 @@ public class EventListModelManager
     client.setMatchScore(eventTittle, match, score);
   }
 
-  @Override public void startVoting(Event eventTitle, Match match) {
-    client.startVoting(eventTitle, match);
-  }
-
   @Override public ArrayList<Event> getEventsByGame(String game) {
     return client.getEventsByGame(game);
   }
@@ -67,15 +62,6 @@ public class EventListModelManager
     return client.getEventsByStatus(status);
   }
 
-  @Override public void setMatchScore(Event event, Match match, String score) {
-    client.setMatchScore(event, match, score);
-  }
-
-  @Override public void addMatch(String eventTittle, User playerOne,
-      User playerTwo) {
-    client.addMatch(eventTittle, playerOne, playerTwo);
-  }
-
   @Override public void addPlayerMatch(String playerOneUsername,
       String playerTwoUsername, String score) {
     client.addPlayerMatch(user.getUsername(), playerTwoUsername, score);
@@ -84,10 +70,6 @@ public class EventListModelManager
   @Override public void removeParticipant(String eventTittle, User user) {
     client.removeParticipant(eventTittle, user);
 
-  }
-
-  @Override public void removeParticipant(Event event, User user) {
-    client.removeParticipant(event, user);
   }
 
   @Override public void addParticipant(String eventTittle) {
@@ -151,10 +133,6 @@ public class EventListModelManager
     client.addToChat(name);
   }
 
-  @Override public void newChat(String chatName) throws Exception {
-    client.newChat(chatName);
-  }
-
   @Override public void writeToChat(String name, String message)
       throws Exception {
     client.writeToChat(name, message);
@@ -162,10 +140,6 @@ public class EventListModelManager
 
   @Override public String getChatLogByName(String name) {
     return client.getChatLogByName(name);
-  }
-
-  @Override public ArrayList<Game> getAllGames() {
-    return client.getAllGames();
   }
 
   @Override public CharacterInfoPackage getAllCharMovesFromGame(

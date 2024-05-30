@@ -17,13 +17,9 @@ public interface EventListModel extends NamedPropertyChangeSubject
       int maxParticipants, String date, int startingHour);
   void addParticipant(String eventTittle);
   void checkIn(String eventTittle);
-  void removeParticipant(Event event, User user);
   void removeParticipant(String eventTittle, User user);
   void addPlayerMatch(String playerOneUsername, String playerTwoUsername, String score);
-  void addMatch(String eventTittle, User playerOne, User playerTwo);
-  void setMatchScore(Event event, Match match, String score);
   void setMatchScore(String eventTittle, Match match, String score);
-  void startVoting(Event eventTitle, Match match);
   ArrayList<Event> getEventsByGame(String game);
   ArrayList<Event> getEventsBySkillLevel(String skillLevel);
   ArrayList<Event> getEventsByStatus(String status);
@@ -36,10 +32,8 @@ public interface EventListModel extends NamedPropertyChangeSubject
   void removeOpponent();
   void removeFromChat(String name) throws Exception;
   void addToChat(String name) throws Exception;
-  void newChat(String chatName) throws Exception;
   void writeToChat(String name, String message) throws Exception;
   String getChatLogByName(String name);
-  ArrayList<Game> getAllGames();
   CharacterInfoPackage getAllCharMovesFromGame(String gameName);
   ArrayList<String> getAllGameNames();
 }

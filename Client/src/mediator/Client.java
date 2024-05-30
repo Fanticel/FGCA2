@@ -14,8 +14,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 
-public class Client implements EventListModel
-{
+public class Client implements EventListModel {
   private Socket socket;
   private Gson gson;
   private BufferedReader in;
@@ -28,8 +27,7 @@ public class Client implements EventListModel
   private PropertyChangeSupport property;
   private Thread reader;
 
-  public Client(Socket socket, EventListModel model) throws IOException
-  {
+  public Client(Socket socket, EventListModel model) throws IOException {
     this.socket = socket;
     this.model = model;
     gson = new Gson();
@@ -40,130 +38,93 @@ public class Client implements EventListModel
     //not sure if it is right
     property = new PropertyChangeSupport(model);
   }
-  public synchronized void receiveMessage(String message)
-  {
+
+  public synchronized void receiveMessage(String message) {
     answer = message;
     notify();
   }
 
-  @Override public User getUser()
-  {
+  @Override public User getUser() {
     out.println("getUser");
     return model.getUser();
   }
 
-  @Override public synchronized ArrayList<Event> getAllEvents()
-  {
+  @Override public synchronized ArrayList<Event> getAllEvents() {
     out.println("getEventList");
-    try
-    {
+    try {
       wait();
     }
-    catch (InterruptedException e)
-    {
+    catch (InterruptedException e) {
       e.printStackTrace();
     }
     return gson.fromJson(answer, EventListPackage.class).getEvents();
   }
 
-  @Override public synchronized Event getEvent(String title)
-  {
+  @Override public synchronized Event getEvent(String title) {
     out.println("getEvent;" + title);
-    try
-    {
+    try {
       wait();
     }
-    catch (InterruptedException e)
-    {
+    catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
-    return gson.fromJson(answer, EventInformationPackage.class).convertToEvent();
+    return gson.fromJson(answer, EventInformationPackage.class)
+        .convertToEvent();
   }
 
-  @Override synchronized public String addEvent(String title, String game, int minBRP,
-      int maxBRP, int maxParticipants, String date, int startingHour)
-  {
+  @Override synchronized public String addEvent(String title, String game,
+      int minBRP, int maxBRP, int maxParticipants, String date,
+      int startingHour) {
     out.println("addEvent;" + gson.toJson(
-        new Event(title, game, minBRP, maxBRP, maxParticipants, date, startingHour,
-            null)));
-    try
-    {
+        new Event(title, game, minBRP, maxBRP, maxParticipants, date,
+            startingHour, null)));
+    try {
       wait();
     }
-    catch (InterruptedException e)
-    {
+    catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
     return answer;
   }
 
-  @Override public void addParticipant(String eventTittle)
-  {
+  @Override public void addParticipant(String eventTittle) {
     out.println("signUpToEvent;" + eventTittle);
   }
 
-  @Override public void checkIn(String eventTittle)
-  {
+  @Override public void checkIn(String eventTittle) {
     out.println("confirmParticipation;" + eventTittle);
   }
 
-  @Override public void removeParticipant(Event event, User user)
-  {
-    removeParticipant(event.getTittle(), user);
-  }
-
-  @Override public void removeParticipant(String eventTittle, User user)
-  {
+  @Override public void removeParticipant(String eventTittle, User user) {
     out.println(
         "removeParticipant;" + eventTittle + ";" + user.getDisplayName());
   }
 
-  @Override public void addPlayerMatch(String playerOneUsername, String playerTwoUsername, String score)
-  {
-    out.println("addPlayerMatch;" + playerOneUsername + ";" + playerTwoUsername + ";" + score);
-  }
-
-  @Override public void addMatch(String eventTittle, User playerOne,
-      User playerTwo)
-  {
+  @Override public void addPlayerMatch(String playerOneUsername,
+      String playerTwoUsername, String score) {
     out.println(
-        "addMatch;" + eventTittle + ";" + playerOne.getDisplayName() + ";"
-            + playerTwo.getDisplayName());
-  }
-
-  @Override public void setMatchScore(Event event, Match match, String score)
-  {
-    setMatchScore(event.getTittle(), match, match.getScore());
+        "addPlayerMatch;" + playerOneUsername + ";" + playerTwoUsername + ";"
+            + score);
   }
 
   @Override public void setMatchScore(String eventTittle, Match match,
-      String score)
-  {
+      String score) {
     out.println("setMatchScore;" + eventTittle + ";" + match + ";" + score);
   }
 
-  @Override public void startVoting(Event eventTitle, Match match)
-  {
-    out.println("startVoting;" + eventTitle + ";" + "match");
-  }
-
-  @Override public ArrayList<Event> getEventsByGame(String game)
-  {
+  @Override public ArrayList<Event> getEventsByGame(String game) {
     ArrayList<Event> allEvents = getAllEvents();
     ArrayList<Event> eventsByGame = new ArrayList<>();
 
-    for (Event allEvent : allEvents)
-    {
-      if (allEvent.getGame().toUpperCase().contains(game.toUpperCase()))
-      {
+    for (Event allEvent : allEvents) {
+      if (allEvent.getGame().toUpperCase().contains(game.toUpperCase())) {
         eventsByGame.add(allEvent);
       }
     }
     return eventsByGame;
   }
 
-  @Override
-  public ArrayList<Event> getEventsBySkillLevel(String skillLevel) {
+  @Override public ArrayList<Event> getEventsBySkillLevel(String skillLevel) {
     ArrayList<Event> allEvents = getAllEvents();
     ArrayList<Event> eventsBySkillLevel = new ArrayList<>();
 
@@ -171,34 +132,35 @@ public class Client implements EventListModel
       int eventMinBRP = event.getMinBRP();
       int eventMaxBRP = event.getMaxBRP();
 
-      if ("Beginner (0-999)".equals(skillLevel) && eventMaxBRP >= 0 && eventMinBRP <= 999) {
+      if ("Beginner (0-999)".equals(skillLevel) && eventMaxBRP >= 0
+          && eventMinBRP <= 999) {
         eventsBySkillLevel.add(event);
-      } else if ("Semi-pro (1000-1999)".equals(skillLevel) && eventMaxBRP >= 1000 && eventMinBRP <= 1999) {
+      }
+      else if ("Semi-pro (1000-1999)".equals(skillLevel) && eventMaxBRP >= 1000
+          && eventMinBRP <= 1999) {
         eventsBySkillLevel.add(event);
-      } else if ("Advanced (2000-2999)".equals(skillLevel) && eventMaxBRP >= 2000 && eventMinBRP <= 2999) {
+      }
+      else if ("Advanced (2000-2999)".equals(skillLevel) && eventMaxBRP >= 2000
+          && eventMinBRP <= 2999) {
         eventsBySkillLevel.add(event);
-      } else if ("Expert (3000-3999)".equals(skillLevel) && eventMaxBRP >= 3000 && eventMinBRP <= 3999) {
+      }
+      else if ("Expert (3000-3999)".equals(skillLevel) && eventMaxBRP >= 3000
+          && eventMinBRP <= 3999) {
         eventsBySkillLevel.add(event);
-      } else if ("Master (4000+)".equals(skillLevel) && eventMinBRP >= 4000) {
+      }
+      else if ("Master (4000+)".equals(skillLevel) && eventMinBRP >= 4000) {
         eventsBySkillLevel.add(event);
       }
     }
     return eventsBySkillLevel;
   }
 
-
-
-
-
-  @Override public ArrayList<Event> getEventsByStatus(String status)
-  {
+  @Override public ArrayList<Event> getEventsByStatus(String status) {
     ArrayList<Event> allEvents = getAllEvents();
     ArrayList<Event> eventsByStatus = new ArrayList<>();
 
-    for (Event allEvent : allEvents)
-    {
-      if (status.equals(allEvent.getStatus()))
-      {
+    for (Event allEvent : allEvents) {
+      if (status.equals(allEvent.getStatus())) {
         eventsByStatus.add(allEvent);
       }
     }
@@ -206,28 +168,26 @@ public class Client implements EventListModel
   }
 
   @Override public synchronized String login(String username, String password) {
-    out.println("log;"+username+";"+password);
-    try
-    {
+    out.println("log;" + username + ";" + password);
+    try {
       wait();
     }
-    catch (InterruptedException e)
-    {
+    catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
     return answer;
   }
 
-  @Override public void showLocalNotification(String message, boolean error) {}
+  @Override public void showLocalNotification(String message, boolean error) {
+  }
 
-  @Override public synchronized String register(String username,String display, String password) {
-    out.println("register;" + username+";"+display+";"+password);
-    try
-    {
+  @Override public synchronized String register(String username, String display,
+      String password) {
+    out.println("register;" + username + ";" + display + ";" + password);
+    try {
       wait();
     }
-    catch (InterruptedException e)
-    {
+    catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
     return answer;
@@ -239,98 +199,99 @@ public class Client implements EventListModel
 
   @Override public void voteOnOutcome(String title, String usernameOne,
       String usernameTwo, int playerOneScore, int playerTwoScore) {
-    out.println("VOTE;"+title+";"+usernameOne+";"+usernameTwo+";"+playerOneScore+";"+playerTwoScore);
+    out.println("VOTE;" + title + ";" + usernameOne + ";" + usernameTwo + ";"
+        + playerOneScore + ";" + playerTwoScore);
   }
 
-  public synchronized void receivedChat(String message, String chatName){
-    property.firePropertyChange(new PropertyChangeEvent(this, chatName,null , message));
+  public synchronized void receivedChat(String message, String chatName) {
+    property.firePropertyChange(
+        new PropertyChangeEvent(this, chatName, null, message));
   }
-  public synchronized void receivedNotification(String message, boolean error){
-    property.firePropertyChange(new PropertyChangeEvent(this, "Notification", error, message));
+
+  public synchronized void receivedNotification(String message, boolean error) {
+    property.firePropertyChange(
+        new PropertyChangeEvent(this, "Notification", error, message));
   }
-  public synchronized void eventChange(String message){
-    property.firePropertyChange(new PropertyChangeEvent(this, "EventChange", null, message));
+
+  public synchronized void eventChange(String message) {
+    property.firePropertyChange(
+        new PropertyChangeEvent(this, "EventChange", null, message));
   }
-  public synchronized void opponentFound(String opponentDisplayName, int opponentBRP, String opponentUserName){
+
+  public synchronized void opponentFound(String opponentDisplayName,
+      int opponentBRP, String opponentUserName) {
     Object[] opponentData = {opponentDisplayName, opponentBRP};
-    property.firePropertyChange(new PropertyChangeEvent(this, "OpponentFound", opponentData, opponentUserName));
+    property.firePropertyChange(
+        new PropertyChangeEvent(this, "OpponentFound", opponentData,
+            opponentUserName));
   }
-  public synchronized void opponentRefused(){
-    property.firePropertyChange(new PropertyChangeEvent(this,"OpponentRefused",null, ""));
+
+  public synchronized void opponentRefused() {
+    property.firePropertyChange(
+        new PropertyChangeEvent(this, "OpponentRefused", null, ""));
   }
-  public synchronized void opponentAccepted(String nameOne, String nameTwo){
-    property.firePropertyChange(new PropertyChangeEvent(this,"OpponentAccepted",nameOne, nameTwo));
+
+  public synchronized void opponentAccepted(String nameOne, String nameTwo) {
+    property.firePropertyChange(
+        new PropertyChangeEvent(this, "OpponentAccepted", nameOne, nameTwo));
   }
-  public synchronized void matchSaved(){
-    property.firePropertyChange(new PropertyChangeEvent(this,"MatchSaved",null, ""));
+
+  public synchronized void matchSaved() {
+    property.firePropertyChange(
+        new PropertyChangeEvent(this, "MatchSaved", null, ""));
   }
-  public void receiveOpponent(){
+
+  public void receiveOpponent() {
 
   }
 
-  @Override public void addOpponent(String skillLevel, String gameTitle){
-    out.println(
-        "addOpponent;" + skillLevel + ";" + gameTitle);
+  @Override public void addOpponent(String skillLevel, String gameTitle) {
+    out.println("addOpponent;" + skillLevel + ";" + gameTitle);
   }
 
-  @Override public void declineOpponent(String opponentUsername)
-  {
+  @Override public void declineOpponent(String opponentUsername) {
     out.println("Decline;" + opponentUsername);
   }
 
-  @Override public void acceptOpponent(String opponentUsername)
-  {
+  @Override public void acceptOpponent(String opponentUsername) {
     out.println("Accept;" + opponentUsername);
   }
 
-  @Override public void removeOpponent()
-  {
+  @Override public void removeOpponent() {
     out.println("RemoveOpponent");
   }
 
   @Override public void removeFromChat(String name) throws Exception {
-    out.println("REMOVEFROMCHAT;"+name);
+    out.println("REMOVEFROMCHAT;" + name);
   }
 
   @Override public void addToChat(String name) throws Exception {
-    out.println("ADDTOCHAT;"+name);
+    out.println("ADDTOCHAT;" + name);
   }
 
-  @Override public void newChat(String chatName) throws Exception {
-    out.println("CREATEJOINCHAT"+chatName);
-  }
-
-  @Override public void writeToChat(String name, String message) throws Exception {
-    out.println("WRITETOCHAT;"+name+";"+message);
+  @Override public void writeToChat(String name, String message)
+      throws Exception {
+    out.println("WRITETOCHAT;" + name + ";" + message);
   }
 
   @Override public synchronized String getChatLogByName(String name) {
-    out.println("GETCHATLOG;"+name);
-    try
-    {
+    out.println("GETCHATLOG;" + name);
+    try {
       wait();
     }
-    catch (InterruptedException e)
-    {
+    catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
     return answer;
   }
 
-  @Override public ArrayList<Game> getAllGames() {
-
-    return null;
-  }
-
   @Override public synchronized CharacterInfoPackage getAllCharMovesFromGame(
       String gameName) {
-    out.println("GETMOVESBYGAME;"+gameName);
-    try
-    {
+    out.println("GETMOVESBYGAME;" + gameName);
+    try {
       wait();
     }
-    catch (InterruptedException e)
-    {
+    catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
     return gson.fromJson(answer, CharacterInfoPackage.class);
@@ -338,10 +299,10 @@ public class Client implements EventListModel
 
   @Override public synchronized ArrayList<String> getAllGameNames() {
     out.println("GETGAMES");
-    try{
+    try {
       wait();
     }
-    catch (InterruptedException e){
+    catch (InterruptedException e) {
       throw new RuntimeException(e);
     }
     ArrayList<String> ans = new ArrayList<>();

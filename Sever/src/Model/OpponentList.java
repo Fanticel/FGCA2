@@ -81,10 +81,8 @@ public class OpponentList {
       if (!found) {
         opponents.add(opponent);
       }
-    System.out.println(this);
   }
   public synchronized void removeUserFromList(User user){
-    //        break;
     opponents.removeIf(o -> o.getUser().equals(user));
   }
 

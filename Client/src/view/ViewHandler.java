@@ -4,6 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import viewModel.RegisterViewModel;
 import viewModel.ViewModelFactory;
 import viewModel.ViewState;
 
@@ -165,7 +166,7 @@ public class ViewHandler {
     return characterInfoController.getRoot();
   }
   public Region loadGameInfoView(String fxmlFile){
-    if (chatViewController == null) {
+    if (gameInfoViewController == null) {
       try {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource(fxmlFile));
